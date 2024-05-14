@@ -66,4 +66,30 @@ public class DictionarySperateTest {
 		String result = dict.search(question);
 		assertNull(result);
 	}
+	
+	@Order(4)
+	@ParameterizedTest
+	@CsvSource(value = {
+		"Do you like movie\tNot really.\t10",
+		"Do you like ice cream\tYes I like it.\t10",
+		"Where do you live\tIn your computer.\t10",
+	}, delimiter = '\t')
+	void test_register_same_question(String question, String answer, int size) {
+		int result = dict.register(question, answer);
+		assertEquals(size, result);
+	}
+
+	@Order(5)
+	@ParameterizedTest
+	@CsvSource(value = {
+		"Do you like movie\tNot really.",
+		"Do you like ice cream\tYes I like it.",
+		"Where do you live\tIn your computer.",
+	}, delimiter = '\t')
+	void test_search_after_updating(String question, String answer) {
+		
+		String result = dict.search(question);
+		assertEquals(answer, result);
+	}
+	
 }

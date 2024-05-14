@@ -20,11 +20,14 @@ public class DictionarySeparate extends AbstractDictionary{
 			return ++ size;
 		}
 		
-		var newNode = new Node(new Entry(question, answer));
-		newNode.next = node;
-		nodes[hash] = newNode;
+		if(!node.update(question, answer)) {
+			var newNode = new Node(new Entry(question, answer));
+			newNode.next = node;
+			nodes[hash] = newNode;
+			return ++ size;
+		}
 		
-		return ++ size;
+		return size;
 	}
 
 	@Override
@@ -40,13 +43,26 @@ public class DictionarySeparate extends AbstractDictionary{
 		return null;
 	}
 
-	private class Node {
-		final Entry data;
+	private static class Node {
+		Entry data;
 		Node next;
 		
 		Node(Entry data) {
 			super();
 			this.data = data;
+		}
+		
+		boolean update(String question, String answer) {
+			if(data.question().equals(question)) {
+				data = new Entry(question, answer);
+				return true;
+			}
+			
+			if(null != next) {
+				return next.update(question, answer);
+			}
+
+			return false;
 		}
 		
 		String find(String question) {

@@ -37,6 +37,7 @@ public class DictionaryLinearTest {
 		assertEquals(size, result);
 	}
 
+	
 	@Order(2)
 	@ParameterizedTest
 	@CsvSource(value = {
@@ -67,5 +68,5 @@ public class DictionaryLinearTest {
 		String result = dict.search(question);
 		assertNull(result);
 	}
-	
+		
 }
