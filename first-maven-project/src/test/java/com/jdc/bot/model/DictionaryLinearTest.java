@@ -10,11 +10,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import com.jdc.bot.model.impl.DictionaryLinear;
+
 @TestMethodOrder(value = OrderAnnotation.class)
-public class DictionaryTest {
+public class DictionaryLinearTest {
 	
 
-	private static Dictionary dict = new Dictionary(10);
+	private static Dictionary dict = new DictionaryLinear(10);
 	
 	@Order(1)
 	@ParameterizedTest
