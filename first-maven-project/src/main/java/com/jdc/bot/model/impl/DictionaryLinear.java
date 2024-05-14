@@ -22,6 +22,7 @@ public class DictionaryLinear extends AbstractDictionary {
 			} else {
 				if(entry.question().equals(question)) {
 					entries[hash] = new Entry(question, answer);
+					return size;
 				} else {
 					var index = (hash + 1) % capacity;
 					while(true) {
