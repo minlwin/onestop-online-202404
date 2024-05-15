@@ -6,7 +6,7 @@
 2. Inheritance
 3. Composition
 4. Abstraction
-5. Inheritance
+5. Polymorphism
 
 ## OO Design Principle (SOLID)
 
