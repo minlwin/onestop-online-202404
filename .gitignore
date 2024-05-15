@@ -27,4 +27,8 @@ replay_pid*
 */.project
 */.classpath
 */.mvn
-**/.mvn
+
+/**/.settings
+/**/.project
+/**/.classpath
+/**/.mvn
