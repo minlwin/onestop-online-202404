@@ -9,13 +9,11 @@ public class Car {
 	}
 	
 	public Car() {
-		super();
 		this.type = "Car";
 		System.out.println("Default Constructor of Car");
 	}
 	
 	public Car(String type) {
-		super();
 		this.type = type;
 		System.out.println("One Argument Constructor of Car");
 	}
@@ -27,5 +25,4 @@ public class Car {
 	public void park() {
 		System.out.printf("%s is parking%n", type);
 	}
-	
 }

@@ -15,5 +15,11 @@ public class IsARelationshipTest {
 
 	void testDrive(Car car) {
 		car.drive();
+		car.park();
+		
+		if(car instanceof TruckCar) {
+			TruckCar truck = (TruckCar)car;
+			truck.loading();
+		}
 	}
 }
