@@ -30,5 +30,6 @@
 	</build>
 	<modules>
 		<module>console-app</module>
+		<module>console-app-calculator</module>
 	</modules>
 </project>
