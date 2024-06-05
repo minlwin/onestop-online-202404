@@ -32,5 +32,6 @@
 		<module>console-app</module>
 		<module>console-app-calculator</module>
 		<module>using-interface</module>
+		<module>console-app-students</module>
 	</modules>
 </project>
