@@ -19,6 +19,38 @@ public class StudentModelTest {
 	
 	@Order(1)
 	@ParameterizedTest
+	@ValueSource(ints = {1, 2, 3, 4, 5})
+	void test_find_by_id_initial_state(int id) {
+		
+		var result = model.findById(id);
+		assertNull(result);
+	}
+	
+	@Order(2)
+	@ParameterizedTest
+	@CsvFileSource(delimiterString = "\t", resources = "/student-update.txt")
+	void test_find_update_initial_state(int id, String name, String phone, String email, String address) {
+		var result = model.update(id, new StudentForm(name, phone, email, address));
+		assertNull(result);
+	}
+
+	@Order(3)
+	@ParameterizedTest
+	@CsvSource({
+		"Aung,0",
+		"gmail,0",
+		"Yangon,0",
+		"Mandalay,0",
+		"Bankok,0"
+	})
+	void test_search_initial_state(String keyword, int size) {
+		
+		var result = model.search(keyword);
+		assertEquals(size, result.length);
+	}
+
+	@Order(4)
+	@ParameterizedTest
 	@CsvFileSource(delimiterString = "\t", resources = "/student-creation.txt")
 	void test_create(int id, String name, String phone, String email, String address) {
 		// Prepare Input
@@ -34,7 +66,7 @@ public class StudentModelTest {
 		assertEquals(address, result.getAddress());
 	}
 	
-	@Order(2)
+	@Order(5)
 	@ParameterizedTest
 	@CsvFileSource(delimiterString = "\t", resources = "/student-creation.txt")
 	void test_find_by_id_found(int id, String name, String phone, String email, String address) {
@@ -50,7 +82,7 @@ public class StudentModelTest {
 		assertEquals(address, result.getAddress());
 	}
 	
-	@Order(3)
+	@Order(6)
 	@ParameterizedTest
 	@ValueSource(ints = {0, 6, 7})
 	void test_find_by_id_not_found(int id) {
@@ -60,10 +92,10 @@ public class StudentModelTest {
 		assertNull(result);
 	}
 	
-	@Order(4)
+	@Order(7)
 	@ParameterizedTest
 	@CsvSource({
-		"Aung,1",
+		"Aung,2",
 		"gmail,5",
 		"Yangon,2",
 		"Mandalay,1",
@@ -76,7 +108,7 @@ public class StudentModelTest {
 	}
 	
 	
-	@Order(5)
+	@Order(8)
 	@ParameterizedTest
 	@CsvFileSource(delimiterString = "\t", resources = "/student-update.txt")
 	void test_update_success(int id, String name, String phone, String email, String address) {
@@ -93,4 +125,19 @@ public class StudentModelTest {
 		assertEquals(email, result.getEmail());
 		assertEquals(address, result.getAddress());		
 	}
+	
+	@Order(9)
+	@ParameterizedTest
+	@CsvSource({
+		"6,Nyi Nyi,019181811,nyinyi@gmail.com,Mandalay"
+	})
+	void test_update_no_data(int id, String name, String phone, String email, String address) {
+		
+		var form = new StudentForm(name, phone, email, address);
+		
+		var result = model.update(id, form);
+		
+		assertNull(result);
+	}
+
 }

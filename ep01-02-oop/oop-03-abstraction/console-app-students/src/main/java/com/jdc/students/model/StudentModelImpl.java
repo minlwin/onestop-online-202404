@@ -1,5 +1,7 @@
 package com.jdc.students.model;
 
+import java.util.Arrays;
+
 public class StudentModelImpl implements StudentModel {
 	
 	private Node firstNode;
@@ -7,8 +9,14 @@ public class StudentModelImpl implements StudentModel {
 
 	@Override
 	public StudentOutput[] search(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		var result = new StudentOutput[0];
+		
+		if(null == firstNode) {
+			return result;
+		}
+		
+		return firstNode.search(keyword, result);
 	}
 
 	@Override
@@ -27,7 +35,11 @@ public class StudentModelImpl implements StudentModel {
 
 	@Override
 	public StudentOutput update(int id, StudentForm form) {
-		// TODO Auto-generated method stub
+		
+		if(null != firstNode) {
+			return firstNode.update(id, form);
+		}
+		
 		return null;
 	}
 
@@ -50,6 +62,13 @@ public class StudentModelImpl implements StudentModel {
 		public StudentOutput output() {
 			return new StudentOutput(id, name, phone, email, address);
 		}
+
+		public boolean match(String keyword) {
+			return name.toLowerCase().contains(keyword.toLowerCase())
+					|| phone.toLowerCase().contains(keyword.toLowerCase())
+					|| email.toLowerCase().contains(keyword.toLowerCase())
+					|| address.toLowerCase().contains(keyword.toLowerCase());
+		}
 	}
 
 	private static class Node {
@@ -62,6 +81,22 @@ public class StudentModelImpl implements StudentModel {
 			this.data = data;
 		}
 
+		public StudentOutput[] search(String keyword, StudentOutput[] array) {
+			
+			var result = array;
+			
+			if(data.match(keyword)) {
+				result = Arrays.copyOf(result, result.length + 1);
+				result[result.length - 1] = data.output();
+			}
+			
+			if(null != next) {
+				return next.search(keyword, result);
+			}
+			
+			return result;
+		}
+
 		public StudentOutput findById(int id) {
 			if(data.id() == id) {
 				return data.output();
@@ -70,8 +105,25 @@ public class StudentModelImpl implements StudentModel {
 			if(null != next) {
 				return next.findById(id);
 			}
+			
 			return null;
 		}
+		
+		public StudentOutput update(int id, StudentForm form) {
+			
+			if(data.id() == id) {
+				this.data = Student.create(id, form);
+				return data.output();
+			}
+			
+			if(null != next) {
+				return next.update(id, form);
+			}
+			
+			return null;
+		}
+
+
 
 		public void add(Node newNode) {
 			if(null == next) {
@@ -79,22 +131,6 @@ public class StudentModelImpl implements StudentModel {
 			} else {
 				next.add(newNode);
 			}
-		}
-
-		public Student getData() {
-			return data;
-		}
-
-		public void setData(Student data) {
-			this.data = data;
-		}
-
-		public Node getNext() {
-			return next;
-		}
-
-		public void setNext(Node next) {
-			this.next = next;
 		}
 
 	}
