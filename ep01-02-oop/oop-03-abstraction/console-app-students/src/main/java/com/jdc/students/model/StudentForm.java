@@ -3,12 +3,20 @@ package com.jdc.students.model;
 public class StudentForm {
 
 	private String name;
-
 	private String phone;
-
 	private String email;
-
 	private String address;
+
+	public StudentForm() {
+	}
+
+	public StudentForm(String name, String phone, String email, String address) {
+		super();
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+	}
 
 	public String getName() {
 		return name;
@@ -40,6 +48,11 @@ public class StudentForm {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	@Override
+	public String toString() {
+		return "StudentForm [name=" + name + ", phone=" + phone + ", email=" + email + ", address=" + address + "]";
 	}
 
 }

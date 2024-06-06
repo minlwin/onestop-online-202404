@@ -3,14 +3,22 @@ package com.jdc.students.model;
 public class StudentOutput {
 
 	private int id;
-
 	private String name;
-
 	private String phone;
-
 	private String email;
-
 	private String address;
+	
+	public StudentOutput() {
+	}
+	
+	public StudentOutput(int id, String name, String phone, String email, String address) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+	}
 
 	public int getId() {
 		return id;
