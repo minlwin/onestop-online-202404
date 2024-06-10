@@ -15,4 +15,9 @@ public class UserInputs {
 		System.out.print(string);
 		return scanner.nextLine();
 	}
+
+	public static String readString(int size, String string) {
+		System.out.print("%%-%ds: ".formatted(size).formatted(string));
+		return scanner.nextLine();
+	}
 }

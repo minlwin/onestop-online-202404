@@ -5,7 +5,7 @@ public class ConsoleApplication {
 	private String appName;
 	private AbstractFeature[] features;
 
-	public ConsoleApplication(String appName, AbstractFeature[] features) {
+	public ConsoleApplication(String appName, AbstractFeature ... features) {
 		super();
 		this.appName = appName;
 		this.features = features;

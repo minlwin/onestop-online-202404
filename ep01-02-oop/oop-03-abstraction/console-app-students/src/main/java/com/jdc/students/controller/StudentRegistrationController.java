@@ -18,7 +18,7 @@ public class StudentRegistrationController extends AbstractStudentController {
 	}
 
 	private void showResult(StudentOutput result) {
-		System.out.printf("%s has been created at id %d.%n%n", result.getName(), result.getId());
+		System.out.printf("%s has been created at id %d.%n", result.getName(), result.getId());
 	}
 
 }

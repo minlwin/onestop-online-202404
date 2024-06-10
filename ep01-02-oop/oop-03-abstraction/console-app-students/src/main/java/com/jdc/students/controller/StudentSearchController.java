@@ -15,7 +15,12 @@ public class StudentSearchController extends AbstractStudentController {
 
 		var keyword = getKeyword();
 		var result = model.search(keyword);
-		showResult(result);
+		
+		if(result.length > 0) {
+			showResult(result);
+		} else {
+			System.out.println("There is no result!");
+		}
 	}
 
 	private String getKeyword() {

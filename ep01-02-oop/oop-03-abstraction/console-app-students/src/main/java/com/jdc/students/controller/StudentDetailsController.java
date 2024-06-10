@@ -11,9 +11,16 @@ public class StudentDetailsController extends AbstractStudentController {
 
 	@Override
 	public void doBusiness() {
+		
 		var id = getStudentId();
+		
 		var result = model.findById(id);
-		showResult(result);
+		
+		if(null != result) {
+			showResult(result);
+		} else {
+			showMessageForStudentNotFound(id);
+		}
 	}
 
 	private void showResult(StudentOutput result) {

@@ -21,29 +21,18 @@ public abstract class AbstractStudentController extends AbstractFeature {
 	protected StudentForm getStudentInfo() {
 		
 		var form = new StudentForm();
+		var size = 13;
 		
-		form.setName(getStudentName());
-		form.setPhone(getPhone());
-		form.setEmail(getEmail());
-		form.setAddress(getAddress());
+		form.setName(UserInputs.readString(size, "Student Name"));
+		form.setPhone(UserInputs.readString(size, "Phone Number"));
+		form.setEmail(UserInputs.readString(size, "Email"));
+		form.setAddress(UserInputs.readString(size, "Address"));
 		
 		return form;
 	}
-
-	private String getStudentName() {
-		return UserInputs.readString("Student Name : ");
-	}
-
-	private String getPhone() {
-		return UserInputs.readString("Phone Number : ");
-	}
-
-	private String getEmail() {
-		return UserInputs.readString("Email : ");
-	}
-
-	private String getAddress() {
-		return UserInputs.readString("Address : ");
+	
+	protected void showMessageForStudentNotFound(int id) {
+		System.out.printf("There is no student with id :%d%n", id);
 	}
 
 }

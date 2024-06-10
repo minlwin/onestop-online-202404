@@ -13,15 +13,20 @@ public class StudentUpdateController extends AbstractStudentController {
 	public void doBusiness() {
 		
 		var id = getStudentId();
+		
+		if(null == model.findById(id)) {
+			showMessageForStudentNotFound(id);
+			return;
+		}
+		
 		var form = getStudentInfo();
-		
 		var result = model.update(id, form);
-		
+
 		showResult(result);
 	}
 
 	private void showResult(StudentOutput result) {
-		System.out.printf("%s has been updated successfully!%n%n", result.getName());
+		System.out.printf("%s has been updated successfully!%n", result.getName());
 	}
 
 }
