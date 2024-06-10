@@ -44,20 +44,32 @@ public class StudentOutputTableViewAdapter implements TableViewModel{
 
 	@Override
 	public int maxSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		return idSize + nameSize + phoneSize + emailSize + addressSize;
 	}
 
 	@Override
 	public String header() {
-		// TODO Auto-generated method stub
-		return null;
+		var rowFormat = getRowFormat();
+		return rowFormat.formatted(ID, NAME, PHONE, EMAIL, ADDRESS);
 	}
 
 	@Override
 	public String[] rows() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		var rowFormat = getRowFormat();
+		var result = new String[this.array.length];
+		
+		for(var i = 0; i < array.length; i ++) {
+			var data = array[i];
+			result[i] = rowFormat.formatted(data.getId(), data.getName(), data.getPhone(), data.getEmail(), data.getAddress());
+		}
+		
+		return result;
+	}
+
+	private String getRowFormat() {
+		var fmt = "%%-%ds%%-%ds%%-%ds%%-%ds%%-%ds";
+		return fmt.formatted(idSize, nameSize, phoneSize, emailSize, addressSize);
 	}
 
 }
