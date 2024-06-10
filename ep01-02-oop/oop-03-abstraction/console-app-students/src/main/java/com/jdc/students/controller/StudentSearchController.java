@@ -1,6 +1,8 @@
 package com.jdc.students.controller;
 
 import com.jdc.console.app.UserInputs;
+import com.jdc.console.app.component.TableView;
+import com.jdc.students.controller.adaptor.StudentOutputTableViewAdapter;
 import com.jdc.students.model.StudentModel;
 import com.jdc.students.model.StudentOutput;
 
@@ -28,22 +30,9 @@ public class StudentSearchController extends AbstractStudentController {
 	}
 
 	private void showResult(StudentOutput[] result) {
-		
-		System.out.print("ID");
-		System.out.print("Name");
-		System.out.print("Phone");
-		System.out.print("Email");
-		System.out.println("Address");
-		
-		System.out.println("-");
-		
-		for(var student : result) {
-			System.out.printf("%s", student.getId());
-			System.out.printf("%s", student.getName());
-			System.out.printf("%s", student.getPhone());
-			System.out.printf("%s", student.getEmail());
-			System.out.printf("%s%n%n", student.getAddress());
-		}
+		var tableViewModel = new StudentOutputTableViewAdapter(result);
+		var tableView = new TableView(tableViewModel);
+		tableView.draw();
 	}
 
 }

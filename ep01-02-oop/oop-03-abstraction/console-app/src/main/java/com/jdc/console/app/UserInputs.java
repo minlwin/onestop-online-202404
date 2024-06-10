@@ -16,8 +16,13 @@ public class UserInputs {
 		return scanner.nextLine();
 	}
 
+	public static int readInt(int size, String string) {
+		var result = readString(size, string);
+		return Integer.parseInt(result);
+	}
+
 	public static String readString(int size, String string) {
-		System.out.print("%%-%ds: ".formatted(size).formatted(string));
-		return scanner.nextLine();
+		var message = "%%-%ds: ".formatted(size).formatted(string);
+		return readString(message);
 	}
 }
