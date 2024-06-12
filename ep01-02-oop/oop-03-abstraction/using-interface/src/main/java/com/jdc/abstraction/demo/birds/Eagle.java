@@ -17,4 +17,7 @@ public class Eagle extends Birds implements Flyable {
 		
 	}
 
+	public static Flyable getFlyable() {
+		return new Eagle();
+	}
 }
