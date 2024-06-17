@@ -22,7 +22,7 @@ public class UsingReflectionApi {
 		}
 	}
 	
-	public void showVariables(Product product) {
+	public void showFields(Product product) {
 		
 		var fields = product.getClass().getDeclaredFields();
 		
