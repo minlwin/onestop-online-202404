@@ -7,15 +7,15 @@ import org.junit.jupiter.api.Test;
 
 import com.jdc.demo.kinds.model.Parent;
 
-public class KindOfPresenceTest {
+public class KindOfPresentTest {
 
 	@Test
-	void test_directly_presence() {
-		
+	void test_directly_present() {
+		System.out.println("Directly Present");
 		var annotations = Parent.class.getDeclaredAnnotations();
 		
 		for(var annotation : annotations) {
-			System.out.println(annotation.getClass().getName());
+			System.out.println(annotation.annotationType().getName());
 		}
 		
 		var singles = Parent.class.getDeclaredAnnotation(Singles.class);
@@ -30,4 +30,5 @@ public class KindOfPresenceTest {
 		var single = Parent.class.getDeclaredAnnotation(Single.class);
 		assertNull(single);
 	}
+
 }
