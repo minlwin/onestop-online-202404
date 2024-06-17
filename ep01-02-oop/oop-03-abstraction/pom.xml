@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jdc.online</groupId>
 	<artifactId>oop-03-abstraction</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0</version>
 	<packaging>pom</packaging>
 	
 	<dependencies>
@@ -28,6 +28,32 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.jdc.online</groupId>
+				<artifactId>console-app</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jdc.online</groupId>
+				<artifactId>console-app-calculator</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jdc.online</groupId>
+				<artifactId>console-app-students</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jdc.online</groupId>
+				<artifactId>using-interface</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
 	<modules>
 		<module>console-app</module>
 		<module>console-app-calculator</module>
