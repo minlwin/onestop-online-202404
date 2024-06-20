@@ -32,13 +32,8 @@ public class FieldValidatorForNotBlank extends AbstractFieldValidator {
 		return null;
 	}
 
-	private boolean isViolate(Object value, NotBlank annotation) {
-		
-		if(value instanceof String str) {
-			return str.isBlank();
-		}
-		
-		return true;
+	private boolean isViolate(Object value, NotBlank annotation) {		
+		return value.toString().isBlank();
 	}
 
 }

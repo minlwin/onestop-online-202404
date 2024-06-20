@@ -17,7 +17,7 @@ public class FieldValidatorForMaxLength extends AbstractFieldValidator {
 				field.setAccessible(true);
 				var value = field.get(object);
 				
-				if(null == value || isViolate(value, annotation)) {
+				if(null != value && isViolate(value, annotation)) {
 					return new FieldError(field.getName(), annotation.message());
 				}
 			}
@@ -29,12 +29,7 @@ public class FieldValidatorForMaxLength extends AbstractFieldValidator {
 	}
 
 	private boolean isViolate(Object value, MaxLength annotation) {
-		
-		if(value instanceof String str) {
-			return str.length() > annotation.value();
-		}
-		
-		return true;
+		return value.toString().length() > annotation.value();
 	}
 
 }
