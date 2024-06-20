@@ -30,13 +30,25 @@ public class FieldValidatorForMinValue extends AbstractFieldValidator {
 		return null;
 	}
 
-	private boolean isViolate(Object value, MinValue annotation) {
+	private boolean isViolate(Object data, MinValue annotation) {
 		
-		if(value instanceof Long longValue) {
-			return longValue < annotation.value();
+		if(data instanceof Byte value) {
+			return value < annotation.value();
+		}
+
+		if(data instanceof Short value) {
+			return value < annotation.value();
+		}
+
+		if(data instanceof Integer value) {
+			return value < annotation.value();
+		}
+
+		if(data instanceof Long value) {
+			return value < annotation.value();
 		}
 		
-		return true;
+		return false;
 	}
 
 }

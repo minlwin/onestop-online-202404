@@ -12,7 +12,7 @@ public class OneStopValidator implements Validator {
 
 	private FieldValidator[] validators;
 
-	public OneStopValidator(FieldValidator[] validators) {
+	public OneStopValidator(FieldValidator ... validators) {
 		super();
 		this.validators = validators;
 	}
