@@ -44,11 +44,7 @@ public class FieldValidatorForMinValue extends AbstractFieldValidator {
 			return value < annotation.value();
 		}
 
-		if(data instanceof Long value) {
-			return value < annotation.value();
-		}
-		
-		return false;
+		return (Long)data < annotation.value();
 	}
 
 }
