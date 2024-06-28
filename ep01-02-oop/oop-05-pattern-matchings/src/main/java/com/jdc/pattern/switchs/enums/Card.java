@@ -1,5 +1,5 @@
 package com.jdc.pattern.switchs.enums;
 
-public interface Card {
+public sealed interface Card permits GameCard, TarotCard{
 
 }

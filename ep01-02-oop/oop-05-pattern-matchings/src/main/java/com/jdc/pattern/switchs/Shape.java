@@ -1,5 +1,5 @@
 package com.jdc.pattern.switchs;
 
-public interface Shape {
+public sealed interface Shape permits Square, Ractangle, Triangle {
 
 }
