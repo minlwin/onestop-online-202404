@@ -20,7 +20,5 @@ public class GuardedPatternTest {
 		var v1 = new CardValue<GameCard>(card, value);
 		var result1 = GuardedPatternDemo.getLabel(v1);
 		System.out.println(result1);
-		
-		
 	}
 }
