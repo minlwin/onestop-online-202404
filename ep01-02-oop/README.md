@@ -24,3 +24,8 @@
 4. Sealed Classes
 
 ## Pattern Matching in Java
+
+1. About Pattern Matching
+2. Type Pattern & Record Pattern
+3. Pattern Matching with instanceof operator
+4. Pattern Matching in switch expression and statement
