@@ -31,6 +31,21 @@
 		
 	</dependencies>
 	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>commons-validator</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>commons-console</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -45,5 +60,6 @@
 	</build>
 	<modules>
 		<module>commons-validator</module>
+		<module>commons-console</module>
 	</modules>
 </project>

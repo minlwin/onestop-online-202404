@@ -32,5 +32,6 @@
 		<module>ep01-callstack</module>
 		<module>ep02-exception-types</module>
 		<module>ep03-custom-exceptions</module>
+		<module>ep04-console-pos</module>
 	</modules>
 </project>
