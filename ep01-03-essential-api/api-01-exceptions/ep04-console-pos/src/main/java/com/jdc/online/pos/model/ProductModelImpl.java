@@ -35,4 +35,21 @@ public class ProductModelImpl extends AbstractModel implements ProductModel {
 		return ID;
 	}
 
+	@Override
+	public Product[] search(String name) {
+		
+		var result = new Product[0];
+		
+		for(var product : data) {
+			
+			if(null == name || name.isBlank() 
+					|| product.name().toLowerCase().startsWith(name.toLowerCase())) {
+				result = Arrays.copyOf(result, result.length + 1);
+				result[result.length - 1] = product;
+			}
+		}
+		
+		return result;
+	}
+
 }

@@ -54,7 +54,8 @@ public class ProductModelTest {
 	@ParameterizedTest
 	@CsvSource({
 		"Coke,100,1",
-		"Potato Chips,100,2"
+		"Cake,500,2",
+		"Potato Chips,100,3"
 	})
 	void test_product_success(String name, int price, int expecedId) {
 		
@@ -62,5 +63,20 @@ public class ProductModelTest {
 		var id = model.create(form);
 		
 		assertEquals(expecedId, id);
+	}
+	
+	@Order(3)
+	@ParameterizedTest
+	@CsvSource({
+		"c,2",
+		"ca,1",
+		"Potato Chips,1",
+		"cc,0",
+		"Potato Chipss,0"
+	})
+	void test_product_search(String name, int count) {
+		
+		var result = model.search(name);
+		assertEquals(count, result.length);
 	}
 }

@@ -13,12 +13,12 @@ public class FeatureForAddProduct extends AbstractFeature{
 
 	public FeatureForAddProduct(int id) {
 		super(id, "Create Product");
+		model = ProductModel.getInstance();
 	}
 
 	@Override
 	public void doBusiness() {
-
-		
+	
 		// Get Product Name
 		var name = UserInputs.readString(SIZE, "Name");
 		
