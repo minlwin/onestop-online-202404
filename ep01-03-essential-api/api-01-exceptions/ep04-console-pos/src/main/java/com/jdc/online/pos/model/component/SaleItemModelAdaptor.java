@@ -1,6 +1,6 @@
 package com.jdc.online.pos.model.component;
 
-import static com.jdc.console.app.utils.FormatUtils.DF;
+import static com.jdc.console.app.utils.FormatUtils.DECIF;
 import static com.jdc.console.app.utils.FormatUtils.FMT_NUMBER;
 import static com.jdc.console.app.utils.FormatUtils.FMT_STRING;
 
@@ -36,16 +36,16 @@ public class SaleItemModelAdaptor implements TableViewModel {
 				lengthName = item.product().name().length() + 3;
 			}
 			
-			if(DF.format(item.product().price()).length() + 3 > lengthPrice) {
-				lengthPrice = DF.format(item.product().price()).length() + 3;
+			if(DECIF.format(item.product().price()).length() + 3 > lengthPrice) {
+				lengthPrice = DECIF.format(item.product().price()).length() + 3;
 			}
 			
-			if(DF.format(item.count()).length() + 3 > lengthQty) {
-				lengthQty = DF.format(item.count()).length() + 3;
+			if(DECIF.format(item.count()).length() + 3 > lengthQty) {
+				lengthQty = DECIF.format(item.count()).length() + 3;
 			}
 
-			if(DF.format(item.getTotal()).length() + 3 > lengthTotal) {
-				lengthTotal = DF.format(item.getTotal()).length() + 3;
+			if(DECIF.format(item.getTotal()).length() + 3 > lengthTotal) {
+				lengthTotal = DECIF.format(item.getTotal()).length() + 3;
 			}
 		}
 		

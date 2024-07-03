@@ -1,6 +1,8 @@
 package com.jdc.online.pos.model.component;
 
-import java.text.DecimalFormat;
+import static com.jdc.console.app.utils.FormatUtils.DECIF;
+import static com.jdc.console.app.utils.FormatUtils.FMT_NUMBER;
+import static com.jdc.console.app.utils.FormatUtils.FMT_STRING;
 
 import com.jdc.console.app.component.TableViewModel;
 import com.jdc.online.pos.model.output.Product;
@@ -17,8 +19,8 @@ public class ProductModelAdaptor implements TableViewModel {
 	private int nameLength = HEADER_NAME.length() + 2;
 	private int priceLength = HEADER_PRICE.length() + 2;
 	
-	private static final DecimalFormat DF = new DecimalFormat("#,##0.00");
-
+	private String rowFormat;
+	
 	public ProductModelAdaptor(Product[] products) {
 		super();
 		this.products = products;
@@ -33,10 +35,12 @@ public class ProductModelAdaptor implements TableViewModel {
 				nameLength = product.name().length() + 2;
 			}
 			
-			if(DF.format(product.price()).length() + 2 > priceLength) {
-				priceLength = DF.format(product.price()).length() + 2;
+			if(DECIF.format(product.price()).length() + 2 > priceLength) {
+				priceLength = DECIF.format(product.price()).length() + 2;
 			}
 		}	
+		
+		setRowFormat();
 	}
 
 	@Override
@@ -46,7 +50,7 @@ public class ProductModelAdaptor implements TableViewModel {
 
 	@Override
 	public String header() {
-		return rowFormat().formatted(HEADER_ID, HEADER_NAME, HEADER_PRICE);
+		return rowFormat.formatted(HEADER_ID, HEADER_NAME, HEADER_PRICE);
 	}
 
 	@Override
@@ -56,14 +60,20 @@ public class ProductModelAdaptor implements TableViewModel {
 		
 		for(var i = 0; i < products.length; i ++) {
 			var product = products[i];
-			rows[i] = rowFormat().formatted(product.id(), product.name(), DF.format(product.price()));
+			rows[i] = rowFormat.formatted(product.id(), product.name(), DECIF.format(product.price()));
 		}
 		
 		return rows;
 	}
 	
-	private String rowFormat() {
-		return "%%-%ds%%-%ds%%%ds".formatted(idLength, nameLength, priceLength);
+	private void setRowFormat() {
+		
+		var sb = new StringBuilder();
+		sb.append(FMT_STRING.formatted(idLength));
+		sb.append(FMT_STRING.formatted(nameLength));
+		sb.append(FMT_NUMBER.formatted(priceLength));
+		
+		rowFormat = sb.toString();
 	}
 
 }
