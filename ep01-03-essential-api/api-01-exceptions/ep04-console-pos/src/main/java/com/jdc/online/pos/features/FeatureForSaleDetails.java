@@ -10,7 +10,12 @@ public class FeatureForSaleDetails extends AbstractFeature{
 
 	@Override
 	public void doBusiness() {
-		// TODO Auto-generated method stub
+		
+		// Get Sale ID
+		
+		// Find Sale History from Sale Model
+		
+		// Show Sale Details
 		
 	}
 

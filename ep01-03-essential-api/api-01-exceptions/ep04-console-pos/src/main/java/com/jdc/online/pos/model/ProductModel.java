@@ -12,5 +12,7 @@ public interface ProductModel {
 	int create(ProductForm form);
 
 	Product[] search(String name);
+
+	Product findById(int id);
 	
 }

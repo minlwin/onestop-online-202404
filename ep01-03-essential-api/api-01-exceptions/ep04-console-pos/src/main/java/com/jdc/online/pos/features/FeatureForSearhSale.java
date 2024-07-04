@@ -11,8 +11,12 @@ public class FeatureForSearhSale extends AbstractFeature{
 
 	@Override
 	public void doBusiness() {
-		// TODO Auto-generated method stub
+
+		// Get Sale Date
 		
+		// Search from Model
+		
+		// Show Result
 	}
 
 }

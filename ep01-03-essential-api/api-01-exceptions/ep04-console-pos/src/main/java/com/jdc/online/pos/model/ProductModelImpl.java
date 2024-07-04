@@ -2,6 +2,7 @@ package com.jdc.online.pos.model;
 
 import java.util.Arrays;
 
+import com.jdc.console.app.exceptions.BusinessException;
 import com.jdc.online.pos.model.input.ProductForm;
 import com.jdc.online.pos.model.output.Product;
 
@@ -50,6 +51,18 @@ public class ProductModelImpl extends AbstractModel implements ProductModel {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public Product findById(int id) {
+		
+		for(var product : data) {
+			if(product.id() == id) {
+				return product;
+			}
+		}
+		
+		throw new BusinessException("Please enter valid product id");
 	}
 
 }
