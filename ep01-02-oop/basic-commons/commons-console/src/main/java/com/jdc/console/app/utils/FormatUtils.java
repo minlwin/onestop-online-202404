@@ -10,4 +10,5 @@ public interface FormatUtils {
 	
 	DecimalFormat DECIF = new DecimalFormat("#,##0.00");
 	DateTimeFormatter DATE_TIMEF = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	DateTimeFormatter DATEF = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 }

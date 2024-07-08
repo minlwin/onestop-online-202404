@@ -6,7 +6,7 @@ import com.jdc.online.pos.model.output.Sale;
 public interface SaleModel {
 
 	static SaleModel getInstance() {
-		return null;
+		return SaleModelImpl.getInstance();
 	}
 
 	Sale create(SaleItem[] cart);
