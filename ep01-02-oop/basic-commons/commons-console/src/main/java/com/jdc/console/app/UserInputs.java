@@ -24,17 +24,17 @@ public class UserInputs {
 	}
 
 	public static int readInt(int size, String string) {
-		var result = readString(size, string);
-		return Integer.parseInt(result);
-	}
-
-	public static String readString(int size, String string) {
 		
 		try {
-			var message = "%%-%ds".formatted(size).formatted(string);
-			return readString(message);
+			var result = readString(size, string);
+			return Integer.parseInt(result);
 		} catch (NumberFormatException e) {
 			throw new ConsoleAppException("Please enter %s with digit.".formatted(string), e);
 		}
+	}
+
+	public static String readString(int size, String string) {
+		var message = "%%-%ds".formatted(size).formatted(string);
+		return readString(message);
 	}
 }

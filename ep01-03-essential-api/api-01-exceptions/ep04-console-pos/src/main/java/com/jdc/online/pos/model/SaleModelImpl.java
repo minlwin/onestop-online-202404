@@ -10,12 +10,13 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 import com.jdc.console.app.exceptions.BusinessException;
+import com.jdc.console.app.exceptions.ValidationException;
 import com.jdc.console.app.utils.FormatUtils;
 import com.jdc.online.pos.model.input.SaleItem;
 import com.jdc.online.pos.model.output.Sale;
 import com.jdc.online.pos.model.storage.SaleStorage;
 
-public class SaleModelImpl implements SaleModel {
+public class SaleModelImpl extends AbstractModel implements SaleModel {
 
 	private static final String FILE_NAME = "sales.obj";
 	
@@ -49,6 +50,8 @@ public class SaleModelImpl implements SaleModel {
 	@Override
 	public Sale create(SaleItem[] cart) {
 		
+		validate(cart);
+		
 		var sale = new Sale(++ ID, LocalDateTime.now(), cart);
 		
 		sales = Arrays.copyOf(sales, sales.length + 1);
@@ -63,6 +66,29 @@ public class SaleModelImpl implements SaleModel {
 		}
 		
 		return sale;
+	}
+
+	private void validate(SaleItem[] cart) {
+		if(null == cart || cart.length == 0) {
+			throw new BusinessException("Please add items to cart.");
+		}
+		
+		String [] messages = {};
+		
+		for(var item : cart) {
+			try {
+				super.validate(item);
+			} catch (ValidationException e) {
+				for(var message : e.getMessages()) {
+					messages = Arrays.copyOf(messages, messages.length + 1);
+					messages[messages.length - 1] = message;
+				}
+			}
+		}
+		
+		if(messages.length > 0) {
+			throw new ValidationException(messages);
+		}
 	}
 
 	@Override

@@ -19,27 +19,33 @@ public class ConsoleApplication {
 		
 		boolean skipAsking = false;
 		
-		do {
+		try {
+			do {
+				
+				try {
+					
+					skipAsking = false;
+					
+					// Show All Menu
+					// Get User Selected Menu
+					var feature = getUserSelectedFeature();
+					
+					// Execute Selected Feature
+					feature.showMenu();
+					System.out.println();
+					
+					feature.doBusiness();
+				} catch (ConsoleAppException e) {
+					System.out.printf("Error : %s%n%n", e.getMessage());
+					skipAsking = true;
+				}
+				
+			} while (skipAsking || askTodoAgain());
 			
-			try {
-				
-				skipAsking = false;
-				
-				// Show All Menu
-				// Get User Selected Menu
-				var feature = getUserSelectedFeature();
-				
-				// Execute Selected Feature
-				feature.showMenu();
-				System.out.println();
-				
-				feature.doBusiness();
-			} catch (ConsoleAppException e) {
-				System.out.printf("Error : %s%n%n", e.getMessage());
-				skipAsking = true;
-			}
-			
-		} while (skipAsking || askTodoAgain());
+		} catch (Exception e) {
+			System.out.printf("System Error : %s%n%n", e.getMessage());
+		}
+		
 		
 		showMessage("See you again!");
 	}
