@@ -1,16 +1,24 @@
 package com.jdc.online.pos.model;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 import com.jdc.console.app.exceptions.BusinessException;
 import com.jdc.console.app.utils.FormatUtils;
 import com.jdc.online.pos.model.input.SaleItem;
 import com.jdc.online.pos.model.output.Sale;
+import com.jdc.online.pos.model.storage.SaleStorage;
 
 public class SaleModelImpl implements SaleModel {
 
+	private static final String FILE_NAME = "sales.obj";
+	
 	private static SaleModel instance;
 	private static int ID;
 	
@@ -24,6 +32,19 @@ public class SaleModelImpl implements SaleModel {
 		
 		return instance;
 	}
+	
+	public SaleModelImpl() {
+		// restore states
+		try (var input = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
+			var result = input.readObject();
+			
+			if(null != result && result instanceof SaleStorage(var id, var data)) {
+				ID = id;
+				this.sales = data;
+			}
+		} catch (Exception e) {
+		}
+	}
 
 	@Override
 	public Sale create(SaleItem[] cart) {
@@ -32,6 +53,14 @@ public class SaleModelImpl implements SaleModel {
 		
 		sales = Arrays.copyOf(sales, sales.length + 1);
 		sales[sales.length - 1] = sale;
+		
+		// save state
+		try (var output = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
+			
+			output.writeObject(new SaleStorage(ID, sales));
+			
+		} catch (Exception e) {
+		}
 		
 		return sale;
 	}
@@ -51,17 +80,22 @@ public class SaleModelImpl implements SaleModel {
 	@Override
 	public Sale[] findByDate(String dateValue) {
 		
-		Sale[] result = {};
-		var date = LocalDate.parse(dateValue, FormatUtils.DATEF);
-		
-		for(var sale : sales) {
-			if(sale.saleAt().toLocalDate().equals(date)) {
-				result = Arrays.copyOf(result, result.length + 1);
-				result[result.length - 1] = sale;
+		try {
+			Sale[] result = {};
+			var date = (null == dateValue || dateValue.isBlank()) ? LocalDate.now() : LocalDate.parse(dateValue, FormatUtils.DATEF);
+			
+			for(var sale : sales) {
+				if(sale.saleAt().toLocalDate().equals(date)) {
+					result = Arrays.copyOf(result, result.length + 1);
+					result[result.length - 1] = sale;
+				}
 			}
+		
+			return result;
+		} catch (DateTimeParseException e) {
+			throw new BusinessException("Please enter date with yyyy-MM-dd format.");
 		}
-	
-		return result;
+
 	}
 
 }

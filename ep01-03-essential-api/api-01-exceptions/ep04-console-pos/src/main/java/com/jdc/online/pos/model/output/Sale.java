@@ -1,5 +1,6 @@
 package com.jdc.online.pos.model.output;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.jdc.online.pos.model.input.SaleItem;
@@ -8,7 +9,7 @@ public record Sale(
 		int id,
 		LocalDateTime saleAt,
 		SaleItem[] items
-		) {
+		) implements Serializable {
 
 	public int getItemCount() {
 		return items.length;

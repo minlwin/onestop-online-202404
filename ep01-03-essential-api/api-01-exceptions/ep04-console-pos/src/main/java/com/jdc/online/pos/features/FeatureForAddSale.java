@@ -73,7 +73,7 @@ public class FeatureForAddSale extends AbstractFeature{
 			// Show Total Item
 			System.out.printf("%-10s : %s%n", "Item Count", sale.getItemCount());
 			// Show All Total Amount
-			System.out.printf("%-10s : %s%n", "All Total", sale.getAllTotal());
+			System.out.printf("%-10s : %s%n", "All Total", FormatUtils.DECIF.format(sale.getAllTotal()));
 		}
 	}
 
