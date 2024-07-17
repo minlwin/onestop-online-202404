@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -83,15 +82,10 @@ public class SortingTest {
 	@MethodSource("sort_by_comparator_data")
 	void sort_by_comparator(List<Value> input) {
 		
-		Comparator<Value> comparator = new Comparator<Value>() {
-			
-			@Override
-			public int compare(Value o1, Value o2) {
-				return o2.data() - o1.data();
-			}
-		};
-		
-		Collections.sort(input, comparator);
+		Collections.sort(
+				input, 
+				(o1, o2) -> o2.data() - o1.data()
+		);
 		
 		System.out.println(input);
 	}
