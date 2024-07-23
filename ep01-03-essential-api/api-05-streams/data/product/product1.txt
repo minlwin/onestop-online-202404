@@ -1,0 +1,6 @@
+ELEC-1	Electric Scotter	600
+ELEC-2	Electric Kettle	2
+ELEC-3	Electric Heated Bed	10
+ELEC-4	Electric Ceramic Stove	19
+ELEC-5	Electric Blanket For Winter	17
+ELEC-6	Powerful Electric Skateboard	1099

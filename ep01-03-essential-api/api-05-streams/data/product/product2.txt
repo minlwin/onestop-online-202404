@@ -1,0 +1,4 @@
+DRINK-1	Pepsi 350ml	500
+DRINK-2	Pepsi 500ml	1000
+DRINK-3	Coke 250ml	600
+DRINK-4	Coke 500ml	1200
