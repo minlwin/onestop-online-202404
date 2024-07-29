@@ -1,0 +1,18 @@
+1	Foods	Potato Chips	1800	5	2024-07-10 09:00
+2	Drinks	Pepsi	1000	3	2024-07-10 09:00
+3	Drinks	Coke	1200	5	2024-07-10 09:00
+4	Foods	Fish Chips	1500	3	2024-07-10 09:00
+5	Foods	Potato Chips	1800	6	2024-07-13 09:00
+6	Foods	Potato Chips	1800	2	2024-07-13 09:00
+7	Drinks	Coke	1200	3	2024-07-13 09:00
+8	Drinks	Coke	1200	4	2024-07-13 09:00
+9	Foods	Fish Chips	1500	5	2024-07-13 09:00
+10	Foods	Potato Chips	1800	1	2024-07-13 09:00
+11	Foods	Potato Chips	1800	5	2024-07-15 09:00
+12	Foods	Fish Chips	1500	2	2024-07-15 09:00
+13	Drinks	Pepsi	1000	5	2024-07-15 09:00
+14	Drinks	Coke	1200	10	2024-07-17 09:00
+15	Foods	Potato Chips	1800	10	2024-07-17 09:00
+16	Foods	Potato Chips	1800	2	2024-07-17 09:00
+17	Foods	Fish Chips	1500	1	2024-07-17 09:00
+18	Foods	Fish Chips	1500	6	2024-07-17 09:00
