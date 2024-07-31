@@ -59,9 +59,7 @@ public class SaleModelImpl extends AbstractModel implements SaleModel {
 		
 		// save state
 		try (var output = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
-			
 			output.writeObject(new SaleStorage(ID, sales));
-			
 		} catch (Exception e) {
 		}
 		
