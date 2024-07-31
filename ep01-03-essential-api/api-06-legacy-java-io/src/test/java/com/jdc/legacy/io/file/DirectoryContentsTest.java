@@ -2,7 +2,7 @@ package com.jdc.legacy.io.file;
 
 import org.junit.jupiter.api.Test;
 
-import com.jdc.legacy.id.DirectoryContents;
+import com.jdc.legacy.io.DirectoryContents;
 
 public class DirectoryContentsTest {
 

@@ -1,4 +1,4 @@
-package com.jdc.legacy.id;
+package com.jdc.legacy.io;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

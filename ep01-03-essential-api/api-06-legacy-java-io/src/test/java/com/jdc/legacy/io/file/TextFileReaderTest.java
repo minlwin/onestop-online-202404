@@ -2,7 +2,7 @@ package com.jdc.legacy.io.file;
 
 import org.junit.jupiter.api.Test;
 
-import com.jdc.legacy.id.TextFileReader;
+import com.jdc.legacy.io.TextFileReader;
 
 public class TextFileReaderTest {
 
