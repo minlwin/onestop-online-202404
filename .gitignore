@@ -33,3 +33,4 @@ replay_pid*
 /**/.classpath
 /**/.mvn
 /**/target/
+/**/.DS_Store
