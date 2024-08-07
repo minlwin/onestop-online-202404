@@ -42,5 +42,6 @@
 		<module>pj02-ioc-container-annotation</module>
 		<module>pj03-ioc-container-java</module>
 		<module>pj04-post-processors</module>
+		<module>pj05-event-listeners</module>
 	</modules>
 </project>
