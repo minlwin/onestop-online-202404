@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xsi:schemaLocation="
+    	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Bean Creation with Constructor -->
+    <bean id="service1" class="com.jdc.spring.beans.MyService">
+    	<constructor-arg value="Message from Value"></constructor-arg>
+    </bean>
+    
+    <!-- Bean Creation with static factory method -->
+    <bean id="message" class="com.jdc.spring.beans.MessageFactory" factory-method="message"></bean>
+    
+    <bean id="service2" class="com.jdc.spring.beans.MyService">
+    	<constructor-arg ref="message"></constructor-arg>
+    </bean>
+    
+    <bean id="serviceFactory" class="com.jdc.spring.beans.MyServiceFactory"></bean>
+    <bean id="service3" factory-bean="serviceFactory" factory-method="myService" />
+
+</beans>
