@@ -21,4 +21,7 @@
     <bean id="serviceFactory" class="com.jdc.spring.beans.MyServiceFactory"></bean>
     <bean id="service3" factory-bean="serviceFactory" factory-method="myService" />
 
+	<bean id="hello" name="helloBean" class="com.jdc.spring.beans.HelloBean"></bean>
+	<bean name="hello1,hello2,hello3" class="com.jdc.spring.beans.HelloBean"></bean>
+	<bean class="com.jdc.spring.beans.HelloBean"></bean>
 </beans>
