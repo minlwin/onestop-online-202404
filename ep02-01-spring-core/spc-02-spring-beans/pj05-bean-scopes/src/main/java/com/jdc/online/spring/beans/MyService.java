@@ -1,8 +1,17 @@
 package com.jdc.online.spring.beans;
 
-public class MyService {
+import java.util.ArrayList;
+import java.util.List;
 
-	public String message() {
-		return "Hello from My Service";
+public class MyService {
+	
+	private List<String> messages = new ArrayList<>();
+	
+	public List<String> getMessages() {
+		return List.copyOf(messages);
+	}
+	
+	public void addMessage(String message) {
+		messages.add(message);
 	}
 }
