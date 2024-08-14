@@ -46,5 +46,6 @@
 		<module>pj02-beans-annotations</module>
 		<module>pj03-beans-java</module>
 		<module>pj04-bean-names-and-aliases</module>
+		<module>pj05-bean-scopes</module>
 	</modules>
 </project>
