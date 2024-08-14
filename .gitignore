@@ -34,3 +34,5 @@ replay_pid*
 /**/.mvn
 /**/target/
 /**/.DS_Store
+
+/.metadata
