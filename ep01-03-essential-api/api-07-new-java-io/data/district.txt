@@ -1,0 +1,85 @@
+Ayeyarwady Region	Hinthada
+Ayeyarwady Region	Kyonpyaw
+Ayeyarwady Region	Labutta
+Ayeyarwady Region	Ma-ubin
+Ayeyarwady Region	Myaungmya
+Ayeyarwady Region	Myanaung
+Ayeyarwady Region	Pathein
+Ayeyarwady Region	Pyapon
+Bago Region	Bago
+Bago Region	Nyaunglebin
+Bago Region	Taungoo
+Bago Region	Pyay
+Bago Region	Tharrawaddy
+Bago Region	Nattalin
+Chin State	Falam
+Chin State	Hakha
+Chin State	Matupi
+Chin State	Mindat
+Kachin State	Bhamo
+Kachin State	Mohnyin
+Kachin State	Myitkyina
+Kachin State	Putao
+Kayah State	Bawlakhe
+Kayah State	Demoso
+Kayah State	Loikaw
+Kayah State	Mese
+Kayin State	Hpa-an
+Kayin State	Hpapun
+Kayin State	Kawkareik
+Kayin State	Myawaddy
+Magway Region	Gangaw
+Magway Region	Magway
+Magway Region	Minbu
+Magway Region	Pakokku
+Magway Region	Thayet
+Mandalay Region	Kyaukse
+Mandalay Region	Mandalay
+Mandalay Region	Meiktila
+Mandalay Region	Myingyan
+Mandalay Region	Nyaung-U
+Mandalay Region	Pyinoolwin
+Mandalay Region	Yamethin
+Mon State	Mawlamyine
+Mon State	Thaton
+Naypyidaw Union Territory	Ottara (North Naypyidaw)
+Naypyidaw Union Territory	Dekkhina (South Naypyidaw)
+Rakhine State	Kyaukpyu
+Rakhine State	Maungdaw
+Rakhine State	Sittwe
+Rakhine State	Thandwe
+Rakhine State	Mrauk-U
+Sagaing Region	Hkamti
+Sagaing Region	Homalin
+Sagaing Region	Kale
+Sagaing Region	Kanbalu
+Sagaing Region	Katha
+Sagaing Region	Kawlin
+Sagaing Region	Mawlaik
+Sagaing Region	Monywa
+Sagaing Region	Sagaing
+Sagaing Region	Shwebo
+Sagaing Region	Tamu
+Sagaing Region	Ye-U
+Sagaing Region	Yinmabin
+Shan State	Kengtung
+Shan State	Mong Hpayak
+Shan State	Mong Hsat
+Shan State	Tachileik
+Shan State	Kunlong
+Shan State	Kyaukme
+Shan State	Lashio
+Shan State	Mu Se
+Shan State	Mongmit
+Shan State	Kokang
+Shan State	Pa Laung
+Shan State	Langkho
+Shan State	Loilen
+Shan State	Taunggyi
+Tanintharyi Region	Dawei
+Tanintharyi Region	Kawthaung
+Tanintharyi Region	Myeik
+Yangon Region	East Yangon
+Yangon Region	North Yangon
+Yangon Region	South Yangon
+Yangon Region	West Yangon
