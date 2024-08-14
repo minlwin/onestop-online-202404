@@ -5,25 +5,18 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.jdc.online.spring.MyConfiguration;
 
-public class UsingBeanNames {
+public class BeanNameDemo {
 
 	@Test
 	void demo() {
 		
 		try(var context = new AnnotationConfigApplicationContext(MyConfiguration.class)) {
 			
-			var factory = context.getBeanFactory();
+			var bean = context.getBean("defaultService");
 			
-			for(var name : factory.getBeanDefinitionNames()) {
-				System.out.println(name);
-				
-				var aliases = factory.getAliases(name);
-				
-				for(var alias : aliases) {
-					System.out.printf("Alias of %s is %s%n".formatted(name, alias));
-				}
+			if(bean instanceof MyService service) {
+				System.out.println(service.message());
 			}
-			
 		}
 	}
 }

@@ -10,10 +10,16 @@ public class UsingBeanNames {
 		
 		try(var context = new GenericXmlApplicationContext("classpath:/beans.xml")) {
 			
-			var beanNames = context.getBeanFactory().getBeanDefinitionNames();
+			var factory = context.getBeanFactory();
 			
-			for(var name : beanNames) {
+			for(var name : factory.getBeanDefinitionNames()) {
 				System.out.println(name);
+				
+				var aliases = factory.getAliases(name);
+				
+				for(var alias : aliases) {
+					System.out.printf("Alias of %s is %s%n", name, alias);
+				}
 			}
 		}
 	}
