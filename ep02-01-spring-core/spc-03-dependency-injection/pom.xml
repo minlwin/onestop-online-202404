@@ -40,5 +40,6 @@
 		<module>pj03-autowired-xml</module>
 		<module>pj04-autowired-annotation</module>
 		<module>pj05-autowired-java</module>
+		<module>pj06-common-errors</module>
 	</modules>
 </project>
