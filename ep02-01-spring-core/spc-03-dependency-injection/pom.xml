@@ -39,5 +39,6 @@
 		<module>pj02-di-java</module>
 		<module>pj03-autowired-xml</module>
 		<module>pj04-autowired-annotation</module>
+		<module>pj05-autowired-java</module>
 	</modules>
 </project>
