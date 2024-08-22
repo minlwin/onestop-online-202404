@@ -1,0 +1,21 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.jdc.online</groupId>
+		<artifactId>spd-01-spring-jdbc</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>pj01-using-pure-jdbc</artifactId>
+
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>2.3.232</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
