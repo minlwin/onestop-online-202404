@@ -7,18 +7,12 @@
 		<artifactId>spd-01-spring-jdbc</artifactId>
 		<version>1.0.0</version>
 	</parent>
-	<artifactId>pj02-spring-jdbc-xml</artifactId>
-
+	<artifactId>pj04-spring-jdbc-boots</artifactId>
+	
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
 		
 		<dependency>
@@ -28,9 +22,18 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>

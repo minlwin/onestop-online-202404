@@ -8,10 +8,12 @@ import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.stereotype.Repository;
 
 import com.jdc.spring.jdbc.dto.AccountDto;
 import com.jdc.spring.jdbc.dto.AccountFrom;
 
+@Repository
 public class AccountDaoImpl implements AccountDao {
 	
 	private JdbcTemplate template;

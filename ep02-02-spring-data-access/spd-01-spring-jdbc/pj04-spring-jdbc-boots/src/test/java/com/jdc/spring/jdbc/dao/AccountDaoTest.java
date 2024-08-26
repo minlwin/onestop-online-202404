@@ -11,11 +11,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jdc.spring.jdbc.dto.AccountFrom;
 
-@SpringJUnitConfig(locations = "classpath:/application.xml")
+@SpringBootTest
 @TestMethodOrder(value = OrderAnnotation.class)
 public class AccountDaoTest {
 	
