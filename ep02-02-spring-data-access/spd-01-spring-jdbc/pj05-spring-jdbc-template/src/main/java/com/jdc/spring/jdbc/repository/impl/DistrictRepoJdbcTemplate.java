@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -15,6 +16,7 @@ import com.jdc.spring.jdbc.domain.DistrictDto;
 import com.jdc.spring.jdbc.repository.DistrictRepo;
 
 @Repository
+@Profile("jdbc")
 public class DistrictRepoJdbcTemplate implements DistrictRepo {
 	
 	private final String SELECT = """

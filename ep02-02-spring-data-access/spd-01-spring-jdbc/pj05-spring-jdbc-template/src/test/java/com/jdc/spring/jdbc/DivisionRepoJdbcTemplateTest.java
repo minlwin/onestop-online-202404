@@ -7,10 +7,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.jdc.spring.jdbc.repository.DivisionRepo;
 
 @SpringBootTest
+@ActiveProfiles("jdbc")
 public class DivisionRepoJdbcTemplateTest {
 	
 	@Autowired

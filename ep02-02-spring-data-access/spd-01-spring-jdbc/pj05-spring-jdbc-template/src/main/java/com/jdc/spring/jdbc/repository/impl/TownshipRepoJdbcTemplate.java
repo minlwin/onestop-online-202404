@@ -5,14 +5,18 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.jdc.spring.jdbc.domain.TownshipDto;
 import com.jdc.spring.jdbc.repository.TownshipRepo;
 
+@Repository
+@Profile("jdbc")
 public class TownshipRepoJdbcTemplate implements TownshipRepo{
 	
 	private static final String SELECT = """

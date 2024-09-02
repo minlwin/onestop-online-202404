@@ -9,17 +9,19 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.jdc.spring.jdbc.repository.DistrictRepo;
 
 @SpringBootTest
+@ActiveProfiles("jdbc")
 public class DistrictRepoJdbcTemplateTest {
 	
 	@Autowired
 	private DistrictRepo repo;
 
 	@ParameterizedTest
-	@CsvFileSource(resources = "/test_find_by_id_found.txt", delimiter = '\t')
+	@CsvFileSource(resources = "/district_find_by_id_found.txt", delimiter = '\t')
 	void test_find_by_id_found(int id, String name, int divisionId, String divisionName, long townships) {
 		
 		var result = repo.findById(id);

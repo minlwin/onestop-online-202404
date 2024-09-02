@@ -1,0 +1,11 @@
+48	Monyo	13	Tharrawaddy	2	Bago Region
+49	Okpho	13	Tharrawaddy	2	Bago Region
+50	Tharrawaddy	13	Tharrawaddy	2	Bago Region
+51	Nattalin	14	Nattalin	2	Bago Region
+52	Zigon	14	Nattalin	2	Bago Region
+53	Thegon	14	Nattalin	2	Bago Region
+54	Paungde	14	Nattalin	2	Bago Region
+55	Falam	15	Falam	3	Chin State
+56	Tiddim	15	Falam	3	Chin State
+57	Ton Zang	15	Falam	3	Chin State
+58	Hakha	16	Hakha	3	Chin State
