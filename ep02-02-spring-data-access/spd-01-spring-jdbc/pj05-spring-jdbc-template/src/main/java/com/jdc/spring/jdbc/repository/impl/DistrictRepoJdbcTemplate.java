@@ -24,6 +24,8 @@ public class DistrictRepoJdbcTemplate implements DistrictRepo {
 			left join TOWNSHIP ts on ts.district_id = ds.id 
 			""";
 	
+	private final String GROUP_BY = "GROUP BY ds.id, ds.name, dv.id, dv.name";
+	
 	@Autowired
 	private JdbcTemplate template;
 	private RowMapper<DistrictDto> rowMapper;
@@ -48,12 +50,14 @@ public class DistrictRepoJdbcTemplate implements DistrictRepo {
 			params.add(name.toLowerCase().concat("%"));
 		}
 		
+		sql.append(" ").append(GROUP_BY);
+		
 		return template.query(sql.toString(), rowMapper, params.toArray());
 	}
 
 	@Override
 	public Optional<DistrictDto> findById(int id) {
-		return template.query("%s where ds.id = ?".formatted(SELECT), rowMapper, id)
+		return template.query("%s where ds.id = ? %s".formatted(SELECT, GROUP_BY), rowMapper, id)
 			.stream().findAny();
 	}
 

@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.jdc.spring.jdbc.repository.DivisionRepo;
 
 @SpringBootTest
-public class DivisionRepoTest {
+public class DivisionRepoJdbcTemplateTest {
 	
 	@Autowired
 	private DivisionRepo repo;

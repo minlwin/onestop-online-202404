@@ -1,0 +1,6 @@
+1	Hinthada	1	Ayeyarwady Region	3
+2	Kyonpyaw	1	Ayeyarwady Region	3
+3	Labutta	1	Ayeyarwady Region	2
+4	Ma-ubin	1	Ayeyarwady Region	4
+5	Myaungmya	1	Ayeyarwady Region	3
+6	Myanaung	1	Ayeyarwady Region	3
