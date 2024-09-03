@@ -14,7 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import com.jdc.spring.jdbc.repository.TownshipRepo;
 
 @SpringBootTest
-@ActiveProfiles("jdbc")
+@ActiveProfiles("named")
 public class TownshipRepoJdbcTemplateTest {
 	
 	@Autowired

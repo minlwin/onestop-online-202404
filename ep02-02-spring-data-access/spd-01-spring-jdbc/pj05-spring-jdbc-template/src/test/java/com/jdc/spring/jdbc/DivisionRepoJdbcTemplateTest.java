@@ -12,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import com.jdc.spring.jdbc.repository.DivisionRepo;
 
 @SpringBootTest
-@ActiveProfiles("jdbc")
+@ActiveProfiles("named")
 public class DivisionRepoJdbcTemplateTest {
 	
 	@Autowired
