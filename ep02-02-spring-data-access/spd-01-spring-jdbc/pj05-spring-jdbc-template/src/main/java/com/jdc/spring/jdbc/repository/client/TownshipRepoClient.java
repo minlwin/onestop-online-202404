@@ -1,4 +1,4 @@
-package com.jdc.spring.jdbc.repository.named;
+package com.jdc.spring.jdbc.repository.client;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,10 +6,11 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -17,29 +18,21 @@ import com.jdc.spring.jdbc.domain.TownshipDto;
 import com.jdc.spring.jdbc.repository.TownshipRepo;
 
 @Repository
-@Profile("named")
-public class TownshipRepoNamedParameterJdbcTemplate implements TownshipRepo {
+@Profile("client")
+public class TownshipRepoClient implements TownshipRepo{
 
-	private static final String SELECT = """
-			select ts.id, ts.name, ds.id districtId, ds.name districtName,
-			dv.id divisionId, dv.name divisionName from TOWNSHIP ts 
-			join DISTRICT ds on ds.id = ts.district_id 
-			join DIVISION dv on dv.id = ds.division_id 
-			""";
+	private RowMapper<TownshipDto> rowMapper = new DataClassRowMapper<>(TownshipDto.class);
+	
+	@Value("${app.sql.township-select}")
+	private String select;
 	
 	@Autowired
-	private NamedParameterJdbcTemplate template;
-	
-	private RowMapper<TownshipDto> rowMapper;
-	
-	public TownshipRepoNamedParameterJdbcTemplate() {
-		rowMapper = new DataClassRowMapper<>(TownshipDto.class);
-	}
+	private JdbcClient client;
 
 	@Override
 	public List<TownshipDto> search(Integer divisionId, Integer districtId, String name) {
 		
-		var sql = new StringBuffer(SELECT).append(" where 1 = 1");
+		var sql = new StringBuffer(select).append(" where 1 = 1");
 		var params = new HashMap<String, Object>();
 		
 		if(null != divisionId) {
@@ -57,13 +50,13 @@ public class TownshipRepoNamedParameterJdbcTemplate implements TownshipRepo {
 			params.put("name", name.toLowerCase().concat("%"));
 		}
 		
-		return template.query(sql.toString(), params, rowMapper);
+		return client.sql(sql.toString())
+				.params(params)
+				.query(rowMapper).list();
 	}
 
 	@Override
 	public Optional<TownshipDto> findById(int id) {
-		var sql = "%s where ts.id = :id".formatted(SELECT);
-		return template.query(sql.toString(), Map.of("id", id), rowMapper).stream().findAny();
+		return client.sql("%s where ts.id = :id".formatted(select)).params(Map.of("id", id)).query(rowMapper).optional();
 	}
-
 }

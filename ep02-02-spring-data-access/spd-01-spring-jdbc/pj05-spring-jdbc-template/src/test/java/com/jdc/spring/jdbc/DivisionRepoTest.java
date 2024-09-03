@@ -12,8 +12,8 @@ import org.springframework.test.context.ActiveProfiles;
 import com.jdc.spring.jdbc.repository.DivisionRepo;
 
 @SpringBootTest
-@ActiveProfiles("named")
-public class DivisionRepoJdbcTemplateTest {
+@ActiveProfiles("client")
+public class DivisionRepoTest {
 	
 	@Autowired
 	private DivisionRepo repo;

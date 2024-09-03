@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,6 +17,7 @@ import com.jdc.spring.jdbc.domain.DistrictDto;
 import com.jdc.spring.jdbc.repository.DistrictRepo;
 
 @Repository
+@Profile("named")
 public class DistrictRepoNamedParameterJdbcTemplate implements DistrictRepo {
 	
 	@Autowired

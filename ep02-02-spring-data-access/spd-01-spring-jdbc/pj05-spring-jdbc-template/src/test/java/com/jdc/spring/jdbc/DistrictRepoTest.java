@@ -14,8 +14,8 @@ import org.springframework.test.context.ActiveProfiles;
 import com.jdc.spring.jdbc.repository.DistrictRepo;
 
 @SpringBootTest
-@ActiveProfiles("named")
-public class DistrictRepoJdbcTemplateTest {
+@ActiveProfiles("client")
+public class DistrictRepoTest {
 	
 	@Autowired
 	private DistrictRepo repo;
