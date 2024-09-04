@@ -39,5 +39,6 @@
 		<module>pj03-spring-jdbc-java</module>
 		<module>pj04-spring-jdbc-boots</module>
 		<module>pj05-spring-jdbc-template</module>
+		<module>pj06-sale-management</module>
 	</modules>
 </project>
