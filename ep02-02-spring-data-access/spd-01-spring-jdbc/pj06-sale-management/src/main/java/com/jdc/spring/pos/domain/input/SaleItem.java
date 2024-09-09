@@ -6,6 +6,7 @@ import lombok.Data;
 public class SaleItem {
 
 	private int saleId;
+	
 	private String productCode;
 	private int unitPrice;
 	private int quantity;
