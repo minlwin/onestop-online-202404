@@ -75,7 +75,8 @@ public class SaleServiceImpl implements SaleService {
 	@Override
 	public SaleDetails findById(int id) {
 		
-		var saleInfo = saleHistoryRepo.findById(id);
+		var saleInfo = saleHistoryRepo.findById(id)
+				.orElseThrow(() -> new PosBusinessException("Invalid sale id."));
 		
 		var items = saleProductRepo.findBySaleId(id);
 		
