@@ -3,15 +3,21 @@ package com.jdc.spring.pos.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
+
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ArgumentsSource;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.jdc.spring.pos.domain.exceptions.PosBusinessException;
 import com.jdc.spring.pos.domain.input.ShoppingCart;
+import com.jdc.spring.pos.service.data.ErrorForSaleItemProvider;
 
 @SpringBootTest
 @TestMethodOrder(value = OrderAnnotation.class)
@@ -20,9 +26,10 @@ public class SaleServiceTest {
 	@Autowired
 	private SaleService service;
 
-	@Test
 	@Order(1)
-	void test_error_null_cart() {
+	@NullSource
+	@ParameterizedTest
+	void test_error_null_cart(ShoppingCart cart) {
 		
 		var exception = assertThrows(PosBusinessException.class, 
 				() -> service.checkOut(null));
@@ -30,11 +37,10 @@ public class SaleServiceTest {
 		assertEquals("Cart must not be null.", exception.getMessage());
 	}
 	
-	@Test
 	@Order(2)
-	void test_error_empty_sale_person() {
-		
-		var cart = new ShoppingCart();
+	@MethodSource
+	@ParameterizedTest
+	void test_error_empty_sale_person(ShoppingCart cart) {
 		
 		var exception = assertThrows(PosBusinessException.class, 
 				() -> service.checkOut(cart));
@@ -42,11 +48,14 @@ public class SaleServiceTest {
 		assertEquals("Please enter sale person name.", exception.getMessage());
 	}
 	
-	@Test
+	static List<ShoppingCart> test_error_empty_sale_person() {
+		return List.of(new ShoppingCart());
+	}
+	
 	@Order(3)
-	void test_error_null_items() {
-		var cart = new ShoppingCart();
-		cart.setSalePerson("Thidar");
+	@MethodSource
+	@ParameterizedTest
+	void test_error_null_items(ShoppingCart cart) {
 		
 		var exception = assertThrows(PosBusinessException.class, 
 				() -> service.checkOut(cart));
@@ -54,16 +63,17 @@ public class SaleServiceTest {
 		assertEquals("Please enter sale items.", exception.getMessage());
 	}
 	
-	@Test
+	static List<ShoppingCart> test_error_null_items() {
+		return List.of(ShoppingCart.withName("Aung Aung"));
+	}
+	
 	@Order(4)
-	void test_error_null_product_code() {
-		var cart = new ShoppingCart();
-		cart.setSalePerson("Thidar");
-		
+	@ParameterizedTest
+	@ArgumentsSource(value = ErrorForSaleItemProvider.class)
+	void test_error_for_sale_item(ShoppingCart cart, String message) {
 		var exception = assertThrows(PosBusinessException.class, 
 				() -> service.checkOut(cart));
-		
-		assertEquals("Please enter sale items.", exception.getMessage());
+		assertEquals(message, exception.getMessage());
 	}
 	
 }

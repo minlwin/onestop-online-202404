@@ -11,6 +11,7 @@ import com.jdc.spring.pos.domain.exceptions.PosBusinessException;
 import com.jdc.spring.pos.domain.input.ShoppingCart;
 import com.jdc.spring.pos.domain.output.SaleDetails;
 import com.jdc.spring.pos.domain.output.SaleInfo;
+import com.jdc.spring.pos.repo.ProductRepo;
 import com.jdc.spring.pos.repo.SaleHistoryRepo;
 import com.jdc.spring.pos.repo.SaleProductRepo;
 
@@ -21,6 +22,8 @@ public class SaleServiceImpl implements SaleService {
 	private SaleHistoryRepo saleHistoryRepo;
 	@Autowired
 	private SaleProductRepo saleProductRepo;
+	@Autowired
+	private ProductRepo productRepo;
 
 	@Override
 	public int checkOut(ShoppingCart cart) {
@@ -54,6 +57,10 @@ public class SaleServiceImpl implements SaleService {
 		for(var item : cart.getItems()) {
 			if(!StringUtils.hasLength(item.getProductCode())) {
 				throw new PosBusinessException("Please enter product code.");
+			}
+			
+			if(productRepo.findByCode(item.getProductCode()).isEmpty()) {
+				throw new PosBusinessException("Invalid product code.");
 			}
 			
 			if(item.getUnitPrice() <= 0) {
