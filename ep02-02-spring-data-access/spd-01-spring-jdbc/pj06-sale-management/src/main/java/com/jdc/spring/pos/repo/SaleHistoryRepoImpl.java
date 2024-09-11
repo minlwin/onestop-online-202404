@@ -71,7 +71,7 @@ public class SaleHistoryRepoImpl implements SaleHistoryRepo{
 	@Override
 	public Optional<SaleInfo> findById(int id) {
 		return template.query(selectSql.formatted("sh.id = :id"), 
-				Map.of(), 
+				Map.of("id", id), 
 				rowMapper).stream().findAny();
 	}
 
