@@ -4,12 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullSource;
@@ -128,5 +131,25 @@ public class SaleServiceTest {
 			assertEquals(expected.quantity(), actual.getQuantity(), "Quantity for index [%d] is not match. Expected [%d] : Actual [%d]".formatted(i, expected.quantity(), actual.getQuantity()));
 			
 		}
+	}
+	
+	
+	@Order(8)
+	@MethodSource
+	@ParameterizedTest
+	void test_search(String person, LocalDate from, LocalDate to, int size) {
+		var result = service.search(person, from, to);
+		assertEquals(size, result.size());
+	}
+	
+	public static Stream<Arguments> test_search() {
+		return Stream.of(
+			Arguments.of(null, null, null, 3),
+			Arguments.of("Thidar", null, null, 2),
+			Arguments.of("", LocalDate.now(), null, 3),
+			Arguments.of("Nilar", LocalDate.now(), null, 1),
+			Arguments.of("", null ,LocalDate.now(), 3),
+			Arguments.of("", null ,LocalDate.now().minusDays(1), 0)
+		);
 	}
 }
