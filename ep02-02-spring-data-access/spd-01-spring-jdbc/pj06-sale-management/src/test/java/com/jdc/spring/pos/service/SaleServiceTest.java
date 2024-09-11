@@ -1,6 +1,7 @@
 package com.jdc.spring.pos.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
@@ -20,6 +21,8 @@ import com.jdc.spring.pos.domain.exceptions.PosBusinessException;
 import com.jdc.spring.pos.domain.input.ShoppingCart;
 import com.jdc.spring.pos.service.data.ErrorForSaleItemProvider;
 import com.jdc.spring.pos.service.data.SaleServiceCreateSuccess;
+import com.jdc.spring.pos.service.data.SaleServiceFindByIdSuccess;
+import com.jdc.spring.pos.service.data.SaleServiceFindByIdSuccess.SaleItem;
 
 @SpringBootTest
 @TestMethodOrder(value = OrderAnnotation.class)
@@ -97,4 +100,33 @@ public class SaleServiceTest {
 		assertEquals("Invalid sale id.", ex.getMessage());
 	}
 	
+
+	@Order(7)
+	@ParameterizedTest
+	@ArgumentsSource(value = SaleServiceFindByIdSuccess.class)
+	void test_find_by_id(int id, String person, List<SaleItem> items) {
+		
+		var result = service.findById(id);
+		
+		assertNotNull(result);
+		
+		assertEquals(id, result.getId());
+		assertEquals(person, result.getSalePerson());
+		assertNotNull(result.getSaleAt());
+		
+		assertEquals(items.size(), result.getItems().size());
+		
+		for(var i = 0; i < items.size(); i ++) {
+			
+			var expected = items.get(i);
+			var actual = result.getItems().get(i);
+			
+			assertEquals(id, actual.getId(), "Sale ID for index [%d] is not match. Expected [%d] : Actual [%d]".formatted(i, id, actual.getId()));
+			assertEquals(expected.code(), actual.getProductCode(), "Product Code for index [%d] is not match. Expected [%s] : Actual [%s]".formatted(i, expected.code(), actual.getProductCode()));
+			assertEquals(expected.name(), actual.getProductName(), "Product Name for index [%d] is not match. Expected [%s] : Actual [%s]".formatted(i, expected.name(), actual.getProductName()));
+			assertEquals(expected.price(), actual.getUnitPrice(), "Unit Price for index [%d] is not match. Expected [%d] : Actual [%d]".formatted(i, expected.price(), actual.getUnitPrice()));
+			assertEquals(expected.quantity(), actual.getQuantity(), "Quantity for index [%d] is not match. Expected [%d] : Actual [%d]".formatted(i, expected.quantity(), actual.getQuantity()));
+			
+		}
+	}
 }
