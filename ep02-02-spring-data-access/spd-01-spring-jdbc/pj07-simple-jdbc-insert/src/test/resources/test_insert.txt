@@ -1,0 +1,6 @@
+1	Product1	Category1	image1.png	600
+2	Product2	Category2	image2.png	700
+3	Product3	Category3	image3.png	800
+4	Product4	Category4	image4.png	900
+5	Product5	Category5	image5.png	1000
+6	Product6	Category6	image6.png	1100
