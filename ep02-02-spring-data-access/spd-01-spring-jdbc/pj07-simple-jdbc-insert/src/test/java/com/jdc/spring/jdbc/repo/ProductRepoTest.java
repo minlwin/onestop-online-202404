@@ -1,6 +1,7 @@
 package com.jdc.spring.jdbc.repo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.aggregator.AggregateWith;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -16,9 +18,9 @@ import com.jdc.spring.jdbc.domain.ProductDetails;
 import com.jdc.spring.jdbc.domain.ProductForm;
 
 @SpringBootTest
-@ActiveProfiles("jdbcTemplate")
+@ActiveProfiles("simpleJdbcInsert")
 @TestMethodOrder(value = OrderAnnotation.class)
-public class ProductRepoJdbcTemplateTest {
+public class ProductRepoTest {
 	
 	@Autowired
 	private ProductRepo repo;
@@ -42,7 +44,12 @@ public class ProductRepoJdbcTemplateTest {
 		assertEquals(details, result);
 	}
 	
-	void test_find_by_id_not_found() {
-		
+	@Order(3)
+	@ParameterizedTest
+	@ValueSource(ints = {
+		0, 7	
+	})
+	void test_find_by_id_not_found(int id) {
+		assertNull(repo.findById(id));
 	}
 }

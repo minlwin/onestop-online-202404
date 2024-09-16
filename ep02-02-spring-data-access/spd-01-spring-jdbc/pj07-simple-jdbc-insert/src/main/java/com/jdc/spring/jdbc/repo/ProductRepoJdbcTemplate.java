@@ -49,8 +49,8 @@ public class ProductRepoJdbcTemplate implements ProductRepo {
 
 	@Override
 	public ProductDetails findById(int id) {
-		return template.queryForObject("select * from product where id = ?", 
-				rowMapper, id);
+		return template.query("select * from product where id = ?", 
+				rowMapper, id).stream().findAny().orElse(null);
 	}
 
 }

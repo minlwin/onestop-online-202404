@@ -25,8 +25,8 @@ public class ProductRepoSimpleJdbcInsert implements ProductRepo {
 		rowMapper = new DataClassRowMapper<>(ProductDetails.class);
 		template = new JdbcTemplate(dataSource);
 		insert = new SimpleJdbcInsert(dataSource)
-				.usingGeneratedKeyColumns("id")
-				.usingColumns("name", "category", "image", "price");
+				.withTableName("product")
+				.usingGeneratedKeyColumns("id");
 	}
 	
 	@Override
@@ -37,8 +37,8 @@ public class ProductRepoSimpleJdbcInsert implements ProductRepo {
 
 	@Override
 	public ProductDetails findById(int id) {
-		return template.queryForObject("select * from product where id = ?", 
-				rowMapper, id);
+		return template.query("select * from product where id = ?", 
+				rowMapper, id).stream().findAny().orElse(null);
 	}
 
 }
