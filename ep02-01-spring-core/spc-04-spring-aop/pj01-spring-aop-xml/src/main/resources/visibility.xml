@@ -9,16 +9,18 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- Bean Creation with Constructor -->
-    <context:component-scan base-package="com.jdc.spring.aop" />
+    <context:component-scan base-package="com.jdc.spring.aop"></context:component-scan>
     
-    <bean id="loginAspect" class="com.jdc.spring.aop.aspect.InformationLogingAspect" />
+    <bean id="visibilityAspect" class="com.jdc.spring.aop.aspect.VisibilityAspect"></bean>
     
-    <aop:config proxy-target-class="true">
-    	<aop:pointcut expression="within(com.jdc.spring.aop.*)" id="logInfoPointCut"/>
-    	<aop:aspect ref="loginAspect">
-    		<aop:before method="before" pointcut-ref="logInfoPointCut" />
-    		<aop:after method="after" pointcut-ref="logInfoPointCut"/>
+    <aop:config>
+    	
+    	<aop:pointcut expression="within(com.jdc.spring.aop.VisibilityDemo)" id="visibilityMethods"/>
+    	
+    	<aop:aspect ref="visibilityAspect">
+    		<aop:before method="before" pointcut-ref="visibilityMethods"/>
     	</aop:aspect>
+    	
     </aop:config>
 
 </beans>

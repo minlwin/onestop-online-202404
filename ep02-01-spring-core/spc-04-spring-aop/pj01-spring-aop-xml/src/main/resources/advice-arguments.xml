@@ -9,16 +9,18 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- Bean Creation with Constructor -->
-    <context:component-scan base-package="com.jdc.spring.aop" />
-    
-    <bean id="loginAspect" class="com.jdc.spring.aop.aspect.InformationLogingAspect" />
-    
-    <aop:config proxy-target-class="true">
-    	<aop:pointcut expression="within(com.jdc.spring.aop.*)" id="logInfoPointCut"/>
-    	<aop:aspect ref="loginAspect">
-    		<aop:before method="before" pointcut-ref="logInfoPointCut" />
-    		<aop:after method="after" pointcut-ref="logInfoPointCut"/>
-    	</aop:aspect>
-    </aop:config>
+    <context:component-scan base-package="com.jdc.spring.aop"></context:component-scan>
 
+	<aop:config>
+		
+		<aop:pointcut expression="execution(int getLength(String)) and args(input)" id="adviceArguments"/>
+		
+		<aop:aspect ref="adviceArgumentsAspect">
+			<aop:before method="before" pointcut-ref="adviceArguments" arg-names="input" />
+			<aop:after-returning method="afterReturning" pointcut-ref="adviceArguments" arg-names="input,result" returning="result"/>
+			<aop:after-throwing method="afterThrowing" pointcut-ref="adviceArguments" arg-names="input,ex" throwing="ex"/>
+			<aop:after method="after" pointcut-ref="adviceArguments" arg-names="input" />
+		</aop:aspect>
+		
+	</aop:config>
 </beans>
