@@ -2,7 +2,6 @@ package com.jdc.spring.aop;
 
 import org.springframework.stereotype.Service;
 
-import com.jdc.spring.aop.annotations.SecuredArg;
 import com.jdc.spring.aop.annotations.SecuredMethod;
 import com.jdc.spring.aop.annotations.SecuredService;
 
@@ -13,7 +12,7 @@ public class MessageBean implements MessageService {
 	private int times = 0;
 	
 	@Override
-	public int send(@SecuredArg String message) {
+	public int send(String message) {
 		// Business Logic
 		System.out.printf("Sending Message : %s%n", message);
 		times ++;

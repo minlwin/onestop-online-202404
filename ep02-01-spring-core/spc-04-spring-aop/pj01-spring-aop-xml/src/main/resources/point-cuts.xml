@@ -21,7 +21,7 @@
     	<aop:pointcut id="execution" expression="execution(* com.jdc.spring.*.*.*(..))"/>
     	<aop:pointcut id="args" expression="args(input)"/>
     	<aop:pointcut id="annotatedMethod" expression="@annotation(com.jdc.spring.aop.annotations.SecuredMethod)"/>
-  		<aop:pointcut id="annotatedArgs" expression="@args(com.jdc.spring.aop.annotations)"/>  
+  		<aop:pointcut id="annotatedArgs" expression="@args(com.jdc.spring.aop.annotations.SecuredArg)"/>  
     	
     	<!-- Contextual Designator -->
     	<aop:pointcut id="this" expression="this(com.jdc.spring.aop.MessageService)"/>
@@ -30,7 +30,7 @@
     	
     	
     	<aop:aspect ref="pointCutAdvice">
-    		<aop:before method="before" pointcut-ref="annotatedArgs"/>
+    		<aop:before method="annotatedArgsAdvice" pointcut="@args(annotation)"/>
 <!--     		<aop:before method="beforeWithArgs" pointcut="execution(* com.jdc.spring.other.*.*(..)) and args(input, ..)" arg-names="input"/> -->
     	</aop:aspect>
     </aop:config>

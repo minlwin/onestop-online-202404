@@ -27,5 +27,6 @@
 	</build>	
 	<modules>
 		<module>pj01-spring-aop-xml</module>
+		<module>pj02-annotated-point-cut</module>
 	</modules>
 </project>
