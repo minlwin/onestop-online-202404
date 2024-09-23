@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xsi:schemaLocation="
+    	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+    	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd 
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Bean Creation with Constructor -->
+    <context:component-scan base-package="com.jdc.spring" />
+    
+    <aop:config>
+    	<!-- Scope Designator -->
+    	<aop:pointcut id="within" expression="within(com.jdc.*.*.*)"/>
+    	<aop:pointcut id="bean" expression="bean(adviceArgumentsDemo)"/>
+    	<aop:pointcut id="annotatedClass" expression="@within(com.jdc.spring.aop.annotations.SecuredService)"/>
+		  			
+    	<!-- Kinded Designator -->
+    	<aop:pointcut id="execution" expression="execution(* com.jdc.spring.*.*.*(..))"/>
+    	<aop:pointcut id="args" expression="args(input)"/>
+    	<aop:pointcut id="annotatedMethod" expression="@annotation(com.jdc.spring.aop.annotations.SecuredMethod)"/>
+  		<aop:pointcut id="annotatedArgs" expression="@args(com.jdc.spring.aop.annotations)"/>  
+    	
+    	<!-- Contextual Designator -->
+    	<aop:pointcut id="this" expression="this(com.jdc.spring.aop.MessageService)"/>
+    	<aop:pointcut id="target" expression="target(com.jdc.spring.aop.MessageBean)"/>
+    	<aop:pointcut id="annotatedTarget" expression="@target(com.jdc.spring.aop.annotations.SecuredService)"/>
+    	
+    	
+    	<aop:aspect ref="pointCutAdvice">
+    		<aop:before method="before" pointcut-ref="annotatedArgs"/>
+<!--     		<aop:before method="beforeWithArgs" pointcut="execution(* com.jdc.spring.other.*.*(..)) and args(input, ..)" arg-names="input"/> -->
+    	</aop:aspect>
+    </aop:config>
+    
+</beans>

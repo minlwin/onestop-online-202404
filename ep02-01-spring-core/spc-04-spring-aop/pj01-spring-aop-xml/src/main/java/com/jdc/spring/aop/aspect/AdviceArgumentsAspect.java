@@ -26,4 +26,5 @@ public class AdviceArgumentsAspect {
 		System.out.println("After Advice");
 		System.out.printf("Argument is %s%n", input);
 	}
+
 }
