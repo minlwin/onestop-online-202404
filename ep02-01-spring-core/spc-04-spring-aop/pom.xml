@@ -29,5 +29,6 @@
 		<module>pj01-spring-aop-xml</module>
 		<module>pj02-annotated-point-cut</module>
 		<module>pj03-aspectJ-style-aop</module>
+		<module>pj04-advisors-xml</module>
 	</modules>
 </project>
