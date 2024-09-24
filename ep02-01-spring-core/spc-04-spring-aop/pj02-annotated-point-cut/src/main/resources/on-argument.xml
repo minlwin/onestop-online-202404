@@ -13,7 +13,7 @@
     
     <aop:config>
     	<aop:aspect ref="annotatedArgsAspect">
-			<aop:before method="before" pointcut-ref="@args(com.jdc.spring.aop.OnArgument)"/>
+			<aop:before method="before" pointcut="@args(com.jdc.spring.aop.OnArgument)"/>
 			<aop:before method="beforeWithAnnotation" pointcut="@args(onArgs)" arg-names="onArgs"/>
     	</aop:aspect>
     </aop:config>

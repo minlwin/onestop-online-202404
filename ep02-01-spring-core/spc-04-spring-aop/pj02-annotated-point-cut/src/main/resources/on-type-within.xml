@@ -13,7 +13,7 @@
     
     <aop:config>
     	<aop:aspect ref="annotatedTypeAspect">
-			<aop:before method="before" pointcut="@within(com.jdc.spring.aop.OnMethod)"/>
+			<aop:before method="before" pointcut="@within(com.jdc.spring.aop.OnType)"/>
 			<aop:before method="beforeWithAnnotation" pointcut="@within(arg)" arg-names="arg"/>
     	</aop:aspect>
     </aop:config>
