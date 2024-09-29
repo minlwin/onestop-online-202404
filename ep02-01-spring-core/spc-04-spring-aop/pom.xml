@@ -30,5 +30,6 @@
 		<module>pj02-annotated-point-cut</module>
 		<module>pj03-aspectJ-style-aop</module>
 		<module>pj04-advisors-xml</module>
+		<module>pj05-advisors-java</module>
 	</modules>
 </project>
