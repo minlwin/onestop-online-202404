@@ -7,14 +7,16 @@
     	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
     	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd 
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-    <!-- Bean Creation with Constructor -->
-    <context:component-scan base-package="com.jdc.spring.aop" />
-    
-    <aop:config>
-    	<aop:advisor advice-ref="appBeforeAdvisor" 
-    		pointcut="within(com.jdc..service.*)"/>
-    	<aop:advisor advice-ref="appMethodInterceptor" 
-    		pointcut="within(com.jdc..service.*) and @annotation(com.jdc.spring.aop.advisor.OnMethod)"/>
-    </aop:config>
-</beans>
+	
+	<context:component-scan base-package="com.jdc.spring.introduction" />
+	
+	<aop:config>
+		<aop:aspect>
+			<aop:declare-parents 
+				types-matching="com.jdc.spring.introduction.MyService+" 
+				implement-interface="com.jdc.spring.introduction.ExtraFunctions" 
+				default-impl="com.jdc.spring.introduction.ExtraFunctionsImpl"/>
+		</aop:aspect>
+	</aop:config>
+ 	
+ </beans>
