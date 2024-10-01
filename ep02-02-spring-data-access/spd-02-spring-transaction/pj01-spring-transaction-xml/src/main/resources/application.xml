@@ -11,6 +11,16 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- Bean Creation with Constructor -->
-    
+	
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/trx01db" />
+		<property name="username" value="trx01db" />
+		<property name="password" value="trx01db" />
+	</bean>
+	
+	<jdbc:initialize-database data-source="dataSource">
+		<jdbc:script location="classpath:/schema.sql"/>
+		<jdbc:script location="classpath:/data.sql"/>
+	</jdbc:initialize-database>
     
 </beans>

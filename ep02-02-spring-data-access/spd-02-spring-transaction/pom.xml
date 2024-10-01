@@ -14,6 +14,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -27,5 +28,6 @@
 	</build>	
 	<modules>
 		<module>pj01-spring-transaction-xml</module>
+		<module>spring-transaction-commons</module>
 	</modules>
 </project>
