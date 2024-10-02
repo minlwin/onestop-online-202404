@@ -7,4 +7,8 @@ public record AccountInfo(
 		int amount,
 		int version) {
 
+	public int nextVersion() {
+		return version + 1;
+	}
+
 }

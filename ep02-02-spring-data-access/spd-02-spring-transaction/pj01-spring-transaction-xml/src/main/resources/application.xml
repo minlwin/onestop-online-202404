@@ -11,6 +11,8 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- Bean Creation with Constructor -->
+    <context:component-scan base-package="com.jdc.spring.trx.service" />
+    <context:component-scan base-package="com.jdc.spring.trx.repo" />
 	
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/trx01db" />
