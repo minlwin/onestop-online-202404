@@ -17,6 +17,8 @@ public class PropagationDemo {
 
 	@Test
 	void demo() {
+//		service.create("Start", "Base 1", "Base 2", "End");
+//		service.create("Start", "Base 1", "Base 2", null);
 		service.create("Start", "Base 1", null, "End");
 	}
 }

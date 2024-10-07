@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +39,9 @@ public class CallerService {
 		
 		service.create(id, baseStart, baseEnd);
 		
-		afterInsert.execute(Map.of("id", id, "message", after));
+		afterInsert.execute(new MapSqlParameterSource()
+				.addValue("id", id)
+				.addValue("message", after));
 		
 		return id;
 	}
