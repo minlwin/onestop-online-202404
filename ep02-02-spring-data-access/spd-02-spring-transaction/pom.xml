@@ -32,5 +32,6 @@
 		<module>pj02-spring-transaction-java</module>
 		<module>pj03-spring-transaction-boots</module>
 		<module>pj04-transaction-propagation</module>
+		<module>pj05-programattic-transaction-management</module>
 	</modules>
 </project>
