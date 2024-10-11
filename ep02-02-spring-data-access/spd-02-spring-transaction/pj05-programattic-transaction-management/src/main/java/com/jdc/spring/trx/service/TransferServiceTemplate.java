@@ -10,65 +10,55 @@ import org.springframework.jdbc.core.namedparam.SimplePropertySqlParameterSource
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import com.jdc.spring.trx.exceptions.TransferException;
 import com.jdc.spring.trx.service.dto.AccountDto;
 import com.jdc.spring.trx.service.dto.TransferForm;
 
 @Service
-public class TransferService {
+public class TransferServiceTemplate {
 	
 	@Autowired
 	private NamedParameterJdbcTemplate template;
 	
-	@Autowired
-	private PlatformTransactionManager trxManager;
+	private TransactionTemplate trxTemplate;
+	private TransactionTemplate historyTemplate;
 	
+	public TransferServiceTemplate(PlatformTransactionManager trxManager) {
+		trxTemplate = new TransactionTemplate(trxManager);
+		historyTemplate = new TransactionTemplate(trxManager);
+		historyTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+	}
+
 	public int transfer(TransferForm form) {
-		int historyId = 0;
+
+		var historyId = historyTemplate.execute(status -> createHistory(form));
 		
-		// Start Transaction
-		var histroyTrx = trxManager.getTransaction(new DefaultTransactionDefinition());
-		
-		try {
-			historyId = createHistory(form);
-			trxManager.commit(histroyTrx);
-		} catch (Exception e) {
-			trxManager.rollback(histroyTrx);
-			throw new IllegalStateException(e);
-		}
-		
-		var transferTrx = trxManager.getTransaction(new DefaultTransactionDefinition());
-		
-		try {
-	 		var accountFrom = findAccount(form.from());
+		return trxTemplate.execute(status -> {
+			var accountFrom = findAccount(form.from());
 			
 			if(accountFrom.amount() < form.amount()) {
 				throw new TransferException("No enough money from %s.".formatted(accountFrom.name()));
 			}
 			
 			var trxId = createTransfer(form);
-			createBalance(trxId, accountFrom, form.amount(), true);
+			
+			try {
+				createBalance(trxId, accountFrom, form.amount(), true);
 
-			var accountTo = findAccount(form.to());
-			createBalance(trxId, accountTo, form.amount(), false);
-			
-			updateHistory(historyId, null);
-			
-			trxManager.commit(transferTrx);
+				var accountTo = findAccount(form.to());
+				createBalance(trxId, accountTo, form.amount(), false);
+				
+				updateHistory(historyId, null);
+			} catch (Exception e) {
+				historyTemplate.executeWithoutResult(historyStatus -> updateHistory(historyId, e));
+				throw e;
+			}
 			
 			return trxId;
-		} catch (Exception e) {
-
-			trxManager.rollback(transferTrx);
-			
-			var historyUpdateTrx = trxManager.getTransaction(new DefaultTransactionDefinition());
-			updateHistory(historyId, e);
-			trxManager.commit(historyUpdateTrx);
-			
-			throw new IllegalStateException(e);
-		}
+		});
 	}
 
 	private void updateHistory(int historyId, Exception e) {
