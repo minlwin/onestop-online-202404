@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
-import com.jdc.spring.trx.event.TransferServiceEvent;
 import com.jdc.spring.trx.service.dto.TransferForm;
 
 @SpringBootTest

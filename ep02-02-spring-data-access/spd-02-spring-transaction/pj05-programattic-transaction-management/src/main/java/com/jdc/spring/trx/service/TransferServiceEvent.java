@@ -1,4 +1,4 @@
-package com.jdc.spring.trx.event;
+package com.jdc.spring.trx.service;
 
 import java.util.Map;
 
@@ -10,47 +10,65 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SimplePropertySqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import com.jdc.spring.trx.exceptions.TransferException;
 import com.jdc.spring.trx.service.dto.AccountDto;
 import com.jdc.spring.trx.service.dto.TransferForm;
-import com.jdc.spring.trx.service.dto.TransferLogEvent;
+import com.jdc.spring.trx.service.event.TransferErrorEvent;
+import com.jdc.spring.trx.service.event.TransferSuccessEvent;
 
 @Service
 public class TransferServiceEvent {
 	
 	@Autowired
 	private NamedParameterJdbcTemplate template;
-	
 	@Autowired
-	private ApplicationEventPublisher publisher;
+	private ApplicationEventPublisher eventPublisher;
 	
-	@Autowired
-	private TransferLogService logService;
-
-	@Transactional
-	public int transfer(TransferForm form) {
-		
-		var historyId = logService.createHistory(form);
-		publisher.publishEvent(new TransferLogEvent(historyId));
-
-		var accountFrom = findAccount(form.from());
-		
-		if(accountFrom.amount() < form.amount()) {
-			throw new TransferException("No enough money from %s.".formatted(accountFrom.name()));
-		}
-		
-		var trxId = createTransfer(form);
-		
-		createBalance(trxId, accountFrom, form.amount(), true);
-
-		var accountTo = findAccount(form.to());
-		createBalance(trxId, accountTo, form.amount(), false);
-		
-		return trxId;
+	
+	private TransactionTemplate trxTemplate;
+	private TransactionTemplate historyTemplate;
+	
+	public TransferServiceEvent(PlatformTransactionManager trxManager) {
+		trxTemplate = new TransactionTemplate(trxManager);
+		historyTemplate = new TransactionTemplate(trxManager);
+		historyTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
 	}
 
+	public int transfer(TransferForm form) {
+
+		var historyId = historyTemplate.execute(status -> createHistory(form));
+		
+		return trxTemplate.execute(status -> {
+			var accountFrom = findAccount(form.from());
+			
+			if(accountFrom.amount() < form.amount()) {
+				throw new TransferException("No enough money from %s.".formatted(accountFrom.name()));
+			}
+			
+			var trxId = createTransfer(form);
+			
+			try {
+				createBalance(trxId, accountFrom, form.amount(), true);
+
+				var accountTo = findAccount(form.to());
+				createBalance(trxId, accountTo, form.amount(), false);
+				
+				// Fire Success Event
+				eventPublisher.publishEvent(new TransferSuccessEvent(historyId));
+				
+			} catch (Exception e) {
+				// Fire Error Event
+				eventPublisher.publishEvent(new TransferErrorEvent(historyId, e));
+				throw e;
+			}
+			
+			return trxId;
+		});
+	}
 
 	private void createBalance(int trxId, AccountDto account, int amount, boolean debit) {
 
@@ -88,5 +106,18 @@ public class TransferServiceEvent {
 				.stream().findAny().orElseThrow(() -> new TransferException("Invlid account code."));
 	}
 
+	private int createHistory(TransferForm form) {
+		
+		var sql = "insert into transfer_log (account_from, account_to, amount) values (:from, :to, :amount)";
+		var generatedKey = new GeneratedKeyHolder();
+		
+		template.update(sql, new MapSqlParameterSource()
+				.addValue("from", form.from())
+				.addValue("to", form.to())
+				.addValue("amount", form.amount())
+				, generatedKey);
+		
+		return generatedKey.getKey().intValue();
+	}
 
 }
