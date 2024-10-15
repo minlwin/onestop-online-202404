@@ -29,5 +29,7 @@
 	<modules>
 		<module>pj01-hello-spring-data-jpa</module>
 		<module>pj02-jpa-without-spring</module>
+		<module>pj03-spring-orm-with-xml</module>
+		<module>pj04-spring-orm-with-java</module>
 	</modules>
 </project>
