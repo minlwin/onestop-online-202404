@@ -28,5 +28,6 @@
 			
 	<modules>
 		<module>pj01-hello-spring-data-jpa</module>
+		<module>pj02-jpa-without-spring</module>
 	</modules>
 </project>
