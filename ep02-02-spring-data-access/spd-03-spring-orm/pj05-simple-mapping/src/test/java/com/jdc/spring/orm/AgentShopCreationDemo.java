@@ -3,23 +3,20 @@ package com.jdc.spring.orm;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.spring.orm.entity.AgentShop;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import com.jdc.spring.orm.repo.AgentShopRepo;
 
 @SpringBootTest
 public class AgentShopCreationDemo {
 
-	@PersistenceContext
-	private EntityManager em;
+	@Autowired
+	private AgentShopRepo repo;
 	
 	@Test
-	@Transactional
-	void create() {
+	public void create() {
 		
 		var shop = new AgentShop();
 		shop.setShortCode("SA000001");
@@ -32,6 +29,6 @@ public class AgentShopCreationDemo {
 		shop.setOpenHour("8:00");
 		shop.setCloseHour("20:00");
 		
-		em.persist(shop);
+		repo.create(shop);
 	}
 }

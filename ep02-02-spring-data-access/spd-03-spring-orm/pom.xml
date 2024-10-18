@@ -32,5 +32,6 @@
 		<module>pj03-spring-orm-with-xml</module>
 		<module>pj04-spring-orm-with-java</module>
 		<module>pj05-simple-mapping</module>
+		<module>pj06-schema-generation</module>
 	</modules>
 </project>
