@@ -10,7 +10,6 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.TableGenerator;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -41,7 +40,7 @@ public class Customer {
 	@Embedded
 	private Address address;
 	
-	@Lob
+	@Column(columnDefinition = "mediumtext")
 	private String reamrk;
 	
 	public enum Gender {
