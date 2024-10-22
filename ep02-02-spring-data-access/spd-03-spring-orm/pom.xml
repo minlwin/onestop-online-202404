@@ -33,5 +33,6 @@
 		<module>pj04-spring-orm-with-java</module>
 		<module>pj05-simple-mapping</module>
 		<module>pj06-schema-generation</module>
+		<module>pj07-relationship-mappings</module>
 	</modules>
 </project>
