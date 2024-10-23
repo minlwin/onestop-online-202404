@@ -1,10 +1,13 @@
 package com.jdc.spring.orm.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -23,4 +26,7 @@ public class Merchant extends SecurityInfo{
 	private String shopName;
 
 	private String position;
+	
+	@ManyToMany
+	private List<Product> products;
 }
