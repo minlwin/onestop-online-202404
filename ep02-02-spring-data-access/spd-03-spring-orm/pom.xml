@@ -34,5 +34,6 @@
 		<module>pj05-simple-mapping</module>
 		<module>pj06-schema-generation</module>
 		<module>pj07-relationship-mappings</module>
+		<module>pj08-attributes</module>
 	</modules>
 </project>
