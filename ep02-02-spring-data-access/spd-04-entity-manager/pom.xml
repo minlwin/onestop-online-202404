@@ -61,5 +61,6 @@
 	
 	<modules>
 		<module>pj01-lifecycle-of-entity</module>
+		<module>pj02-callback-and-listener</module>
 	</modules>
 </project>
