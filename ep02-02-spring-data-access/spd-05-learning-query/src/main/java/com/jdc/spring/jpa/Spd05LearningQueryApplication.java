@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Spd05LearningJpqlApplication {
+public class Spd05LearningQueryApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Spd05LearningJpqlApplication.class, args);
+		SpringApplication.run(Spd05LearningQueryApplication.class, args);
 	}
 
 }

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.jdc.oline</groupId>
-	<artifactId>spd-05-learning-jpql</artifactId>
+	<artifactId>spd-05-learning-query</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spd-05-learning-jpql</name>
+	<name>spd-05-learning-query</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -36,8 +36,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
