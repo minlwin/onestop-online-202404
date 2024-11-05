@@ -3,6 +3,7 @@ package com.jdc.spring.jpa.repo.jpql;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.spring.jpa.entity.Course;
 import com.jdc.spring.jpa.entity.dto.CourseDto;
@@ -12,6 +13,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 @Repository
+@Transactional(readOnly = true)
 public class CourseRepoJpql implements CourseRepo {
 
 	@PersistenceContext

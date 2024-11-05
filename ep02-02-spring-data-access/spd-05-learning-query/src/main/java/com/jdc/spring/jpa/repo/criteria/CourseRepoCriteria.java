@@ -3,6 +3,7 @@ package com.jdc.spring.jpa.repo.criteria;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.spring.jpa.entity.Course;
 import com.jdc.spring.jpa.entity.Course_;
@@ -17,6 +18,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 
 @Repository
+@Transactional(readOnly = true)
 public class CourseRepoCriteria implements CourseRepo{
 	
 	@PersistenceContext
