@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.spring.jpa.entity.dto.SectionDto;
+import com.jdc.spring.jpa.entity.dto.SectionWithStudents;
 import com.jdc.spring.jpa.repo.SectionRepo;
 
 import jakarta.persistence.EntityManager;
@@ -46,6 +47,13 @@ public class SectionRepoJpql implements SectionRepo {
 	public List<SectionDto> searchInDays(DayOfWeek day) {
 		var query = em.createNamedQuery("Section.searchInDays", SectionDto.class);
 		query.setParameter("day", day);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<SectionWithStudents> searchOverStudents(long students) {
+		var query = em.createNamedQuery("Section.searchOverStudents", SectionWithStudents.class);
+		query.setParameter("students", students);
 		return query.getResultList();
 	}
 

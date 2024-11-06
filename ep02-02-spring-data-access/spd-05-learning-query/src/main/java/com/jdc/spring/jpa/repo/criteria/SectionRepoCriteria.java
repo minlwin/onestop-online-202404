@@ -7,14 +7,18 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jdc.spring.jpa.entity.RegistrationPk_;
+import com.jdc.spring.jpa.entity.Registration_;
 import com.jdc.spring.jpa.entity.Section;
 import com.jdc.spring.jpa.entity.SectionPk_;
 import com.jdc.spring.jpa.entity.Section_;
 import com.jdc.spring.jpa.entity.dto.SectionDto;
+import com.jdc.spring.jpa.entity.dto.SectionWithStudents;
 import com.jdc.spring.jpa.repo.SectionRepo;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.JoinType;
 
 @Repository
 @Transactional(readOnly = true)
@@ -74,6 +78,23 @@ public class SectionRepoCriteria implements SectionRepo {
 		SectionDto.select(cq, root);
 		
 		cq.where(cb.isMember(day, root.get(Section_.days)));
+
+		return em.createQuery(cq).getResultList();
+	}
+
+	@Override
+	public List<SectionWithStudents> searchOverStudents(long students) {
+		var cb = em.getCriteriaBuilder();
+		var cq = cb.createQuery(SectionWithStudents.class);
+		var root = cq.from(Section.class);
+		
+		SectionWithStudents.select(cb, cq, root);
+		
+		var registration = root.join(Section_.registration, JoinType.LEFT);
+		
+		cq.having(cb.ge(cb.count(registration.get(Registration_.id).get(RegistrationPk_.studentId)), students));
+		
+		cq.orderBy(cb.desc(cb.count(registration.get(Registration_.id).get(RegistrationPk_.studentId))));
 
 		return em.createQuery(cq).getResultList();
 	}

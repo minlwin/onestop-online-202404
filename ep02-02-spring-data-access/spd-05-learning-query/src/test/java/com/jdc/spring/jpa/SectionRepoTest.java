@@ -1,7 +1,5 @@
 package com.jdc.spring.jpa;
 
-import java.time.DayOfWeek;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +17,7 @@ public class SectionRepoTest {
 	
 	@Test
 	void test() {
-		System.out.println(jpql.searchInDays(DayOfWeek.MONDAY));
-		System.out.println(criteria.searchInDays(DayOfWeek.MONDAY));
+		System.out.println(jpql.searchOverStudents(20));
+		System.out.println(criteria.searchOverStudents(20));
 	}
 }

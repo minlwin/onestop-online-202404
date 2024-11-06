@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.jdc.spring.jpa.entity.dto.SectionDto;
+import com.jdc.spring.jpa.entity.dto.SectionWithStudents;
 
 public interface SectionRepo {
 
@@ -12,5 +13,7 @@ public interface SectionRepo {
 	List<SectionDto> searchStartBetween(LocalDate from, LocalDate to);
 	List<SectionDto> searchStartTimeIn(List<String> startTimes);
 	List<SectionDto> searchInDays(DayOfWeek day);
+	
+	List<SectionWithStudents> searchOverStudents(long students);
 	
 }
