@@ -11,7 +11,6 @@ public class CustomerRepoJpql extends CustomerRepositoryBase{
 
 	@Override
 	public int update(int id, String name, String phone) {
-		
 		var query = em.createNamedQuery("Customer.update");
 		query.setParameter("name", name);
 		query.setParameter("phone", phone);

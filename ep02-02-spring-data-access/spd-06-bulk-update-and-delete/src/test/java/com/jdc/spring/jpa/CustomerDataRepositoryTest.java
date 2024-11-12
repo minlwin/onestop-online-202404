@@ -14,15 +14,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
-import com.jdc.spring.jpa.repo.criteria.CustomerRepoCriteria;
+import com.jdc.spring.jpa.repo.CustomerDataRepository;
 
 @SpringBootTest
 @TestMethodOrder(value = OrderAnnotation.class)
 @Sql(scripts = "/customers.sql", executionPhase = ExecutionPhase.BEFORE_TEST_CLASS)
-public class CustomerRepoCriteriaTest {
+public class CustomerDataRepositoryTest {
 
 	@Autowired
-	private CustomerRepoCriteria repo;
+	private CustomerDataRepository repo;
 	
 	@Order(1)
 	@ParameterizedTest
@@ -41,9 +41,22 @@ public class CustomerRepoCriteriaTest {
 			assertEquals(phone, entity.getPhone());
 			assertEquals(email, entity.getEmail());
 		});
-	}
+	}	
 	
 	@Order(2)
+	@ParameterizedTest
+	@CsvSource({
+		"Maung,2",
+		"Thi,1",
+		"Nilar,1",
+		"Aung,0"
+	})
+	void test_find_by_name_like(String name, int count) {
+		var list = repo.findByNameLike(name.concat("%"));
+		assertEquals(count, list.size());
+	}
+	
+	@Order(3)
 	@ParameterizedTest
 	@CsvSource(value = {
 		"1	Aung Aung Oo	0911112223",
@@ -53,15 +66,15 @@ public class CustomerRepoCriteriaTest {
 	}, delimiterString = "\t")
 	void test_update(int id, String name, String phone) {
 		
-		var result = repo.update(id, name, phone);
+		var result = repo.updateCustomer(name, phone, id);
 		assertEquals(result, 1);
 	}
 	
-	@Order(3)
+	@Order(4)
 	@ParameterizedTest
 	@ValueSource(ints = {1, 2, 3, 4})
 	void test_delete(int id) {
-		var result = repo.delete(id);
-		assertEquals(result, 1);
+		repo.deleteById(id);
+		assertTrue(repo.findById(id).isEmpty());
 	}	
 }

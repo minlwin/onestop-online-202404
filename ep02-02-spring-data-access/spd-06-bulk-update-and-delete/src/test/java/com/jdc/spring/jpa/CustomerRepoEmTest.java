@@ -28,10 +28,10 @@ public class CustomerRepoEmTest {
 	@Order(1)
 	@ParameterizedTest
 	@CsvSource(value = {
-		"1	Aung Aung	0911112222	aung@gmail.com",
+		"1	Maung Aung	0911112222	aung@gmail.com",
 		"2	Maung Maung	0911112223	maung@gmail.com",
 		"3	Thidar	0911112224	thidar@gmail.com",
-		"4	Nilar	0911112225	nilar@gmail.com"
+		"4	Nilar	0911112225	nilar@gmail.com",
 	}, delimiter = '\t')
 	void test_find_by_id(int id, String name, String phone, String email) {
 		var customer = repo.findById(id);
