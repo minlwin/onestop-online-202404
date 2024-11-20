@@ -17,7 +17,7 @@ class CustomerServiceTest {
 	@Test
 	void contextLoads() {
 		
-		service.search(new CustomerSearch("Thidar", "091818171", null, Gender.Female));
+		service.searchBySpecification(new CustomerSearch("Thidar", "091818171", "thidar", Gender.Female));
 	}
 
 }

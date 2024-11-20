@@ -38,5 +38,16 @@ public record CustomerDto(
 		);
 		
 	}
+	
+	public static CustomerDto from(Customer entity) {
+		return new CustomerDto(entity.getId(), 
+				entity.getAccount().getLoginId(), 
+				entity.getName(), 
+				entity.getPhone(), 
+				entity.getEmail(), 
+				entity.getDob(), 
+				entity.getGender(), 
+				entity.getAccount().getActivatedAt(), entity.getAccount().getExpiredAt());
+	}
 
 }
