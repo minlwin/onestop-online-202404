@@ -13,7 +13,7 @@ import jakarta.persistence.LockModeType;
 public interface CustomerRepo extends JpaRepository<Customer, Integer>{
 
 	@Override
-	@Lock(LockModeType.OPTIMISTIC)
+	@Lock(LockModeType.PESSIMISTIC_FORCE_INCREMENT)
 	Optional<Customer> findById(Integer id);
 	
 }

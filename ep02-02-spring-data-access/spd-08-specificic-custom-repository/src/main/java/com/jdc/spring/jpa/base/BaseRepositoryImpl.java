@@ -1,12 +1,14 @@
 package com.jdc.spring.jpa.base;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.LockModeType;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 
@@ -38,6 +40,16 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> implem
 		var criteriaQuery = queryFunc.apply(entityManager.getCriteriaBuilder());
 		var query = entityManager.createQuery(criteriaQuery);
 		return query.getResultList();
+	}
+
+	@Override
+	public Optional<T> findById(ID id, LockModeType lock) {
+		return Optional.ofNullable(entityManager.find(getDomainClass(), lock));
+	}
+
+	@Override
+	public void lock(T entity, LockModeType lock) {
+		entityManager.lock(entity, lock);
 	}
 
 }
