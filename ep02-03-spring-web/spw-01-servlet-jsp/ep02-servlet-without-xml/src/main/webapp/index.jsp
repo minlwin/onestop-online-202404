@@ -21,6 +21,9 @@
 			<li>
 				<a href="${pageContext.request.contextPath}/requestInfo">Request Information</a>
 			</li>
+			<li>
+				<a href="${pageContext.request.contextPath}/registration.jsp">Student Registration</a>
+			</li>
 		</ul>
 	</div>
 
