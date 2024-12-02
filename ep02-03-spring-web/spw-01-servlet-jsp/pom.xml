@@ -50,5 +50,8 @@
 	</build>
 	<modules>
 		<module>ep01-servlet-with-xml</module>
+		<module>ep02-servlet-without-xml</module>
+		<module>ep03-servlet-scopes</module>
+		<module>ep04-using-scopes</module>
 	</modules>
 </project>
