@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {
 	"/products",
 	"/products/add"
-})
+}, loadOnStartup = 1)
 public class ProductController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

@@ -2,12 +2,11 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>    
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Products</title>
+<title>Sale History</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -15,58 +14,56 @@
 
 </head>
 <body>
-	
+
 	<div class="container mt-4">
+		
 		<h1 class="d-flex justify-content-between align-items-end">
-			<span>Products</span>
-			
-			<div>
-				<c:if test="${null ne cart and cart.itemCount gt 0}">
-					<a href="${pageContext.request.contextPath}/checkout" class="btn btn-outline-primary">
-						Check Out <i class="bi-cart"></i> ${cart.itemCount}
-					</a>
-				</c:if>
-				
-				<a href="${pageContext.request.contextPath}/sales" class="btn btn-outline-primary">
-					<i class="bi-calendar"></i> Sale History
-				</a>
-			</div>
+			<span><i class="bi-calendar"></i> Sale History</span>
+
+			<a href="${pageContext.request.contextPath}/products" class="btn btn-outline-primary">
+				<i class="bi-gift"></i> Products
+			</a>
 		</h1>
 		
 		<table class="table table-striped">
-			
+		
 			<thead>
 				<tr>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Category</th>
-					<th>Price</th>
+					<th>Id</th>
+					<th>Customer</th>
+					<th>Phone</th>
+					<th>Email</th>
+					<th>Sale At</th>
+					<th>Items</th>
+					<th>Total</th>
 					<th></th>
 				</tr>
 			</thead>
 			
 			<tbody>
-			<c:forEach var="item" items="${productModel.products}">
+			<c:forEach var="item" items="${saleModel.sales}">
 				<tr>
 					<td>${item.id}</td>
-					<td>${item.name}</td>
-					<td>${item.category}</td>
-					<td>${item.price}</td>
-					<th>
-						
-						<c:url var="addToCart" value="/products/add">
-							<c:param name="productId" value="${item.id}" />
+					<td>${item.customer}</td>
+					<td>${item.phone}</td>
+					<td>${item.email}</td>
+					<td>${item.saleAt}</td>
+					<td>${item.itemCount}</td>
+					<td>${item.total}</td>
+					<td>
+						<c:url var="details" value="/sales">
+							<c:param name="id" value="${item.id}"></c:param>
 						</c:url>
-						
-						<a href="${addToCart}" class="icon-link">
-							<i class="bi-cart-plus"></i>
+						<a href="${details}" class="icon-link">
+							<i class="bi-send"></i>
 						</a>
-					</th>
+					</td>
 				</tr>
 			</c:forEach>
 			</tbody>
-		
 		</table>
+		
 	</div>
+
 </body>
 </html>
