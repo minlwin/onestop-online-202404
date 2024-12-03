@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>    
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +50,9 @@
 					<td>${item.email}</td>
 					<td>${item.saleAt}</td>
 					<td>${item.itemCount}</td>
-					<td>${item.total}</td>
+					<td>
+						<fmt:formatNumber value="${item.total}" /> MMK
+					</td>
 					<td>
 						<c:url var="details" value="/sales">
 							<c:param name="id" value="${item.id}"></c:param>
