@@ -53,5 +53,7 @@
 		<module>ep02-servlet-without-xml</module>
 		<module>ep03-servlet-scopes</module>
 		<module>ep04-using-scopes</module>
+		
+		<module>ep05-using-cookies</module>
 	</modules>
 </project>
