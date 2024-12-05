@@ -55,5 +55,7 @@
 		<module>ep04-using-scopes</module>
 		
 		<module>ep05-using-cookies</module>
+		
+		<module>ep06-using-listener</module>
 	</modules>
 </project>
