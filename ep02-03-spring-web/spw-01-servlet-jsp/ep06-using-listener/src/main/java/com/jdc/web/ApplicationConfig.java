@@ -43,7 +43,7 @@ public class ApplicationConfig {
 		bean.setPackagesToScan("com.jdc.web.spring.entity");
 		bean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
 		bean.setJpaPropertyMap(Map.of(
-			"hibernate.hbm2ddl.auto", "create",
+			"hibernate.hbm2ddl.auto", "update",
 			"hibernate.show_sql", "true",
 			"hibernate.format_sql", "true"
 		));
