@@ -39,7 +39,7 @@
 				<i class="bi-search"></i> Search
 			</button>
 			
-			<a href="" class="btn btn-outline-danger">
+			<a href="${root}/categories/edit" class="btn btn-outline-danger">
 				<i class="bi-plus"></i> Add New Category
 			</a>
 		</div>
@@ -73,7 +73,7 @@
 				<td>2024-10-11 09:00</td>
 				<td>2024-12-09 09:00</td>
 				<td class="text-center">
-					<a href="" class="icon-link">
+					<a href="${root}/categories/details" class="icon-link">
 						<i class="bi-chevron-right"></i>
 					</a>
 				</td>
