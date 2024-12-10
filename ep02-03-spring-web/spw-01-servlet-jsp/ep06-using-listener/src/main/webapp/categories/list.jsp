@@ -13,24 +13,24 @@
 		<app:form-group cssClass="col-auto" label="Status">
 			<select name="status" class="form-select">
 				<option value="">All Status</option>
-				<option value="Available">Available</option>
-				<option value="Deleted">Deleted</option>
+				<option ${param.status eq 'Available' ? 'selected' : ''} value="Available">Available</option>
+				<option ${param.status eq 'Deleted' ? 'selected' : ''} value="Deleted">Deleted</option>
 			</select>
 		</app:form-group>
 		
 		<!-- Create From -->
 		<app:form-group cssClass="col-auto" label="Create From">
-			<input type="date" class="form-control" />
+			<input name="createdFrom" value="${param.createdFrom}" type="date" class="form-control" />
 		</app:form-group>
 		
 		<!-- Crate To -->
 		<app:form-group cssClass="col-auto" label="Create To">
-			<input type="date" class="form-control" />
+			<input name="createdTo" value="${param.createdTo}" type="date" class="form-control" />
 		</app:form-group>
 		
 		<!-- Name -->
 		<app:form-group cssClass="col-auto" label="Keyword">
-			<input type="text" class="form-control" placeholder="Search Keyword" />
+			<input name="keyword" value="${param.keyword}" type="text" class="form-control" placeholder="Search Keyword" />
 		</app:form-group>
 		
 		<!-- Search Button -->
@@ -65,15 +65,18 @@
 		<c:forEach var="item" items="${list}">
 			
 			<tr>
-				<td class="text-end">1</td>
-				<td>Category Name</td>
-				<td>Available</td>
-				<td class="text-end">5</td>
-				<td class="text-end">20</td>
-				<td>2024-10-11 09:00</td>
-				<td>2024-12-09 09:00</td>
+				<td class="text-end">${item.id}</td>
+				<td>${item.name}</td>
+				<td>${item.status}</td>
+				<td class="text-end">${item.products}</td>
+				<td class="text-end">${item.sales eq null ? 0 : items.sales}</td>
+				<td>${dateTimes.format(item.createdAt)}</td>
+				<td>${dateTimes.format(item.updatedAt)}</td>
 				<td class="text-center">
-					<a href="${root}/categories/details" class="icon-link">
+					<c:url var="details" value="/categories/details">
+						<c:param name="id" value="${item.id}"></c:param>
+					</c:url>
+					<a href="${details}" class="icon-link">
 						<i class="bi-chevron-right"></i>
 					</a>
 				</td>

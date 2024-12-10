@@ -1,11 +1,14 @@
 package com.jdc.web.spring.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Data
@@ -24,4 +27,7 @@ public class Product {
 	
 	private String image;
 	private int price;
+	
+	@OneToMany(mappedBy = "product")
+	private List<SaleItem> saleItems;
 }

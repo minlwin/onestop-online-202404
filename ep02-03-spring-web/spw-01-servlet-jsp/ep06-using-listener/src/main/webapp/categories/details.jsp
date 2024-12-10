@@ -5,7 +5,7 @@
 
 <app:layout title="Category">
 	
-	<app:header icon="bi-tag" value="Category Name"></app:header>
+	<app:header icon="bi-tag" value="${category.name}"></app:header>
 	
 	<!-- Category Information -->
 	
@@ -13,25 +13,25 @@
 		<!-- Status --> 
 		<app:form-group cssClass="col-auto" label="Status">
 			<span class="form-control pe-4">
-				Available
+				${category.status}
 			</span>
 		</app:form-group>
 		<!-- Created At -->
 		<app:form-group cssClass="col-auto" label="Created At">
 			<span class="form-control pe-4">
-				2024-12-08 9:00
+				${dateTimes.format(category.createdAt)}
 			</span>
 		</app:form-group>
 		<!-- Updated At -->
 		<app:form-group cssClass="col-auto" label="Updated At">
 			<span class="form-control pe-4">
-				-
+				${dateTimes.format(category.updatedAt)}
 			</span>
 		</app:form-group>
 		
 		<div class="col btn-wrapper">
 			<c:url var="edit" value="/categories/edit">
-				<c:param name="id" value="1"></c:param>
+				<c:param name="id" value="${category.id}"></c:param>
 			</c:url>
 			<a href="${edit}" class="btn btn-outline-primary">
 				<i class="bi-pencil"></i> Edit Category
