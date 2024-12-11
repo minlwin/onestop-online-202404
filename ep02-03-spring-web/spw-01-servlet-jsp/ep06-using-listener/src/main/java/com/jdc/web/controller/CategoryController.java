@@ -3,6 +3,8 @@ package com.jdc.web.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.springframework.util.StringUtils;
+
 import com.jdc.web.spring.service.CategoryService;
 import com.jdc.web.spring.service.ProductService;
 import com.jdc.web.spring.service.input.CategoryForm;
@@ -70,7 +72,7 @@ public class CategoryController extends AbstractController {
 		form.setName(name);
 		form.setDeleted(status);
 		
-		var result = (null != categoryId && !categoryId.isBlank()) ? categoryService.update(Integer.parseInt(categoryId), form)
+		var result = (StringUtils.hasLength(categoryId)) ? categoryService.update(Integer.parseInt(categoryId), form)
 				: categoryService.create(form);
 		
 		resp.sendRedirect(getServletContext().getContextPath().concat("/categories/details?id=%d".formatted(result)));
@@ -104,7 +106,7 @@ public class CategoryController extends AbstractController {
 		
 		var categoryId = req.getParameter("id");
 		
-		if(null != categoryId && !categoryId.isBlank()) {
+		if(StringUtils.hasLength(categoryId)) {
 			var id = Integer.parseInt(categoryId);
 			req.setAttribute("category", categoryService.findById(id));
 		}

@@ -1,7 +1,8 @@
 package com.jdc.web.spring.service.input;
 
+import static com.jdc.web.spring.utils.DateUtils.DF;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import org.springframework.util.StringUtils;
@@ -43,8 +44,6 @@ public class CategorySearch {
 
 		return params.toArray(size -> new Predicate[size]);
 	}
-	
-	private static final DateTimeFormatter DF = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
 	public void setDeleted(String parameter) {
 		if(null != parameter && !parameter.isBlank()) {

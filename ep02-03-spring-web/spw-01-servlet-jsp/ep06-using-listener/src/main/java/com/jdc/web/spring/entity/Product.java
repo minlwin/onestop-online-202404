@@ -1,5 +1,6 @@
 package com.jdc.web.spring.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -28,6 +29,11 @@ public class Product {
 	private String image;
 	private int price;
 	
+	private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
+	
+	private boolean deleted;
+
 	@OneToMany(mappedBy = "product")
 	private List<SaleItem> saleItems;
 }
