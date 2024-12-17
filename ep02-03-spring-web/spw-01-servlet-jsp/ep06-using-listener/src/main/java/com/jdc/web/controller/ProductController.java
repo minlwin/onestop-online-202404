@@ -11,6 +11,7 @@ import com.jdc.web.spring.service.input.ProductForm;
 import com.jdc.web.spring.service.input.ProductSearch;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,8 +20,10 @@ import jakarta.servlet.http.HttpServletResponse;
 	"/products",
 	"/products/edit",
 	"/products/details",
+	"/products/photos",
 	"/products/upload",
 })
+@MultipartConfig
 public class ProductController extends AbstractController {
 
 	private static final long serialVersionUID = 1L;
@@ -52,6 +55,7 @@ public class ProductController extends AbstractController {
 		
 		switch (req.getServletPath()) {
 		case "/products/edit" -> save(req, resp);
+		case "/products/photos" -> uploadPhotos(req, resp);
 		case "/products/upload" -> upload(req, resp);
 		default -> throw new IllegalArgumentException();
 		}
@@ -100,12 +104,40 @@ public class ProductController extends AbstractController {
 		resp.sendRedirect(req.getContextPath().concat("/products/details?id=%d".formatted(id)));
 	}
 
-	private void upload(HttpServletRequest req, HttpServletResponse resp) {
+	private void upload(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		
+		var categoryId = req.getParameter("categoryId");
+		var productFile = req.getPart("file");
+		
+		var messages = new ArrayList<String>();
+
+		if(!StringUtils.hasLength(categoryId)) {
+			messages.add("Please select category.");
+		}
+
+		if(null == productFile) {
+			messages.add("Please select products file.");
+		}
+		
+		if(!messages.isEmpty()) {
+			resp.sendError(400);
+			return;
+		}
+		
+		productService.upload(Integer.parseInt(categoryId), productFile);
+		resp.sendRedirect(req.getContextPath().concat("/products"));
+	}
+
+	private void uploadPhotos(HttpServletRequest req, HttpServletResponse resp) {
+		// TODO Auto-generated method stub
 	}
 
 	private void search(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		var search = new ProductSearch();
+		if(StringUtils.hasLength(req.getParameter("status"))) {
+			search.setStatus("Deleted".equals(req.getParameter("status")));
+		}
 		search.setCreateFrom(req.getParameter("createFrom"));
 		search.setCreateTo(req.getParameter("createTo"));
 		search.setKeyword(req.getParameter("keyword"));

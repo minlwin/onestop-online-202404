@@ -19,6 +19,7 @@ import lombok.Data;
 @Data
 public class ProductSearch {
 
+	private Boolean status;
 	private LocalDate createFrom;
 	private LocalDate createTo;
 	private String keyword;
@@ -26,6 +27,10 @@ public class ProductSearch {
 	public Predicate[] where(CriteriaBuilder cb, Root<Product> root) {
 		
 		var params = new ArrayList<Predicate>();
+		
+		if(null != status) {
+			params.add(cb.equal(root.get(Product_.deleted), status));
+		}
 		
 		if(null != createFrom) {
 			params.add(cb.greaterThanOrEqualTo(root.get(Product_.createdAt), createFrom.atStartOfDay()));

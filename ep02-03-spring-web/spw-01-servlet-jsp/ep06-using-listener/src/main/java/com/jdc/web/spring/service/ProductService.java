@@ -1,6 +1,10 @@
 package com.jdc.web.spring.service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -20,6 +24,7 @@ import com.jdc.web.spring.service.output.ProductInfo;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.servlet.http.Part;
 
 @Service
 @Transactional(readOnly = true)
@@ -99,5 +104,38 @@ public class ProductService {
 		entity.setUpdatedAt(LocalDateTime.now());
 		
 		return entity.getId();
+	}
+
+	@Transactional
+	public void upload(int categoryId, Part part) {
+		
+		var category = categoryRepo.findById(categoryId).orElseThrow();
+		
+		try(var br = new BufferedReader(new InputStreamReader(part.getInputStream()))) {
+			
+			String line = null;
+			var products = new ArrayList<Product>();
+			
+			while(null != (line = br.readLine())) {
+				
+				var array = line.split("\t");
+				
+				var product = new Product();
+				product.setCategory(category);
+				product.setName(array[0]);
+				product.setPrice(Integer.parseInt(array[1]));
+				product.setDeleted("Deleted".equals(array[2]));
+				product.setCreatedAt(LocalDateTime.now());
+				product.setUpdatedAt(LocalDateTime.now());
+				products.add(product);
+			}
+			
+			if(!products.isEmpty()) {
+				productRepo.saveAll(products);
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

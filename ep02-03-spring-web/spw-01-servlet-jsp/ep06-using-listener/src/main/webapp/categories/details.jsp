@@ -5,6 +5,8 @@
 
 <app:layout title="Category">
 	
+	<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/product-upload.js"></script>
+
 	<app:header icon="bi-tag" value="${category.name}"></app:header>
 	
 	<!-- Category Information -->
@@ -61,9 +63,9 @@
 					<i class="bi-plus"></i> Add Product
 				</a>
 				
-				<a href="" class="btn btn-outline-danger">
+				<button id="uploadBtn" class="btn btn-outline-danger">
 					<i class="bi-upload"></i> Upload Product
-				</a>
+				</button>
 			</div>	
 		</div>
 		
@@ -117,5 +119,11 @@
 
 	
 	</section>
+	
+	<form id="uploadForm" action="${pageContext.request.contextPath}/products/upload" method="post" enctype="multipart/form-data" class="d-none" >
+		<input type="hidden" name="categoryId" value="${category.id}" />
+		<input id="uploadFile" type="file" name="file"  />
+	</form>
+	
 
 </app:layout>

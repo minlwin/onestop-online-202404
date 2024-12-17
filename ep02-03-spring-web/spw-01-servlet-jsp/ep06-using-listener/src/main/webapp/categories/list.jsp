@@ -46,17 +46,17 @@
 	</form>
 	
 	<!-- Result Table -->
-	<table class="table table-bordered table-hovered mt-3">
+	<table class="table table-bordered table-hover mt-3">
 		
 		<thead>
 			<tr>
 				<th class="text-end">ID</th>
 				<th>Name</th>
 				<th>Status</th>
-				<th class="text-end">Products</th>
-				<th class="text-end">Sales</th>
 				<th>Created At</th>
 				<th>Updated At</th>
+				<th class="text-end">Products</th>
+				<th class="text-end">Sales</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -68,13 +68,13 @@
 				<td class="text-end">${item.id}</td>
 				<td>${item.name}</td>
 				<td>${item.status}</td>
-				<td class="text-end">${item.products}</td>
-				<td class="text-end">${item.sales eq null ? 0 : items.sales}</td>
 				<td>${dateTimes.format(item.createdAt)}</td>
 				<td>${dateTimes.format(item.updatedAt)}</td>
+				<td class="text-end">${item.products}</td>
+				<td class="text-end">${item.sales eq null ? 0 : items.sales}</td>
 				<td class="text-center">
 					<c:url var="details" value="/categories/details">
-						<c:param name="id" value="${item.id}"></c:param>
+						<c:param name="categoryId" value="${item.id}"></c:param>
 					</c:url>
 					<a href="${details}" class="icon-link">
 						<i class="bi-chevron-right"></i>

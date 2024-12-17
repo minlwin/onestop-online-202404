@@ -93,7 +93,7 @@ public class CategoryController extends AbstractController {
 	
 	private void showDetails(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		var categoryId = req.getParameter("id");
+		var categoryId = req.getParameter("categoryId");
 		var id = Integer.parseInt(categoryId);
 		
 		req.setAttribute("category", categoryService.findById(id));
