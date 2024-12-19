@@ -109,27 +109,17 @@ public class ProductController extends AbstractController {
 		var categoryId = req.getParameter("categoryId");
 		var productFile = req.getPart("file");
 		
-		var messages = new ArrayList<String>();
-
-		if(!StringUtils.hasLength(categoryId)) {
-			messages.add("Please select category.");
-		}
-
-		if(null == productFile) {
-			messages.add("Please select products file.");
-		}
-		
-		if(!messages.isEmpty()) {
-			resp.sendError(400);
-			return;
-		}
-		
 		productService.upload(Integer.parseInt(categoryId), productFile);
 		resp.sendRedirect(req.getContextPath().concat("/products"));
 	}
 
-	private void uploadPhotos(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
+	private void uploadPhotos(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		
+		var productId = req.getParameter("productId");
+		var photos = req.getParts();
+		
+		productService.uploadPhotos(Integer.parseInt(productId), photos, getServletContext().getRealPath("/static/images"));
+		resp.sendRedirect(req.getContextPath().concat("/products/details?productId=%s".formatted(productId)));
 	}
 
 	private void search(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -173,7 +163,7 @@ public class ProductController extends AbstractController {
 	
 	private void details(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		var productId = req.getParameter("id");
+		var productId = req.getParameter("productId");
 		var id = Integer.parseInt(productId);
 		
 		var product = productService.findById(id);

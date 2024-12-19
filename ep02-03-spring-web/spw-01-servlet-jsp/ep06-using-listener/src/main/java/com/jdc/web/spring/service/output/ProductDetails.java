@@ -3,6 +3,8 @@ package com.jdc.web.spring.service.output;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.util.StringUtils;
+
 import com.jdc.web.spring.entity.Product;
 
 import lombok.Data;
@@ -21,6 +23,14 @@ public class ProductDetails {
 	private String categoryName;
 	
 	private List<SaleItemInfo> saleItems;
+	
+	public List<String> getImages() {
+		if(StringUtils.hasLength(image)) {
+			List.of(image.split(","));
+		}
+		
+		return List.of();
+	}
 	
 	public static ProductDetails from(Product entity) {
 		
@@ -41,4 +51,5 @@ public class ProductDetails {
 		
 		return dto;
 	}
+
 }

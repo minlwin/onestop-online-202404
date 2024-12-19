@@ -11,20 +11,17 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
 
-public class CategoryIdCheckFilter implements Filter{
+public class ProductIdCheckFilter implements Filter{
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		
-		var req = (HttpServletRequest)request;
+		var productId = request.getParameter("productId");
 		
-		var categoryId = req.getParameter("categoryId");
-		
-		if(!StringUtils.hasLength(categoryId)) {
-			throw new BusinessException("You need to define category id.");
+		if(!StringUtils.hasLength(productId)) {
+			throw new BusinessException("Please select product id.");
 		}
 		
 		chain.doFilter(request, response);

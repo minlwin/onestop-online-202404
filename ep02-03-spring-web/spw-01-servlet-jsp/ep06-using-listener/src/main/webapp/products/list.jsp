@@ -3,7 +3,7 @@
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags"  %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
-<app:layout title="Category">
+<app:layout title="Product">
 	
 	<app:header icon="bi-gift" value="Product Management"></app:header>
 	
@@ -70,7 +70,7 @@
 						<td class="text-end">${item.price}</td>
 						<td class="text-center">
 							<c:url value="/products/details" var="details">
-								<c:param name="id" value="${item.id}" />
+								<c:param name="productId" value="${item.id}" />
 							</c:url>
 							<a href="${details}" class="icon-link">
 								<i class="bi-chevron-right"></i>

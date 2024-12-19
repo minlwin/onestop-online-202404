@@ -3,7 +3,7 @@
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags"  %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
-<app:layout title="Category">
+<app:layout title="Product">
 	
 	<app:header icon="${param.id ? 'bi-pencil' : 'bi-plus'}" value="${param.id ? 'Edit Product' : 'Add New Product'}"></app:header>
 

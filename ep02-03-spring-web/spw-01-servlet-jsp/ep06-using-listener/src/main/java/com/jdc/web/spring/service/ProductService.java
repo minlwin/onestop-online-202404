@@ -3,10 +3,16 @@ package com.jdc.web.spring.service;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +35,8 @@ import jakarta.servlet.http.Part;
 @Service
 @Transactional(readOnly = true)
 public class ProductService {
+	
+	private static final DateTimeFormatter DF = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 	
 	@Autowired
 	private ProductRepo productRepo;
@@ -137,5 +145,52 @@ public class ProductService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Transactional
+	public void uploadPhotos(int productId, Collection<Part> photos, String folder) {
+		
+		var fileNames = new ArrayList<String>();
+		
+		var i = 0;
+		
+		for(var photo : photos) {
+			i ++;
+			var fileName = getFileName(photo, i, productId);
+			
+			if(null != fileName) {
+				
+				try {
+					Files.copy(photo.getInputStream(), Path.of(folder, fileName), StandardCopyOption.REPLACE_EXISTING);
+					fileNames.add(fileName);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		var product = productRepo.findById(productId).orElseThrow();
+		product.setImage(fileNames.stream().collect(Collectors.joining(",")));
+		
+	}
+
+	private String getFileName(Part photo, int index, int productId) {
+		var originalFileName = photo.getSubmittedFileName();
+		
+		if(null != originalFileName 
+				&& (originalFileName.endsWith("png") 
+					|| originalFileName.endsWith("PNG") 
+					|| originalFileName.endsWith("jpg") 
+					|| originalFileName.endsWith("JPG") 
+					|| originalFileName.endsWith("jpeg")
+					|| originalFileName.endsWith("JPEG"))) {
+			
+			var array = originalFileName.split("\\.");
+			var extension = array[array.length - 1];
+			
+			return "photo-%s-%04d%02d.%s".formatted(LocalDateTime.now().format(DF), productId, index, extension);
+		}
+		
+		return null;
 	}
 }
