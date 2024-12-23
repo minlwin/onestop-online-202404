@@ -22,11 +22,20 @@
 	<!-- Top Menu -->
 	<nav class="navbar navbar-expand shadow-sm">
 		<div class="container">
-			<a href="${root}/" class="navbar-brand">
+			<a href="${root}/home" class="navbar-brand">
 				<i class="bi-house"></i> The Shops
 			</a>
 			
 			<ul class="navbar-nav">
+			
+				<c:if test="${null ne cart and cart.totalItems gt 0}">
+					<li class="nav-item">
+						<a href="${root}/checkout" class="nav-link">
+							<i class="bi-cart"></i> ${cart.totalItems}
+						</a>
+					</li>
+				</c:if>
+			
 				<li class="nav-item">
 					<a href="${root}/sales" class="nav-link"><i class="bi-cart-check"></i> Sales</a>
 				</li>

@@ -2,6 +2,8 @@ package com.jdc.web.spring.service.output;
 
 import java.time.LocalDateTime;
 
+import org.springframework.util.StringUtils;
+
 import com.jdc.web.spring.entity.Category_;
 import com.jdc.web.spring.entity.Product;
 import com.jdc.web.spring.entity.Product_;
@@ -66,5 +68,18 @@ public class ProductInfo {
 
 	public String getStatus() {
 		return deleted ? "Deleted" : "Available";
+	}
+	
+	public String getDefaultImage() {
+		if(StringUtils.hasLength(image)) {
+			
+			var array = image.split(",");
+			
+			if(array.length > 0) {
+				return array[0];
+			}
+		}
+		
+		return "default-image.jpg";
 	}
 }

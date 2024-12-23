@@ -24,6 +24,21 @@ public class ProductDetails {
 	
 	private List<SaleItemInfo> saleItems;
 	
+	public String getStatus() {
+		return deleted ? "Deleted" : "Available";
+	}
+	
+	public String getDefaultImage() {
+		if(StringUtils.hasLength(image)) {
+			var array = image.split(",");
+			if(array.length > 0) {
+				return array[0];
+			}
+		}
+		
+		return null;
+ 	}
+	
 	public List<String> getImages() {
 		if(StringUtils.hasLength(image)) {
 			List.of(image.split(","));

@@ -23,10 +23,15 @@ public class ProductSearch {
 	private LocalDate createFrom;
 	private LocalDate createTo;
 	private String keyword;
+	private Integer categoryId;
 	
 	public Predicate[] where(CriteriaBuilder cb, Root<Product> root) {
 		
 		var params = new ArrayList<Predicate>();
+		
+		if(null != categoryId) {
+			params.add(cb.equal(root.get(Product_.category).get(Category_.id), categoryId));
+		}
 		
 		if(null != status) {
 			params.add(cb.equal(root.get(Product_.deleted), status));
