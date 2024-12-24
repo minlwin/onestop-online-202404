@@ -3,3 +3,8 @@
 .btn-wrapper {
 	padding-top: 2rem;
 }
+
+.cover-image {
+	height: 200px !important;
+	object-fit: cover;
+}

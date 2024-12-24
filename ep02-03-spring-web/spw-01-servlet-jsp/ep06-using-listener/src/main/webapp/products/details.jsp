@@ -34,7 +34,7 @@
 			</c:choose>
 			</div>
 			
-			<button id="uploadBtn" class="btn btn-outline-primary">
+			<button id="uploadBtn" class="btn btn-outline-primary d-block w-100">
 				<i class="bi-camera"></i> Upload Photos
 			</button>
 		

@@ -26,6 +26,7 @@ public class ShoppingCart implements Serializable {
 			item.setCategory(p.getCategory().getName());
 			item.setProductId(p.getId());
 			item.setProductName(p.getName());
+			item.setImage(p.getDefaultImage());
 			item.setQuantity(1);
 			item.setSalePrice(p.getPrice());
 			items.add(item);

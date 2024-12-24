@@ -28,7 +28,7 @@
 				<c:forEach items="${products}" var="item">
 					<div class="col">
 						<div class="card">
-							<img class="img-fluid w-100 card-image" src="${pageContext.request.contextPath}/static/images/${item.defaultImage}" alt="" />
+							<img class="img-fluid w-100 card-image cover-image" src="${pageContext.request.contextPath}/static/images/${item.defaultImage}" alt="" />
 							
 							<div class="card-body d-flex justify-content-between align-items-start">
 								<div>

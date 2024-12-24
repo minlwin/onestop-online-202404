@@ -75,7 +75,7 @@ public class CategoryController extends AbstractController {
 		var result = (StringUtils.hasLength(categoryId)) ? categoryService.update(Integer.parseInt(categoryId), form)
 				: categoryService.create(form);
 		
-		resp.sendRedirect(getServletContext().getContextPath().concat("/categories/details?id=%d".formatted(result)));
+		resp.sendRedirect(getServletContext().getContextPath().concat("/categories/details?categoryId=%d".formatted(result)));
 	}
 
 	private void search(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

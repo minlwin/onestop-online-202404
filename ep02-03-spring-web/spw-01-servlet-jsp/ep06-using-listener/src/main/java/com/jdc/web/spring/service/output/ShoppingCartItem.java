@@ -11,6 +11,7 @@ public class ShoppingCartItem implements Serializable{
 	
 	private int productId;
 	private String productName;
+	private String image;
 	private String category;
 	private int quantity;
 	private int salePrice;

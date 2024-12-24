@@ -3,6 +3,8 @@ package com.jdc.web.spring.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.util.StringUtils;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,4 +38,17 @@ public class Product {
 
 	@OneToMany(mappedBy = "product")
 	private List<SaleItem> saleItems;
+	
+	public String getDefaultImage() {
+		if(StringUtils.hasLength(image)) {
+			
+			var array = image.split(",");
+			
+			if(array.length > 0) {
+				return array[0];
+			}
+		}
+		
+		return "default-image.jpg";
+	}
 }
