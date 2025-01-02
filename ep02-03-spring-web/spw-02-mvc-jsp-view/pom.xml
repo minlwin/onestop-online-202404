@@ -64,5 +64,6 @@
 		<module>ep01-mvc-with-web-xml</module>
 		<module>ep02-mvc-whthout-web-xml</module>
 		<module>ep03-mvc-with-spring-boots</module>
+		<module>ep04-request-mappings</module>
 	</modules>
 </project>
