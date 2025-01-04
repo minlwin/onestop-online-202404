@@ -37,3 +37,4 @@ replay_pid*
 /**/database
 
 /.metadata
+*/testDb.mv.db
