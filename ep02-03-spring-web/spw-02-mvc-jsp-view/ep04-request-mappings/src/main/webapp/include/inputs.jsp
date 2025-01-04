@@ -12,12 +12,12 @@
 		<a href="${inputs}" class="nav-link">Query Params</a>
 	</li>
 	<li class="nav-item">
-		<a href="#" class="nav-link">Get Form Params</a>
+		<a href="${root}/inputs/javabean" class="nav-link">Get Form Params</a>
 	</li>
 	<li class="nav-item">
-		<a href="#" class="nav-link">Post Form Params</a>
+		<a href="${root}/inputs/record" class="nav-link">Post Form Params</a>
 	</li>
 	<li class="nav-item">
-		<a href="#" class="nav-link">Path Variable</a>
+		<a href="${root}/inputs/path/101" class="nav-link">Path Variable</a>
 	</li>
 </ul>

@@ -20,6 +20,9 @@
 			
 			<ul class="navbar-nav">
 				<li class="nav-item">
+					<a href="${root}/validation" class="nav-link">Form Validation</a>
+				</li>
+				<li class="nav-item">
 					<a href="${root}/inputs" class="nav-link">Input Values</a>
 				</li>
 				<li class="nav-item">
