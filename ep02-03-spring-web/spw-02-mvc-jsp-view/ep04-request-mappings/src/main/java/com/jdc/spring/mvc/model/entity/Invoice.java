@@ -21,6 +21,9 @@ public class Invoice {
 	
 	private LocalDateTime issueAt;
 	
+	private int totalCount;
+	private int totalAmount;
+	
 	@OneToMany(mappedBy = "invoice")
 	private List<InvoiceItem> items;
 }
