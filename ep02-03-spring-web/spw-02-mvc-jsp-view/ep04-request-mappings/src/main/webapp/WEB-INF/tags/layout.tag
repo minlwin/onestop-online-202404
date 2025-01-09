@@ -22,6 +22,12 @@
 			
 			<ul class="navbar-nav">
 				<li class="nav-item">
+					<a href="${root}/exception" class="nav-link">Exception Handling</a>
+				</li>
+				<li class="nav-item">
+					<a href="${root}/invoice" class="nav-link">Invoices</a>
+				</li>
+				<li class="nav-item">
 					<a href="${root}/product" class="nav-link">Products</a>
 				</li>
 				<li class="nav-item">

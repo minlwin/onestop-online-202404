@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jdc.spring.mvc.model.ShoppingCart;
 import com.jdc.spring.mvc.model.entity.Invoice;
@@ -42,7 +43,7 @@ public class CheckOutController {
 	
 	@GetMapping("add/{id}")
 	String addOne(@PathVariable int id, @SessionAttribute(required = false) ShoppingCart cart) {
-		if(null == cart) {
+		if(null == cart || cart.getTotalItems() == 0) {
 			return "redirect:/product";
 		}
 		productRepo.findById(id).ifPresent(cart::addToCart);
@@ -52,7 +53,7 @@ public class CheckOutController {
 
 	@GetMapping("remove/{id}")
 	String removeOne(@PathVariable int id, @SessionAttribute(required = false) ShoppingCart cart) {
-		if(null == cart) {
+		if(null == cart || cart.getTotalItems() == 0) {
 			return "redirect:/product";
 		}
 		cart.removeFromCart(id);
@@ -71,7 +72,8 @@ public class CheckOutController {
 	@PostMapping
 	@Transactional
 	String checkOut(HttpSession session, 
-			@SessionAttribute(required = false) ShoppingCart cart) {
+			@SessionAttribute(required = false) ShoppingCart cart, 
+			RedirectAttributes redirectAttributes) {
 		
 		if(cart == null || cart.getTotalItems() == 0) {
 			return "redirect:/product";
@@ -97,6 +99,8 @@ public class CheckOutController {
 			
 			itemRepo.save(item);
 		}
+		
+		redirectAttributes.addFlashAttribute("message", "Your order has been approved with id %s.".formatted(invoice.getId()));
 		
 		return "redirect:/invoice";
 	}
