@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/categories")
+@RequestMapping("categories")
 public class CategoryController {
 	
 	private final CategoryRepo repo;
@@ -29,7 +29,7 @@ public class CategoryController {
 		return "categories";
 	}
 	
-	@PostMapping("/upload")
+	@PostMapping("upload")
 	String upload(@RequestPart("file") MultipartFile file) {
 		
 		if(null != file) {
@@ -37,9 +37,12 @@ public class CategoryController {
 
 				String line = null;
 				while (null != (line = br.readLine())) {
-					var entity = new Category();
-					entity.setName(line);
-					repo.save(entity);
+					
+					if(repo.findOneByName(line).isEmpty()) {
+						var entity = new Category();
+						entity.setName(line);
+						repo.save(entity);
+					}
 				}
 				
 			} catch (Exception e) {

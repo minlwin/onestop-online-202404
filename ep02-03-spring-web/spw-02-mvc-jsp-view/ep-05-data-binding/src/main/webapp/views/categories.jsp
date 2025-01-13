@@ -11,7 +11,7 @@
 		Upload File
 	</button>
 	
-	<div class="row row-cols-4 g-4">
+	<div class="row row-cols-4 g-3 mt-4">
 		<c:forEach var="item" items="${list}">
 			<div class="col">
 				<div class="card">
@@ -21,8 +21,10 @@
 		</c:forEach>
 	</div>	
 	
-	<form id="uploadForm" action="${root}/categories" enctype="multipart/form-data" method="post" class="d-none">
+	<form id="uploadForm" action="${root}/categories/upload" enctype="multipart/form-data" method="post" class="d-none">
 		<input id="uploadFile" type="file" name="file" />
 	</form>
+	
+	<script src="${root}/resources/js/categories.js"></script>
 	
 </app:layout>

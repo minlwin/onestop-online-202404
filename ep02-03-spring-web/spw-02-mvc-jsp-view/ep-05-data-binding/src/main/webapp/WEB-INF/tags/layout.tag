@@ -17,6 +17,21 @@
 </head>
 <body>
 
+	<nav class="navbar navbar-expand bg-dark navbar-dark">
+		<div class="container">
+			<span class="navbar-brand">Data Binding</span>
+			
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a href="${root}/products" class="nav-link ${title eq 'Products' ? 'active' : ''}">Products</a>
+				</li>
+				<li class="nav-item">
+					<a href="${root}/categories" class="nav-link ${title eq 'Categories' ? 'active' : ''}">Categories</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
 	<div class="container mt-4">
 		<jsp:doBody></jsp:doBody>
 	</div>
