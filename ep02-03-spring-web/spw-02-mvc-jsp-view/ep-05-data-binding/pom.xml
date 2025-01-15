@@ -7,7 +7,7 @@
 		<artifactId>spw-02-mvc-jsp-view</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>ep-05-data-binding</artifactId>
+	<artifactId>ep05-data-binding</artifactId>
 	<packaging>war</packaging>
 	<dependencies>
 
