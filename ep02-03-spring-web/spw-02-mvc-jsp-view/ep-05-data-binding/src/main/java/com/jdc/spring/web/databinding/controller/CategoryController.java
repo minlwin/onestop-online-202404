@@ -1,8 +1,5 @@
 package com.jdc.spring.web.databinding.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.jdc.spring.web.databinding.model.entity.Category;
-import com.jdc.spring.web.databinding.model.repo.CategoryRepo;
+import com.jdc.spring.web.databinding.model.service.CategoryService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,11 +17,11 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("categories")
 public class CategoryController {
 	
-	private final CategoryRepo repo;
+	private final CategoryService service;
 
 	@GetMapping
 	String search(ModelMap model) {
-		model.put("list", repo.findAll());
+		model.put("list", service.findAll());
 		return "categories";
 	}
 	
@@ -33,21 +29,7 @@ public class CategoryController {
 	String upload(@RequestPart("file") MultipartFile file) {
 		
 		if(null != file) {
-			try (var br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
-
-				String line = null;
-				while (null != (line = br.readLine())) {
-					
-					if(repo.findOneByName(line).isEmpty()) {
-						var entity = new Category();
-						entity.setName(line);
-						repo.save(entity);
-					}
-				}
-				
-			} catch (Exception e) {
-                e.printStackTrace();
-			}
+			service.upload(file);
 		}
 		
 		return "redirect:/categories";

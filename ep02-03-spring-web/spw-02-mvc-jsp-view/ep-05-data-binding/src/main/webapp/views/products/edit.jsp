@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <app:layout title="Products">
 
@@ -11,32 +12,37 @@
 		<div class="col-4">
 			<div class="card">
 				<div class="card-body">
-					<form action="${root}/products/edit" method="post">
+					<form:form action="${root}/products/edit" method="post" modelAttribute="form">
+						
+						<form:hidden path="id"/>
 						
 						<div class="mb-3">
 							<label class="form-label">Category</label>
-							<select name="category" class="form-select" required="required">
+							<form:select path="category" class="form-select">
 								<option value="">Select One</option>
 								<c:forEach var="item" items="${categories}">
-									<option value="${item.id}">${item.name}</option>
+									<option value="${item.id}" ${item.id eq form.category.id ? 'selected="selected"' : ''}>${item.name}</option>
 								</c:forEach>
-							</select>
+							</form:select>
+							<form:errors path="category" />
 						</div>
 						
 						<div class="mb-3">
 							<label class="form-label">Name</label>
-							<input name="name" type="text" class="form-control" />
+							<form:input path="name" type="text" class="form-control" />
+							<form:errors path="name" />
 						</div>
 
 						<div class="mb-3">
 							<label class="form-label">Price</label>
-							<input name="price" type="number" class="form-control" />
+							<form:input path="price" class="form-control" />
+							<form:errors path="price" />
 						</div>
 						
 						<button type="submit" class="btn btn-primary">
 							Save
 						</button>
-					</form>
+					</form:form >
 				</div>
 			</div>
 		</div>
