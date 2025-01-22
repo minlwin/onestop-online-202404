@@ -71,7 +71,7 @@
 		<module>ep02-mvc-whthout-web-xml</module>
 		<module>ep03-mvc-with-spring-boots</module>
 		<module>ep04-request-mappings</module>
-		<module>ep-05-data-binding</module>
+		<module>ep05-data-binding</module>
 		<module>ep06-spring-validators</module>
 	</modules>
 </project>
