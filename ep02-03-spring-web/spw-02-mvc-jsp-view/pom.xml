@@ -73,5 +73,6 @@
 		<module>ep04-request-mappings</module>
 		<module>ep05-data-binding</module>
 		<module>ep06-spring-validators</module>
+		<module>ep07-bean-validation-api</module>
 	</modules>
 </project>
