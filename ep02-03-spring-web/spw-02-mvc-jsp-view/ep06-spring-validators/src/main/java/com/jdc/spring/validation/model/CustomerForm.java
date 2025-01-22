@@ -16,4 +16,8 @@ public class CustomerForm {
 	public enum Gender {
 		Male, Female
 	}
+
+	public CustomerDto getDto(int id) {
+		return new CustomerDto(id, name, phone, email, dob, gender);
+	}
 }

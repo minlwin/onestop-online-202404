@@ -16,15 +16,15 @@ public class CustomerFormValidator implements Validator{
 
 		if(target instanceof CustomerForm form) {
 			
-			if(StringUtils.hasLength(form.getName())) {
+			if(!StringUtils.hasLength(form.getName())) {
 				errors.rejectValue("name", null, "Please enter customer name.");
 			}
 
-			if(StringUtils.hasLength(form.getPhone())) {
+			if(!StringUtils.hasLength(form.getPhone())) {
 				errors.rejectValue("phone", null, "Please enter phone number.");
 			}
 
-			if(StringUtils.hasLength(form.getEmail())) {
+			if(!StringUtils.hasLength(form.getEmail())) {
 				errors.rejectValue("email", null, "Please enter email address.");
 			}
 			

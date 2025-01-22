@@ -1,6 +1,7 @@
 package com.jdc.spring.validation.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -12,10 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jdc.spring.validation.model.CustomerForm;
 import com.jdc.spring.validation.model.CustomerFormValidator;
+import com.jdc.spring.validation.model.CustomerRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("customer")
 public class CustomerController {
+	
+	private final CustomerRepository repo;
 	
 	@InitBinder
 	public void init(WebDataBinder binder) {
@@ -23,7 +30,8 @@ public class CustomerController {
 	}
 	
 	@GetMapping
-	String index() {
+	String index(ModelMap model) {
+		model.put("customers", repo.getAll());
 		return "customer/list";
 	}
 	
@@ -35,11 +43,13 @@ public class CustomerController {
 	
 	@PostMapping("edit")
 	String save(
-			@Validated @ModelAttribute CustomerForm customerForm, BindingResult result) {
+			@Validated @ModelAttribute("form") CustomerForm customerForm, BindingResult result) {
 		
 		if(result.hasErrors()) {
 			return "customer/edit";
 		}
+		
+		repo.add(customerForm);
 		
 		return "redirect:/customer";
 	}
