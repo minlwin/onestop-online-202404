@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:mvc="http://www.springframework.org/schema/mvc" 
+    xmlns:tx="http://www.springframework.org/schema/tx" 
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+    xmlns:security="http://www.springframework.org/schema/security" 
+    xsi:schemaLocation="
+    	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+    	http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd 
+    	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd 
+    	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+    	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd 
+    	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd 
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Bean Configurations -->
+    <mvc:annotation-driven />
+    <context:component-scan base-package="com.jdc.spring" />
+	
+	<mvc:view-resolvers>
+		<mvc:jsp prefix="/views/" suffix=".jsp"/>
+	</mvc:view-resolvers>    
+	
+	<mvc:view-controller path="/admin" view-name="admin" />
+	<mvc:view-controller path="/member" view-name="member" />
+	<mvc:resources location="/resources/" mapping="/resources/**" />
+	
+	<!-- Security Configurations -->
+	<security:http>
+	
+		<security:intercept-url pattern="/" access="permitAll"/>
+		<security:intercept-url pattern="/resources/**" access="permitAll"/>
+		
+		<security:intercept-url pattern="/admin/**" access="hasAuthority('Admin')"/>
+		<security:intercept-url pattern="/member/**" access="hasAnyAuthority('Admin', 'Member')"/>
+		
+		<security:intercept-url pattern="/**" access="authenticated"/>
+		
+		<security:form-login/>
+		<security:logout/>
+
+	</security:http>
+	
+	<security:user-service>
+		<security:user name="admin" password="{noop}admin" authorities="Admin"/>
+		<security:user name="member" password="{noop}member" authorities="Member"/>
+	</security:user-service>
+	
+    
+</beans>
