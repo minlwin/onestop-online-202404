@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.1</version>
+		<version>3.4.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -64,5 +64,7 @@
 		
 	<modules>
 		<module>ep01-spring-security-xml</module>
+		<module>ep02-spring-security-java</module>
+		<module>ep03-spring-security-boots</module>
 	</modules>
 </project>

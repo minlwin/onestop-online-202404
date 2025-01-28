@@ -47,7 +47,6 @@
 	<security:user-service>
 		<security:user name="admin" password="{noop}admin" authorities="Admin"/>
 		<security:user name="member" password="{noop}member" authorities="Member"/>
-	</security:user-service>
-	
+	</security:user-service>	
     
 </beans>
