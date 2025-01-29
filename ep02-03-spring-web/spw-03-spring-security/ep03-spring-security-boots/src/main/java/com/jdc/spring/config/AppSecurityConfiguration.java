@@ -8,8 +8,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import jakarta.servlet.DispatcherType;
-
 @Configuration
 public class AppSecurityConfiguration {
 
@@ -17,15 +15,14 @@ public class AppSecurityConfiguration {
 	SecurityFilterChain httpSecurity(HttpSecurity http) throws Exception {
 		
 		http.authorizeHttpRequests(req -> {
-			req.dispatcherTypeMatchers(DispatcherType.ERROR, DispatcherType.FORWARD, DispatcherType.INCLUDE)
-				.permitAll();
 			req.requestMatchers("/", "/resources/**").permitAll();
 			req.requestMatchers("/admin/**").hasAuthority("Admin");
 			req.requestMatchers("/member/**").hasAnyAuthority("Admin", "Member");
 			req.anyRequest().authenticated();
 		});
 		
-		http.formLogin(login -> {});
+		http.formLogin(form -> {});
+		
 		http.logout(logout -> {});
 		
 		return http.build();

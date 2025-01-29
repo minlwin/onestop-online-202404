@@ -39,7 +39,8 @@
 		
 		<security:intercept-url pattern="/**" access="authenticated"/>
 		
-		<security:form-login/>
+		<security:http-basic />
+		
 		<security:logout/>
 
 	</security:http>
