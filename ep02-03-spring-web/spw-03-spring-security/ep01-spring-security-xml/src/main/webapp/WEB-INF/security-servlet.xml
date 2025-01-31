@@ -6,6 +6,7 @@
     xmlns:mvc="http://www.springframework.org/schema/mvc" 
     xmlns:tx="http://www.springframework.org/schema/tx" 
     xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+    xmlns:repo="http://www.springframework.org/schema/data/jpa" 
     xmlns:security="http://www.springframework.org/schema/security" 
     xsi:schemaLocation="
     	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
@@ -14,6 +15,7 @@
     	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd 
     	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd 
     	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd 
+        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- Bean Configurations -->
@@ -26,12 +28,14 @@
 	
 	<mvc:view-controller path="/admin" view-name="admin" />
 	<mvc:view-controller path="/member" view-name="member" />
+	<mvc:view-controller path="/authenticate" view-name="login" />
 	<mvc:resources location="/resources/" mapping="/resources/**" />
 	
 	<!-- Security Configurations -->
-	<security:http>
+	<security:http authentication-manager-ref="appProviderManager"  >
 	
 		<security:intercept-url pattern="/" access="permitAll"/>
+		<security:intercept-url pattern="/authenticate" access="permitAll"/>
 		<security:intercept-url pattern="/resources/**" access="permitAll"/>
 		
 		<security:intercept-url pattern="/admin/**" access="hasAuthority('Admin')"/>
@@ -39,15 +43,55 @@
 		
 		<security:intercept-url pattern="/**" access="authenticated"/>
 		
-		<security:http-basic />
+		<security:form-login 
+			login-page="/authenticate"
+			login-processing-url="/authenticate"
+			authentication-failure-handler-ref="authErrorHandler" />
 		
 		<security:logout/>
 
 	</security:http>
 	
-	<security:user-service>
-		<security:user name="admin" password="{noop}admin" authorities="Admin"/>
-		<security:user name="member" password="{noop}member" authorities="Member"/>
-	</security:user-service>	
+	<bean id="authErrorHandler" class="com.jdc.spring.service.AppAuthFailureHandler" />
+	
+	<!-- For Authorize Tag -->
+	<bean id="webSecurityExpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"></bean>
     
+    <!-- Password Encoder -->
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+    
+    <!-- Database Configuration -->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+    	<property name="driverClassName" value="org.h2.Driver"></property>
+    	<property name="url" value="jdbc:h2:file:./xml/database" />
+    	<property name="username" value="sa" />
+    	<property name="password" value="sa" />
+    </bean>
+    
+    <!-- Entity Manager Factory Bean -->
+    <bean id="entityManagerFactoryBean" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    	<property name="dataSource" ref="dataSource" />
+    	<property name="persistenceProviderClass" value="org.hibernate.jpa.HibernatePersistenceProvider" />
+    	<property name="packagesToScan" value="com.jdc.spring.model.entity" />
+    	<property name="jpaPropertyMap">
+    		<map>
+    			<entry key="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+    			<entry key="hibernate.hbm2ddl.auto" value="update" />
+    			<entry key="hibernate.show_sql" value="true" />
+    			<entry key="hibernate.format_sql" value="true" />
+    		</map>
+    	</property>
+    </bean>
+    
+    <!-- Transaction Manager -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" >
+    	<property name="entityManagerFactory" ref="entityManagerFactoryBean" />
+    </bean>
+    
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+    <repo:repositories base-package="com.jdc.spring.model.repo" 
+    	entity-manager-factory-ref="entityManagerFactoryBean"
+    	transaction-manager-ref="transactionManager"  />
+	    
 </beans>

@@ -29,16 +29,26 @@
 						Admin Home
 					</a>
 				</li>
+				
 				<li class="nav-item">
 					<a href="${pageContext.request.contextPath}/member" class="nav-link">
 						Member Home
 					</a>
 				</li>
-				<li class="nav-item">
-					<a href="#" id="logoutMenu" class="nav-link">
-						Logout
+
+				<sc:authorize access="isAnonymous">
+					<a href="${pageContext.request.contextPath}/authenticate" class="nav-link">
+						Login
 					</a>
-				</li>
+				</sc:authorize>
+				
+				<sc:authorize access="authenticated">
+					<li class="nav-item">
+						<a href="#" id="logoutMenu" class="nav-link">
+							Logout
+						</a>
+					</li>
+				</sc:authorize>
 			</ul>
 		</div>
 	</nav>
@@ -48,10 +58,13 @@
 		<jsp:doBody></jsp:doBody>
 	</main>
 	
-	<form id="logoutForm" cssClass="d-none" action="${pageContext.request.contextPath}/logout" method="post">
-		<sc:csrfInput/>
-	</form>
 	
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/application.js"></script>
+	<sc:authorize access="authenticated">
+		<form id="logoutForm" cssClass="d-none" action="${pageContext.request.contextPath}/logout" method="post">
+			<sc:csrfInput/>
+		</form>
+		
+		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/application.js"></script>
+	</sc:authorize>
 </body>
 </html>
