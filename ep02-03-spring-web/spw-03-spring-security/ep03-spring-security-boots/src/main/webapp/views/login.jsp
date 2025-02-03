@@ -5,7 +5,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <app:layout>
-	<h3><i class="bi-unlock"></i> Login</h3>
+	<h3><i class="bi-unlock"></i> Sign In</h3>
 	
 	<form method="post" class="w-25">
 	
@@ -25,8 +25,13 @@
 			<input name="password" type="password" class="form-control" placeholder="Enter Password" />
 		</div>
 		
-		<button class="btn btn-outline-primary">
-			Login
-		</button>
+		<div>
+			<a href="${root}/signup" class="btn btn-outline-primary">
+				Sign Up
+			</a>		
+			<button class="btn btn-primary">
+				Sign In
+			</button>
+		</div>
 	</form>
 </app:layout>

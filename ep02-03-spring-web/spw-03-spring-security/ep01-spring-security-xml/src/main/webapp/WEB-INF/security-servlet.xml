@@ -35,6 +35,7 @@
 	<security:http authentication-manager-ref="appProviderManager"  >
 	
 		<security:intercept-url pattern="/" access="permitAll"/>
+		<security:intercept-url pattern="/signup" access="permitAll"/>
 		<security:intercept-url pattern="/authenticate" access="permitAll"/>
 		<security:intercept-url pattern="/resources/**" access="permitAll"/>
 		

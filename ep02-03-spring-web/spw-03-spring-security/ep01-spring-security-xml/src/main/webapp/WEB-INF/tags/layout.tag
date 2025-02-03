@@ -1,5 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ attribute name="title" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sc" uri="http://www.springframework.org/security/tags" %>
 
@@ -8,6 +9,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Security | ${title ne null ? title : 'Home'} </title>
+
+<c:set value="${pageContext.request.contextPath}" scope="request" var="root" />
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -38,14 +41,14 @@
 
 				<sc:authorize access="isAnonymous">
 					<a href="${pageContext.request.contextPath}/authenticate" class="nav-link">
-						Login
+						Sign In
 					</a>
 				</sc:authorize>
 				
 				<sc:authorize access="authenticated">
 					<li class="nav-item">
 						<a href="#" id="logoutMenu" class="nav-link">
-							Logout
+							Sign Out
 						</a>
 					</li>
 				</sc:authorize>
