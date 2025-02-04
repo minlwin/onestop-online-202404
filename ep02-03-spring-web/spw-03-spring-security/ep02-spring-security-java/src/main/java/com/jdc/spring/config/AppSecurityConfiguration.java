@@ -1,5 +1,7 @@
 package com.jdc.spring.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import com.jdc.spring.service.AppAuthFailureHandler;
 
@@ -22,7 +26,9 @@ import com.jdc.spring.service.AppAuthFailureHandler;
 public class AppSecurityConfiguration {
 
 	@Bean
-	SecurityFilterChain httpSecurity(HttpSecurity http) throws Exception {
+	SecurityFilterChain httpSecurity(
+			HttpSecurity http, 
+			PersistentTokenRepository persistentTokenRepository) throws Exception {
 		
 		http.authorizeHttpRequests(req -> {
 			req.requestMatchers("/", "/signup", "/authenticate", "/resources/**").permitAll();
@@ -35,6 +41,11 @@ public class AppSecurityConfiguration {
 			form.loginPage("/authenticate");
 			form.failureHandler(new AppAuthFailureHandler());
 		});
+		
+		http.rememberMe(rememberMe -> {
+			rememberMe.tokenRepository(persistentTokenRepository);
+		});
+		
 		http.logout(logout -> {});
 		
 		return http.build();
@@ -49,5 +60,15 @@ public class AppSecurityConfiguration {
 	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
 		return authenticationConfiguration.getAuthenticationManager();
 	}
+	
+	@Bean
+	PersistentTokenRepository persistentTokenRepository(DataSource dataSource) {
+		var bean = new JdbcTokenRepositoryImpl();
+		bean.setDataSource(dataSource);
+		// Create Table on first time
+		// bean.setCreateTableOnStartup(true);
+		return bean;
+	}
+
 
 }

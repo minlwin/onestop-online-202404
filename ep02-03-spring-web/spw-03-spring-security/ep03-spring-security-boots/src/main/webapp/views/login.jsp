@@ -25,6 +25,13 @@
 			<input name="password" type="password" class="form-control" placeholder="Enter Password" />
 		</div>
 		
+		<div class="mb-3">
+			<div class="form-check">
+				<input name="remember-me" type="checkbox" class="form-check-input" />		
+				<label class="form-check-label">Remember Me</label>
+			</div>
+		</div>
+		
 		<div>
 			<a href="${root}/signup" class="btn btn-outline-primary">
 				Sign Up
