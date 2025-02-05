@@ -3,5 +3,5 @@
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 
 <app:layout>
-	<h3><i class="bi-person"></i> Admin Home</h3>
+	<h3><i class="bi-people"></i> Account Management</h3>
 </app:layout>

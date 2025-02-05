@@ -57,7 +57,7 @@ public class SignUpController {
 			var session = request.getSession(true);
 			session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
 
-			return "redirect:/member";
+			return "redirect:/";
 			
 		} catch (AppBusinessException e) {
 			result.rejectValue("email", null, e.getMessage());

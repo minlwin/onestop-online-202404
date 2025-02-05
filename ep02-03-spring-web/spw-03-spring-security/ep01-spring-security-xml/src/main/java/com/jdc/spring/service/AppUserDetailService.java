@@ -22,6 +22,7 @@ public class AppUserDetailService implements UserDetailsService {
 				.map(account -> User.withUsername(username)
 						.authorities(account.getRole().name())
 						.password(account.getPassword())
+						.disabled(account.isDisabled())
 						.build())
 				.orElseThrow(() -> new UsernameNotFoundException("There is no account with email %s.".formatted(username)));
 	}

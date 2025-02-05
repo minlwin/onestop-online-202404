@@ -3,5 +3,5 @@
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 
 <app:layout>
-	<h3><i class="bi-people"></i> Member Security</h3>
+	<h3><i class="bi-ui-checks"></i> Account Details</h3>
 </app:layout>

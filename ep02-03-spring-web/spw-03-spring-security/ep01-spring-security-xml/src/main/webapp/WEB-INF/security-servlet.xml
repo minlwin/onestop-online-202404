@@ -26,8 +26,6 @@
 		<mvc:jsp prefix="/views/" suffix=".jsp"/>
 	</mvc:view-resolvers>    
 	
-	<mvc:view-controller path="/admin" view-name="admin" />
-	<mvc:view-controller path="/member" view-name="member" />
 	<mvc:view-controller path="/authenticate" view-name="login" />
 	<mvc:resources location="/resources/" mapping="/resources/**" />
 	
@@ -40,8 +38,6 @@
 		<security:intercept-url pattern="/resources/**" access="permitAll"/>
 		
 		<security:intercept-url pattern="/admin/**" access="hasAuthority('Admin')"/>
-		<security:intercept-url pattern="/member/**" access="hasAnyAuthority('Admin', 'Member')"/>
-		
 		<security:intercept-url pattern="/**" access="authenticated"/>
 		
 		<security:remember-me />
@@ -94,7 +90,10 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
     
     <repo:repositories base-package="com.jdc.spring.model.repo" 
+    	base-class="com.jdc.spring.model.BaseRepositoryImpl"
     	entity-manager-factory-ref="entityManagerFactoryBean"
     	transaction-manager-ref="transactionManager"  />
+    	
+	<repo:auditing auditor-aware-ref="auditorAwareBean"/> 	
 	    
 </beans>

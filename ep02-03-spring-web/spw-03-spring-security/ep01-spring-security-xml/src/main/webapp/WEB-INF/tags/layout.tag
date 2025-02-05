@@ -27,25 +27,28 @@
 			</a>
 			
 			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a href="${pageContext.request.contextPath}/admin" class="nav-link">
-						Admin Home
-					</a>
-				</li>
-				
-				<li class="nav-item">
-					<a href="${pageContext.request.contextPath}/member" class="nav-link">
-						Member Home
-					</a>
-				</li>
-
 				<sc:authorize access="isAnonymous">
 					<a href="${pageContext.request.contextPath}/authenticate" class="nav-link">
 						Sign In
 					</a>
 				</sc:authorize>
 				
+				<sc:authorize access="hasAuthority('Admin')">
+					<li class="nav-item">
+						<a href="${pageContext.request.contextPath}/admin/account" class="nav-link">
+							Account Management
+						</a>
+					</li>
+				</sc:authorize>
+				
 				<sc:authorize access="authenticated">
+
+					<li class="nav-item">
+						<a href="${pageContext.request.contextPath}/access" class="nav-link">
+							Access History
+						</a>
+					</li>
+					
 					<li class="nav-item">
 						<a href="#" id="logoutMenu" class="nav-link">
 							Sign Out
