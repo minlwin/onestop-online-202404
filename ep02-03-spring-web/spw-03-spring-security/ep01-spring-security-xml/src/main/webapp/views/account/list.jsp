@@ -6,7 +6,7 @@
 	<h3><i class="bi-people"></i> Account Management</h3>
 	
 	<!-- Search Form -->
-	<form class="row">
+	<form class="row mb-3">
 		<!-- Status -->
 		<app:form-group label="Status" cssClass="col-auto">
 			<select name="status" class="form-select">
@@ -40,6 +40,34 @@
 	</form>
 	
 	<!-- Search Result -->
+	<table class="table table-striped table-bordered table-hover">
+	
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Status</th>
+				<th>Created At</th>
+				<th>Modified At</th>
+				<th></th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr>
+				<td>Aung Aung</td>
+				<td>aung@gmail.com</td>
+				<td>Active</td>
+				<td>2025-02-10 17:00</td>
+				<td>2025-02-10 17:00</td>
+				<td class="text-center">
+					<a href="#">
+						<i class="bi-arrow-right"></i>
+					</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 	
 	<!-- Pagination -->
 	<app:pagination />

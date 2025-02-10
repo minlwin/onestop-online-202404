@@ -1,3 +1,7 @@
 .btn-wrapper {
 	padding-top: 2rem;
 }
+
+.page-links button {
+	width: 2.8rem;
+}
