@@ -24,6 +24,8 @@ public class Account extends AuditableEntity{
 	@Column(nullable = false, unique = true)
 	private String email;
 	
+	private String profileImage;
+	
 	@Column(nullable = false)
 	private String password;
 

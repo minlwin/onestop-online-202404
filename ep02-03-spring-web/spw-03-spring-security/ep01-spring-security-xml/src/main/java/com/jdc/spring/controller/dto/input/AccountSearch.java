@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.springframework.util.StringUtils;
 
 import com.jdc.spring.model.entity.Account;
+import com.jdc.spring.model.entity.Account.Role;
 import com.jdc.spring.model.entity.Account_;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -20,6 +21,7 @@ public record AccountSearch(
 
 	public Predicate[] where(CriteriaBuilder cb, Root<Account> root) {
 		var params = new ArrayList<Predicate>();
+		params.add(cb.equal(root.get(Account_.role), Role.Member));
 		
 		if(null != status) {
 			params.add(cb.equal(root.get(Account_.disabled), status));

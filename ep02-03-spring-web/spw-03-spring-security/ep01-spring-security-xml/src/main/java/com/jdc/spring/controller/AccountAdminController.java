@@ -42,7 +42,10 @@ public class AccountAdminController {
 	 * @return
 	 */
 	@GetMapping("{id}")
-	String findById(@PathVariable int id) {
+	String findById(@PathVariable int id, ModelMap model) {
+		
+		model.put("result", service.findById(id));
+		
 		return "account/details";
 	}
 	

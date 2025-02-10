@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jdc.spring.controller.dto.input.AccountSearch;
+import com.jdc.spring.controller.dto.output.AccountDetails;
 import com.jdc.spring.controller.dto.output.AccountInfo;
+import com.jdc.spring.exception.AppBusinessException;
 import com.jdc.spring.model.PageInfo;
 import com.jdc.spring.model.entity.Account;
 import com.jdc.spring.model.entity.Account_;
@@ -18,11 +20,17 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class AccountManagementService {
 
 	private final AccountRepo repo;
 	
-	@Transactional(readOnly = true)
+	public AccountDetails findById(int id) {
+		return repo.findById(id)
+				.map(entity -> AccountDetails.from(entity))
+				.orElseThrow(() -> new AppBusinessException("There is no entity."));
+	}	
+	
 	public PageInfo<AccountInfo> search(AccountSearch search, int page, int size) {
 		return repo.search(queryFunc(search), countFunc(search), page, size);
 	}
@@ -51,6 +59,6 @@ public class AccountManagementService {
 			
 			return cq;
 		};
-	}	
+	}
 
 }

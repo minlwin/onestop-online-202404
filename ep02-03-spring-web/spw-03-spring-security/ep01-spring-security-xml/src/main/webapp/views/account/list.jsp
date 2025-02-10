@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <app:layout>
 	<h3><i class="bi-people"></i> Account Management</h3>
@@ -54,18 +55,20 @@
 		</thead>
 		
 		<tbody>
+			<c:forEach var="item" items="${result.contents()}">
 			<tr>
-				<td>Aung Aung</td>
-				<td>aung@gmail.com</td>
-				<td>Active</td>
-				<td>2025-02-10 17:00</td>
-				<td>2025-02-10 17:00</td>
+				<td>${item.name()}</td>
+				<td>${item.email()}</td>
+				<td>${item.disabled() ? 'Disable' : 'Active'}</td>
+				<td>${dateTimes.format(item.createdAt())}</td>
+				<td>${dateTimes.format(item.modifiedAt())}</td>
 				<td class="text-center">
-					<a href="#">
+					<a href="${root}/admin/account/${item.id()}">
 						<i class="bi-arrow-right"></i>
 					</a>
 				</td>
 			</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 	
