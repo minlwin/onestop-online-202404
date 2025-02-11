@@ -51,6 +51,8 @@
 
 	</security:http>
 	
+	<security:method-security  />
+	
 	<bean id="authErrorHandler" class="com.jdc.spring.service.AppAuthFailureHandler" />
 	
 	<!-- For Authorize Tag -->

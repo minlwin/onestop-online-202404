@@ -5,3 +5,8 @@
 .page-links button {
 	width: 2.8rem;
 }
+
+.profile-image {
+	width: 100%;
+	height: 300px;
+}

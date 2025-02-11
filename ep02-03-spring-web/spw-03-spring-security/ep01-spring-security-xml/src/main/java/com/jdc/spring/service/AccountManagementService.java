@@ -2,6 +2,7 @@ package com.jdc.spring.service;
 
 import java.util.function.Function;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,15 @@ public class AccountManagementService {
 	public PageInfo<AccountInfo> search(AccountSearch search, int page, int size) {
 		return repo.search(queryFunc(search), countFunc(search), page, size);
 	}
+	
+	@Transactional
+	@PreAuthorize("hasAuthority('Admin')")
+	public void switchStatus(int id) {
+		repo.findById(id).ifPresent(entity -> {
+			entity.setDisabled(!entity.isDisabled());
+		});
+	}
+
 
 	private Function<CriteriaBuilder, CriteriaQuery<AccountInfo>> queryFunc(AccountSearch search) {
 		return cb -> {

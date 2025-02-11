@@ -55,6 +55,7 @@ public class AccountAdminController {
 	 */
 	@PostMapping("{id}/status")
 	String changeStatus(@PathVariable int id) {
+		service.switchStatus(id);
 		return "redirect:/admin/account/{id}";
 	}
 }
