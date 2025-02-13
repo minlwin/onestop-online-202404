@@ -3,6 +3,7 @@ package com.jdc.spring.service;
 import java.io.IOException;
 
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -22,6 +23,7 @@ public class AppAuthFailureHandler implements AuthenticationFailureHandler{
 		var message = switch(exception) {
 		case UsernameNotFoundException e -> "Please check login id.";
 		case BadCredentialsException e -> "Please check password.";
+		case DisabledException e -> "Your account is disabled.";
 		default -> "Authentication Error.";
 		};
 		

@@ -1,6 +1,6 @@
 package com.jdc.spring.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
@@ -15,18 +15,19 @@ import com.jdc.spring.controller.dto.SignUpForm;
 import com.jdc.spring.exception.AppBusinessException;
 import com.jdc.spring.service.AppProviderManager;
 import com.jdc.spring.service.SignUpService;
+import com.jdc.spring.service.listener.SignUpEvent;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("signup")
 public class SignUpController {
 	
-	@Autowired
-	private SignUpService service;
-	
-	@Autowired
-	private AppProviderManager authenticationManager;
+	private final SignUpService service;
+	private final AppProviderManager authenticationManager;
+	private final ApplicationEventPublisher publisher;
 
 	@GetMapping
 	String signUp() {
@@ -45,6 +46,9 @@ public class SignUpController {
 		
 		try {
 			service.createAccount(form);
+			
+			// Publish Event
+			publisher.publishEvent(new SignUpEvent(form.getEmail()));
 			
 			// Programmatic Login
 			var authentication = authenticationManager.authenticate(form.getToken());

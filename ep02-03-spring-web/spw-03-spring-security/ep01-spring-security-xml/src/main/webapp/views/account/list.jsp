@@ -73,6 +73,6 @@
 	</table>
 	
 	<!-- Pagination -->
-	<app:pagination />
+	<app:pagination pageInfo="${result}" />
 	
 </app:layout>

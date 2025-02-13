@@ -5,7 +5,7 @@ import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +29,7 @@ public class AccessHistoryService {
 	private AccessHistoryRepo repo;
 
 	public void loginSuccess(String username, Class<?> generatedBy) {
-		var type = generatedBy == AbstractAuthenticationProcessingFilter.class ? AccessHistory.Type.Login : AccessHistory.Type.RememberMeLogin;
+		var type = generatedBy == UsernamePasswordAuthenticationFilter.class ? AccessHistory.Type.Login : AccessHistory.Type.RememberMeLogin;
 		createHistory(type, AccessHistory.Status.Success, username);
 	}
 
@@ -40,6 +40,11 @@ public class AccessHistoryService {
 	public void fails(String username, String message) {
 		createHistory(AccessHistory.Type.Login, AccessHistory.Status.Fails, username, message);
 	}
+	
+	public void signup(String username) {
+		createHistory(AccessHistory.Type.SignUp, AccessHistory.Status.Success, username);
+	}
+
 
 	@PreAuthorize("authenticated")
 	@Transactional(readOnly = true)
@@ -87,5 +92,6 @@ public class AccessHistoryService {
 		
 		repo.save(entity);
 	}
+
 
 }

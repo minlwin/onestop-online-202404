@@ -27,8 +27,8 @@
 		
 		<div class="mb-3">
 			<div class="form-check">
-				<input name="remember-me" type="checkbox" class="form-check-input" />		
-				<label class="form-check-label">Remember Me</label>
+				<input id="remememberMe" name="remember-me" type="checkbox" class="form-check-input" />		
+				<label for="remememberMe" class="form-check-label">Remember Me</label>
 			</div>
 		</div>
 

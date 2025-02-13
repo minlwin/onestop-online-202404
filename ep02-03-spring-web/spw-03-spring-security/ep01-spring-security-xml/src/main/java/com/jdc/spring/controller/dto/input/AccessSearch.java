@@ -5,7 +5,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jdc.spring.model.entity.AccessHistory;
 import com.jdc.spring.model.entity.AccessHistory.Status;
@@ -17,8 +16,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
 public record AccessSearch(
-		@RequestParam(name = "action")
-		Type type,
+		Type action,
 		Status status,
 		LocalDate from,
 		LocalDate to,
@@ -33,8 +31,8 @@ public record AccessSearch(
 			params.add(cb.equal(root.get(AccessHistory_.username), authentication.getName()));
 		}
 		
-	    if (null != type) {
-	        params.add(cb.equal(root.get(AccessHistory_.type), type));
+	    if (null != action) {
+	        params.add(cb.equal(root.get(AccessHistory_.type), action));
 	    }
 
 	    if (null != status) {

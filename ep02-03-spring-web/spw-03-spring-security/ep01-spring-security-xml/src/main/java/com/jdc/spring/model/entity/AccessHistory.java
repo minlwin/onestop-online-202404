@@ -26,7 +26,16 @@ public class AccessHistory {
 	private String remark;
 	
 	public enum Type {
-		Login, RememberMeLogin, Logout
+		SignUp, Login, RememberMeLogin, Logout;
+		
+		public String displayName() {
+            return switch (this) {
+                case SignUp -> "Sign Up";
+                case Login -> "Login";
+                case RememberMeLogin -> "Remember Me Login";
+                case Logout -> "Logout";
+            };
+		}
 	}
 	
 	public enum Status {

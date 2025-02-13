@@ -1,6 +1,5 @@
 package com.jdc.spring.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,13 +10,14 @@ import com.jdc.spring.model.entity.Account;
 import com.jdc.spring.model.entity.Account.Role;
 import com.jdc.spring.model.repo.AccountRepo;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class SignUpService {
 	
-	@Autowired
-	private AccountRepo repo;
-	@Autowired
-	private PasswordEncoder encoder;
+	private final AccountRepo repo;
+	private final PasswordEncoder encoder;
 
 	@Transactional
 	public void createAccount(SignUpForm form) {
