@@ -66,5 +66,6 @@
 		<module>ep01-spring-security-xml</module>
 		<module>ep02-spring-security-java</module>
 		<module>ep03-spring-security-boots</module>
+		<module>ep04-role-hierarchy</module>
 	</modules>
 </project>
