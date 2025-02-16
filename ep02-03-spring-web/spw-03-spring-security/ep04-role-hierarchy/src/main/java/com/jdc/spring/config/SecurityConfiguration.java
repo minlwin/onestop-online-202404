@@ -18,10 +18,10 @@ public class SecurityConfiguration {
 		
 		http.authorizeHttpRequests(request -> {
 			request.requestMatchers("/", "/login").permitAll();
-			request.requestMatchers("/admin/**").hasRole("ADMIN");
-			request.requestMatchers("/manager/**").hasRole("MANAGER");
-			request.requestMatchers("/staff/**").hasRole("STAFF");
-			request.requestMatchers("/member/**").hasRole("MEMBER");
+			request.requestMatchers("/admin" , "/admin/**").hasRole("ADMIN");
+			request.requestMatchers("/manager", "/manager/**").hasRole("MANAGER");
+			request.requestMatchers("/staff", "/staff/**").hasRole("STAFF");
+			request.requestMatchers("/member", "/member/**").hasRole("MEMBER");
 			request.anyRequest().authenticated();
 		});
 		
@@ -34,9 +34,9 @@ public class SecurityConfiguration {
 	@Bean
 	UserDetailsService userDetailsService() {
 		return new InMemoryUserDetailsManager(
-			User.builder().username("member").roles("MEMBER").authorities("Read", "Create").password("{noop}member").build(),
-			User.builder().username("staff").roles("STAFF").authorities("Read", "Create").password("{noop}staff").build(),
-			User.builder().username("manager").roles("MANAGER").authorities("Read", "Create", "Update").password("{noop}manager").build(),
+			User.builder().username("member").roles("MEMBER").password("{noop}member").build(),
+			User.builder().username("staff").roles("STAFF").password("{noop}staff").build(),
+			User.builder().username("manager").roles("MANAGER").password("{noop}manager").build(),
 			User.builder().username("admin").roles("ADMIN").password("{noop}admin").build()
 		);
 	}
@@ -46,7 +46,6 @@ public class SecurityConfiguration {
 		return RoleHierarchyImpl.fromHierarchy("""
 				ROLE_ADMIN > ROLE_MANAGER
 				ROLE_MANAGER > ROLE_STAFF
-				ROLE_STAFF > ROLE_MEMBER
-				""");
+				ROLE_STAFF > ROLE_MEMBER""");
 	}
 }
