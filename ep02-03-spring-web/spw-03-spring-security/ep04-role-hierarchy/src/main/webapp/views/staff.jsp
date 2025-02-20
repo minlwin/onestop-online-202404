@@ -14,19 +14,21 @@
 		<h3>Staff Home</h3>
 		<sec:csrfInput/>
 		
-		<input id="fileInput" name="file" type="file">
+		<input class="d-none" id="fileInput" name="file" type="file">
 		
 		<button id="uploadBtn" type="button" class="btn btn-primary">Upload Task</button> 
 		
 	</form>
 	
 	<!-- Task Grid -->
-	<div class="row mt-4 row-cols-3 g-4">
+	<div class="row mt-4 row-cols-3 gx-4 gy-4">
 	<c:forEach var="item" items="${tasks}">
-		<div class="card">
-			<div class="card-body">
-				<h5>${item.task()}</h5>
-				<span>${item.owner()}</span>
+		<div class="col">
+			<div class="card">
+				<div class="card-body">
+					<h5>${item.todo()}</h5>
+					<span>${item.owner()}</span>
+				</div>
 			</div>
 		</div>
 	</c:forEach>	

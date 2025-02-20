@@ -11,8 +11,10 @@ public class WebConfiguration implements WebMvcConfigurer {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("home");
 		registry.addViewController("/member").setViewName("member");
-		registry.addViewController("/staff").setViewName("staff");
+
 		registry.addViewController("/manager").setViewName("manager");
 		registry.addViewController("/admin").setViewName("admin");
+		
+		registry.addRedirectViewController("/staff", "/staff/tasks");
 	}
 }
