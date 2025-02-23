@@ -12,4 +12,6 @@ public class SignUpController {
 	String index() {
 		return "anonymous/signup";
 	}
+	
+	
 }

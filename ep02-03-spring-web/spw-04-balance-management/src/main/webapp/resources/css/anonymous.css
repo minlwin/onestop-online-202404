@@ -1,0 +1,31 @@
+html, body {
+	height: 100%;
+}
+
+.vh100 {
+	height: 100%;
+}
+
+.heading {
+	width: 50%;
+	height: 100%;
+	background-color: #003092;
+}
+
+.heading H1,
+.heading svg {
+	color: #FFF2DB;
+}
+
+.heading H3 {
+	color: #FFAB5B;
+}
+
+.formContainer {
+	width: 50%;
+	height: 100%;
+}
+
+.loginForm {
+	width: 50%;
+}

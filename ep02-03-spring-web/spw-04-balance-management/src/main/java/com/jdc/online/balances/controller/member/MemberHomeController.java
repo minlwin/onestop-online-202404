@@ -10,7 +10,7 @@ public class MemberHomeController {
 
 	@GetMapping
 	String index() {
-		return "";
+		return "member/home";
 	}
 
 }

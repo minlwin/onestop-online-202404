@@ -1,0 +1,9 @@
+.btn-wrapper {
+	padding-top: 2rem;
+}
+
+.page-links > a {
+	display: inline-block;
+	width: 3rem;
+	text-align: center;
+}
