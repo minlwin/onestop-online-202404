@@ -10,7 +10,7 @@ public class MemberLedgerController {
 
 	@GetMapping
 	String index() {
-		return "";
+		return "member/ledgers/list";
 	}
 
 }

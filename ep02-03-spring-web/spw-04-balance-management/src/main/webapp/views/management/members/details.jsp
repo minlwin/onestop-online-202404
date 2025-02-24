@@ -22,77 +22,34 @@
 		
 			<div class="row">
 				<div class="col">
-					<div class="card text-bg-info">
-						<div class="card-body">
-							<h5><i class="bi-person-plus"></i> Registered At</h5>
-							<h3 class="mt-4">2025-01-01 10:00</h3>
-						</div>
-					</div>
+					<app:information-card label="Registered At" 
+						icon="bi-person-plus" 
+						bgColor="text-bg-info" 
+						value="2025-01-01 10:00" />
+					
 				</div>
 				<div class="col">
-					<div class="card text-bg-secondary">
-						<div class="card-body">
-							<h5><i class="bi-calendar-check"></i> Last Access</h5>
-							<h3 class="mt-4">2025-01-01 10:00</h3>
-						</div>
-					</div>
+					<app:information-card label="Last Access" 
+						icon="bi-calendar-check" 
+						bgColor="text-bg-secondary" 
+						value="2025-01-01 10:00" />
+
 				</div>
 				<div class="col">
-					<div class="card text-bg-primary">
-						<div class="card-body">
-							<h5><i class="bi-shield"></i> Status</h5>
-							<h3 class="mt-4">Active</h3>
-						</div>
-					</div>
+					<app:information-card label="Status" 
+						icon="bi-shield" 
+						bgColor="text-bg-primary" 
+						value="Active" />
 				</div>
 			</div>
 			
 			<div class="row mt-4">
 				<div class="col">
-					<div class="card text-bg-light">
-						<div class="card-body">
-							<h5><i class="bi-person"></i> Personal Info</h5>
-							
-							<div class="mb-3">
-								<span class="text-secondary">Name</span>
-								<div>Thidar Aung</div>
-							</div>
-
-							<div class="mb-3">
-								<span class="text-secondary">Date of Birth</span>
-								<div>2000-01-21</div>
-							</div>
-
-							<div class="mb-3">
-								<span class="text-secondary">Gender</span>
-								<div>Female</div>
-								<br />
-							</div>
-						</div>
-					</div>
+					<app:personal-info />
 				</div>
 				
 				<div class="col">
-					<div class="card text-bg-light">
-						<div class="card-body">
-							<h5><i class="bi-telephone"></i> Contact Info</h5>
-							
-							<div class="mb-3">
-								<span class="text-secondary">Phone</span>
-								<div>09-1111-2222</div>
-							</div>
-							
-							<div class="mb-3">
-								<span class="text-secondary">Email</span>
-								<div>thidar@gmail.com</div>
-							</div>
-
-							<div class="mb-3">
-								<span class="text-secondary">Address</span>
-								<div>No.20 / 1F, Yadanar Myaing Street, Kamayut 1 Quarter, Kamayut, Yangon</div>
-							</div>
-						</div>
-					</div>
+					<app:contact-info />
 				</div>
 			</div>			
 		</div>

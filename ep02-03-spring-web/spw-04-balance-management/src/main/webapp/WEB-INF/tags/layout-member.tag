@@ -14,7 +14,38 @@
 </head>
 <body>
 
-	<jsp:doBody />
+	<nav class="navbar navbar-expand shadow">
+		<div class="container">
+			<a href="${root}/member/home" class="navbar-brand">
+				<i class="bi-house"></i> Balance Management
+			</a>
+			
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a href="${root}/member/balance" class="nav-link ${title eq 'BLANCES' ? 'active' : ''}"><i class="bi-bar-chart"></i> Balances</a>
+				</li>
 
+				<li class="nav-item">
+					<a href="${root}/member/entry/incomes" class="nav-link ${title eq 'INCOMES' ? 'active' : ''}"><i class="bi-flag"></i> Incomes</a>
+				</li>
+				
+				<li class="nav-item">
+					<a href="${root}/member/entry/expenses" class="nav-link ${title eq 'EXPENSES' ? 'active' : ''}"><i class="bi-cart"></i> Expenses</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="${root}/member/ledger" class="nav-link ${title eq 'LEDGERS' ? 'active' : ''}"><i class="bi-tags"></i> Ledgers</a>
+				</li>
+
+				<li class="nav-item">
+					<a href="${root}/signin" class="nav-link"><i class="bi-lock"></i> Sign Out</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<main class="container mt-4">
+		<jsp:doBody />
+	</main>
 </body>
 </html>

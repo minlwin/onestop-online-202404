@@ -10,7 +10,7 @@ public class MemberReportForBalanceController {
 
 	@GetMapping
 	String index() {
-		return "";
+		return "member/balance/list";
 	}
 
 }
