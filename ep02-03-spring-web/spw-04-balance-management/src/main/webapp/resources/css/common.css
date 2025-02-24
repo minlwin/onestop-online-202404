@@ -7,3 +7,10 @@
 	width: 3rem;
 	text-align: center;
 }
+
+.profile-image {
+	height: 300px;
+	width: 100%;
+	object-fit: cover;
+	object-position: top;
+}
