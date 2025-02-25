@@ -3,8 +3,8 @@
     
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
     
-<app:layout-member title="HOME">
+<app:layout-member title="${type.name().toUpperCase()}">
 	
-	<app:page-title title="Member Home" />
+	<app:page-title title="Edit Incomes" />
 	
 </app:layout-member>
