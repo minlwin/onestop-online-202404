@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("member/profile")
-public class MemberSettingProfileController {
+@RequestMapping("member/access")
+public class MemberAccessController {
 
 	@GetMapping
-	String editProfile() {
-		return "member/profile/edit";
+	String search() {
+		return "member/access/list";
 	}
 
 }

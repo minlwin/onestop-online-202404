@@ -26,7 +26,7 @@
 						<h5 class="card-title">
 							<i class="bi-person"></i> Profile
 						</h5>
-						<a href="#" class="btn-link">
+						<a href="${root}/member/profile" class="btn-link">
 							<i class="bi-pencil"></i>
 						</a>					
 					</div>
@@ -45,12 +45,37 @@
 						<div class="list-group-item">
 							<i class="bi-envelope"></i> thidar@gmail.com
 						</div>
-						
+						<div class="list-group-item">
+							<i class="bi-map"></i> No.20 / 1F, Yadanar Myaing Street, Kamayut 1 Quarter, Kamayut, Yangon
+						</div>
 					</div>
 				</div>
 			</div>
 			
 			<!-- Access History -->
+			<div class="card mt-4">
+				<div class="card-body">
+					<div class="d-flex justify-content-between aligh-items-start">
+						<h5 class="card-title">
+							<i class="bi-shield"></i> Access
+						</h5>
+						<a href="${root}/member/access" class="btn-link">
+							<i class="bi-send"></i>
+						</a>					
+					</div>
+					
+					<div class="list-group list-group-flush">
+						<div class="list-group-item">
+							<div class="fw-bold">Registered At</div>
+							<span>2024-01-12 10:00</span>
+						</div>
+						<div class="list-group-item">
+							<div class="fw-bold">Last Access</div>
+							<span>2025-03-02 20:00</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		
 		<div class="col">
@@ -67,17 +92,52 @@
 				</div>
 			</div>
 			
-			<!-- Charts -->
+			<!-- Balance Bar Charts -->
+			<div class="card mt-4">
+				<div class="card-body">
+					<h5 class="card-title">
+						<i class="bi-bar-chart"></i> Balances
+					</h5>
+					
+					<div id="blanceChart"></div>
+				</div>
+			</div>
+			
 			<div class="row mt-4">
-				<div class="col-8">
-					<!-- Bar Chart -->
+				<!-- Expenses Pie Chart -->
+				<div class="col">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">
+								<i class="bi-cart"></i> Expenses
+							</h5>
+							
+							<div id="expensesChart" class="pieChartRoot"></div>
+						</div>
+					</div>
 				</div>
 				
+				<!-- Incomes Pie Chart -->
 				<div class="col">
-					<!-- Pie Charts -->
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">
+								<i class="bi-flag"></i> Incomes
+							</h5>
+							
+							<div id="incomesChart" class="pieChartRoot"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	
+	
+	<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+	<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+	<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+	<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+	<script src="${root}/resources/js/member-home.js"></script>
+		
 </app:layout-member>

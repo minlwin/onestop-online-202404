@@ -1,6 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
-<%@ attribute name="title" required="true" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
+<%@ attribute name="title" required="true" %>
 
 <!DOCTYPE html>
 <html>
@@ -19,7 +20,7 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-expand shadow">
+	<nav class="navbar navbar-expand sticky-top bg-light shadow">
 		<div class="container">
 			<a href="${root}/member/home" class="navbar-brand">
 				<i class="bi-house"></i> Balance Management
@@ -49,7 +50,7 @@
 		</div>
 	</nav>
 
-	<main class="container mt-4">
+	<main class="container my-4">
 		<jsp:doBody />
 	</main>
 </body>
