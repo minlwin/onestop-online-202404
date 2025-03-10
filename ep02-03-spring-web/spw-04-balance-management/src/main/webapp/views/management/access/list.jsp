@@ -18,15 +18,15 @@
 		</app:form-group>
 		
 		<app:form-group label="Date From" cssClass="col-auto">
-			<input type="date" class="form-control" />
+			<input name="dateFrom" type="date" class="form-control" />
 		</app:form-group>
 
 		<app:form-group label="Date To" cssClass="col-auto">
-			<input type="date" class="form-control" />
+			<input name="dateTo" type="date" class="form-control" />
 		</app:form-group>
 		
 		<app:form-group label="Keyword" cssClass="col-auto">
-			<input class="form-control" placeholder="Search Keyword" />
+			<input name="keyword" class="form-control" placeholder="Search Keyword" />
 		</app:form-group>
 		
 		<div class="col btn-wrapper">

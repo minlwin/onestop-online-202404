@@ -38,7 +38,7 @@
 			<tr>
 				<th>Code</th>
 				<th>Issue At</th>
-				<th>Category</th>
+				<th>Ledger</th>
 				<th>Particular</th>
 				<th class="text-end">Amount</th>
 				<th></th>

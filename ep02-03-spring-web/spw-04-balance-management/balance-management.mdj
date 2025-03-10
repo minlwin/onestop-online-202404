@@ -7328,7 +7328,7 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 826,
+											"left": 800,
 											"top": 534,
 											"height": 13,
 											"alpha": 1.5707963267948966,
@@ -7347,7 +7347,7 @@
 										"$ref": "AAAAAAGVI5OiLeN3mzU="
 									},
 									"lineStyle": 2,
-									"points": "826:480;826:555;1080:555",
+									"points": "800:480;800:555;1080:555",
 									"nameLabel": {
 										"$ref": "AAAAAAGVI5ki8+RF7to="
 									}
