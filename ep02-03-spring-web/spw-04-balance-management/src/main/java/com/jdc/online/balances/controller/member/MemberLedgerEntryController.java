@@ -13,14 +13,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jdc.online.balances.controller.member.dto.LedgerEntryForm;
 import com.jdc.online.balances.controller.member.dto.LedgerEntrySearch;
+import com.jdc.online.balances.model.entity.consts.BalanceType;
 
 @Controller
 @RequestMapping("member/entry")
 public class MemberLedgerEntryController {
-
+	
 	@GetMapping("{type}")
 	String index(
 			ModelMap model, 
+			@PathVariable BalanceType type,
 			LedgerEntrySearch search, 
 			@RequestParam(required = false, defaultValue = "0") int page, 
 			@RequestParam(required = false, defaultValue = "10") int size
@@ -30,7 +32,8 @@ public class MemberLedgerEntryController {
 	}
 	
 	@GetMapping("add-new/{type}")
-	String addNew(ModelMap model) {
+	String addNew(ModelMap model, 
+			@PathVariable BalanceType type) {
 		return "member/entries/edit";
 	}
 	

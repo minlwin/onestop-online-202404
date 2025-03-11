@@ -2,7 +2,7 @@ package com.jdc.online.balances.controller.management.dto;
 
 import java.time.LocalDateTime;
 
-public record MemberItem(
+public record MemberListItem(
 		long id,
 		String name,
 		LocalDateTime registeredAt,

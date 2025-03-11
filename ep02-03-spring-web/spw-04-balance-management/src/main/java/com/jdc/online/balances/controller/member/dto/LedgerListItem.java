@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import com.jdc.online.balances.model.entity.consts.BalanceType;
 
-public record LedgerItem(
+public record LedgerListItem(
 		int id,
 		BalanceType type,
 		String name,

@@ -1,6 +1,6 @@
 package com.jdc.online.balances.controller.member.dto;
 
-public record LedgerInputItem(
+public record LedgerSelectItem(
 		int id,
 		String name) {
 
