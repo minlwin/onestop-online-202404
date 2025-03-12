@@ -14835,7 +14835,7 @@
 																							"top": 78,
 																							"width": 81.29443359375,
 																							"height": 13,
-																							"text": "Regin"
+																							"text": "Region"
 																						},
 																						{
 																							"_type": "LabelView",
@@ -19211,7 +19211,7 @@
 																	"_parent": {
 																		"$ref": "AAAAAAGVhV0rAYKsam0="
 																	},
-																	"name": "Regin",
+																	"name": "Region",
 																	"attributes": [
 																		{
 																			"_type": "UMLAttribute",

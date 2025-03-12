@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Regin {
+public class Region {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,7 +1,5 @@
 package com.jdc.online.balances.model.entity;
 
-import javax.swing.plaf.synth.Region;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
