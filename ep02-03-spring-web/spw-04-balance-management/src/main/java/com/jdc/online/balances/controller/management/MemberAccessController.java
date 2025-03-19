@@ -7,17 +7,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jdc.online.balances.controller.member.dto.AccessHistorySearch;
+import com.jdc.online.balances.service.AccessHistoryService;
 
-@Controller("adminMemberAccessController")
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @RequestMapping("admin/access")
+@Controller("adminMemberAccessController")
 public class MemberAccessController {
+
+	private final AccessHistoryService service;
 
 	@GetMapping
 	String search(
 			ModelMap model,
-			AccessHistorySearch search, 
+			AccessHistorySearch form, 
 			@RequestParam(required = false, defaultValue = "0") int page, 
 			@RequestParam(required = false, defaultValue = "10") int size) {
+
+		var result = service.search(form, page, size);
+		model.put("result", result);
+
 		return "management/access/list";
 	}
 }

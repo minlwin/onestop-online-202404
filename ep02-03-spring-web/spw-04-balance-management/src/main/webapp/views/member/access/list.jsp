@@ -11,19 +11,23 @@
 	<!-- Search Form -->
 	<form class="row">
 		<app:form-group label="Status" cssClass="col-auto">
-			<select class="form-select">
+			<select name="status" class="form-select">
 				<option value="">Search All</option>
-				<option value="Success">Success</option>
-				<option value="Fails">Fails</option>
+				<option value="Success" ${param.status eq 'Success' ? 'selected' : ''}>Success</option>
+				<option value="Fails" ${param.status eq 'Fails' ? 'selected' : ''}>Fails</option>
 			</select>
 		</app:form-group>
 		
 		<app:form-group label="Date From" cssClass="col-auto">
-			<input type="date" class="form-control" />
+			<input name="dateFrom" type="date" class="form-control" value="${param.dateFrom}" />
 		</app:form-group>
 
 		<app:form-group label="Date To" cssClass="col-auto">
-			<input type="date" class="form-control" />
+			<input name="dateTo" type="date" class="form-control" value="${param.dateTo}" />
+		</app:form-group>
+		
+		<app:form-group label="Keyword" cssClass="col-auto">
+			<input name="keyword" class="form-control" placeholder="Search Keyword" value="${param.keyword}" />
 		</app:form-group>
 		
 		<div class="col btn-wrapper">
@@ -33,7 +37,7 @@
 		</div>
 	</form>
 	
-	<table class="table table-bordered table-striped table-hover my-3">
+	<table class="table table-striped table-bordered table-hover my-3">
 		<thead>
 			<tr>
 				<th>Access At</th>
@@ -44,12 +48,14 @@
 		</thead>
 		
 		<tbody>
+			<c:forEach items="${result.contents()}" var="item">
 			<tr>
-				<td>2024-10-14 10:00</td>
-				<td>Login</td>
-				<td>Fails</td>
-				<td>Wrong Password</td>
+				<td>${dtf.formatDateTime(item.accessAtLocal)}</td>
+				<td>${item.type()}</td>
+				<td>${item.status()}</td>
+				<td>${item.remark()}</td>
 			</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 

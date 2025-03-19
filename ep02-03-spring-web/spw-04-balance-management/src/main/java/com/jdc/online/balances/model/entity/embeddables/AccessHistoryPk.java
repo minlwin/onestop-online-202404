@@ -1,5 +1,7 @@
 package com.jdc.online.balances.model.entity.embeddables;
 
+import java.time.Instant;
+
 import jakarta.persistence.Embeddable;
 import lombok.Data;
 
@@ -8,6 +10,6 @@ import lombok.Data;
 public class AccessHistoryPk {
 
 	private String username;
-	private String accessAt;
+	private Instant accessAt;
 
 }
