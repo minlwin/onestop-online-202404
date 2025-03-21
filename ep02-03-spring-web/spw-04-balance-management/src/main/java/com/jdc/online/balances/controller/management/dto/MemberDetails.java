@@ -3,6 +3,7 @@ package com.jdc.online.balances.controller.management.dto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.jdc.online.balances.model.entity.Member;
 import com.jdc.online.balances.model.entity.consts.Gender;
 
 public record MemberDetails(
@@ -19,5 +20,10 @@ public record MemberDetails(
 		LocalDateTime registeredAt,
 		LocalDateTime lastAccessAt
 		) {
+
+	public static MemberDetails from(Member member) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

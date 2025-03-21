@@ -9,7 +9,11 @@
 	<app:page-title title="Access History" />
 	
 	<!-- Search Form -->
-	<form class="row">
+	<form class="row" id="searchForm">
+		
+		<input type="hidden" name="page" id="pageInput" />
+		<input type="hidden" name="size" id="sizeInput" />
+		
 		<app:form-group label="Status" cssClass="col-auto">
 			<select name="status" class="form-select">
 				<option value="">Search All</option>
@@ -64,6 +68,6 @@
 	</table>
 	
 	<!-- Pagination -->
-	<app:pagination />
+	<app:pagination pageResult="${result}" />
 	
 </app:layout-management>

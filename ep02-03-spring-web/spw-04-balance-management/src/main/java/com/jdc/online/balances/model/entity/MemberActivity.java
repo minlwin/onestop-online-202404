@@ -25,6 +25,7 @@ public class MemberActivity extends AbstractEntity {
 	private Member member;
 
 	private MemberStatus status;
+	private String statusChangeReason;
 
 	private BigDecimal balance;
 	
