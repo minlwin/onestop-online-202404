@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public class AppDateTimeFormatter {
 
-	private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 	private static final DateTimeFormatter DF = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
 	public String formatDateTime(LocalDateTime dateTime) {

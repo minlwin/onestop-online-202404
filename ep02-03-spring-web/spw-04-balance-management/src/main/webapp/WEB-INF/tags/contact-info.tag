@@ -1,22 +1,26 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 
-<div class="card text-bg-light">
+<%@ attribute name="phone" %>
+<%@ attribute name="email" %>
+<%@ attribute name="address" %>
+
+<div class="card text-bg-light h-100">
 	<div class="card-body">
 		<h5><i class="bi-telephone"></i> Contact Info</h5>
 		
 		<div class="mb-3">
 			<span class="text-secondary">Phone</span>
-			<div>09-1111-2222</div>
+			<div>${phone ne null and phone ne '' ? phone : 'Un Defined'}</div>
 		</div>
 		
 		<div class="mb-3">
 			<span class="text-secondary">Email</span>
-			<div>thidar@gmail.com</div>
+			<div>${email ne null and email ne '' ? email : 'Un Defined'}</div>
 		</div>
 
 		<div class="mb-3">
 			<span class="text-secondary">Address</span>
-			<div>No.20 / 1F, Yadanar Myaing Street, Kamayut 1 Quarter, Kamayut, Yangon</div>
+			<div>${address ne null and address ne '' ? address : 'Un Defined'}</div>
 		</div>
 	</div>
 </div>
