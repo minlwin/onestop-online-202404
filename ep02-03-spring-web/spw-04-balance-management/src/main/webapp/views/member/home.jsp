@@ -37,16 +37,16 @@
 				<div class="card-body">
 					<div class="list-group list-group-flush">
 						<div class="list-group-item">
-							<i class="bi-person"></i> Thidar Aung
+							<i class="bi-person"></i> ${profile.name()}
 						</div>
 						<div class="list-group-item">
-							<i class="bi-telephone"></i> 09-1234-1234
+							<i class="bi-telephone"></i> ${profile.phone() ne null ? profile.phone() : 'Un Defined'}
 						</div>
 						<div class="list-group-item">
-							<i class="bi-envelope"></i> thidar@gmail.com
+							<i class="bi-envelope"></i> ${profile.email()}
 						</div>
 						<div class="list-group-item">
-							<i class="bi-map"></i> No.20 / 1F, Yadanar Myaing Street, Kamayut 1 Quarter, Kamayut, Yangon
+							<i class="bi-map"></i> ${profile.address() ne null and profile.address() ne '' ? profile.address() : 'Un Defined'}
 						</div>
 					</div>
 				</div>
@@ -67,11 +67,11 @@
 					<div class="list-group list-group-flush">
 						<div class="list-group-item">
 							<div class="fw-bold">Registered At</div>
-							<span>2024-01-12 10:00</span>
+							<span>${dtf.formatDateTime(profile.registeredAt())}</span>
 						</div>
 						<div class="list-group-item">
 							<div class="fw-bold">Last Access</div>
-							<span>2025-03-02 20:00</span>
+							<span>${dtf.formatDateTime(profile.lastAccessAt())}</span>
 						</div>
 					</div>
 				</div>

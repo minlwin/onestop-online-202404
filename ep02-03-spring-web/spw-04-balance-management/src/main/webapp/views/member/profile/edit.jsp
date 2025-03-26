@@ -3,6 +3,7 @@
     
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 
 <app:layout-member title="PROFILE">
 	
@@ -23,7 +24,7 @@
 		</div>
 		
 		<div class="col">
-			<form method="post">
+			<sf:form method="post">
 				<!-- Personal Info Inputs -->
 				<!-- Name -->
 				<div class="row">
@@ -65,22 +66,25 @@
 				<div class="row mb-3">
 					<!-- Regions -->
 					<app:form-group label="Region" cssClass="col">
-						<select class="form-select">
-							<option value="">Select Region</option>
+						<select id="region" data-fetch-api="${root}/member/location/district" class="form-select">
+							<option value="">Select One</option>
+							<c:forEach var="item" items="${regions}">
+								<option value="${item.id}">${item.name}</option>
+							</c:forEach>
 						</select>
 					</app:form-group>
 					
 					<!-- Districts -->
 					<app:form-group label="District" cssClass="col">
-						<select class="form-select">
-							<option value="">Select District</option>
+						<select id="district" data-fetch-api="${root}/member/location/township" class="form-select">
+							<option value="">Select One</option>
 						</select>
 					</app:form-group>
 					
 					<!-- Township -->
 					<app:form-group label="Township" cssClass="col">
-						<select class="form-select">
-							<option value="">Select Township</option>
+						<select id="township" class="form-select">
+							<option value="">Select One</option>
 						</select>
 					</app:form-group>
 				</div>
@@ -96,10 +100,11 @@
 					<i class="bi-save"></i> Save Profile
 				</button>
 			
-			</form>
+			</sf:form>
 				
 		</div>
 	</div>
-	
+
+	<script src="${root}/resources/js/member-locations.js"></script>
 	<script src="${root}/resources/js/profile-edit.js"></script>
 </app:layout-member>
