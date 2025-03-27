@@ -64,8 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					option.innerText = item.name
 					return option
 				}).forEach(option => townshipSelect.appendChild(option))
-			}
-						
+			}					
 		}
 		
 		districtSelect.addEventListener('change', () => {

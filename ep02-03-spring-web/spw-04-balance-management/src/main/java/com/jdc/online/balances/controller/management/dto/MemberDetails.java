@@ -2,6 +2,7 @@ package com.jdc.online.balances.controller.management.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -14,6 +15,7 @@ import com.jdc.online.balances.model.entity.consts.MemberStatus;
 public record MemberDetails(
 		long id,
 		String name,
+		String profileImage,
 		LocalDate dateOfBirth,
 		Gender gender,
 		String phone, 
@@ -45,6 +47,7 @@ public record MemberDetails(
 		
 		builder.id(member.getId())
 			.name(member.getName())
+			.profileImage(Optional.ofNullable(member.getProfileImage()).orElse("default-profile.png"))
 			.dateOfBirth(member.getDob())
 			.gender(member.getGender())
 			.phone(member.getPhone())
@@ -67,6 +70,7 @@ public record MemberDetails(
 	public static class Builder {
         private long id;
         private String name;
+        private String profileImage;
         private LocalDate dateOfBirth;
         private Gender gender;
         private String phone;
@@ -85,6 +89,11 @@ public record MemberDetails(
 
         public Builder name(String name) {
             this.name = name;
+            return this;
+        }
+
+        public Builder profileImage(String profileImage) {
+            this.profileImage = profileImage;
             return this;
         }
 
@@ -139,7 +148,7 @@ public record MemberDetails(
         }
 
         public MemberDetails build() {
-            return new MemberDetails(id, name, dateOfBirth, gender, phone, email, address, township, region, status, registeredAt, lastAccessAt);
+            return new MemberDetails(id, name, profileImage, dateOfBirth, gender, phone, email, address, township, region, status, registeredAt, lastAccessAt);
         }
     }
 }

@@ -32,7 +32,7 @@
 					</div>
 				</div>
 				
-				<img src="${root}/resources/photos/profile.jpg" class="profile-image" alt="Profile Image" />
+				<img src="${root}/resources/photos/${profile.profileImage()}" class="profile-image" alt="Profile Image" />
 			
 				<div class="card-body">
 					<div class="list-group list-group-flush">

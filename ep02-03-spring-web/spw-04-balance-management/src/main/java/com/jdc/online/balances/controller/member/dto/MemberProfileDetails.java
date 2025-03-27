@@ -24,6 +24,7 @@ public record MemberProfileDetails(
 		var builder = new Builder();
 		builder.id(entity.getId())
 			.name(entity.getName())
+			.profileImage(Optional.ofNullable(entity).map(a -> a.getProfileImage()).orElse("default-profile.png"))
 			.phone(entity.getPhone())
 			.email(entity.getEmail())
 			.registeredAt(entity.getActivity().getRegisteredAt())

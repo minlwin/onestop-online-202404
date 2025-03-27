@@ -16,7 +16,7 @@
 	<div class="row">
 		<div class="col-3">
 			<!-- Profile Information -->
-			<img class="img-fluid img-thumbnail profile-image" src="${root}/resources/photos/profile.jpg" alt="Profile Image" />
+			<img class="img-fluid img-thumbnail profile-image" src="${root}/resources/photos/${result.profileImage()}" alt="Profile Image" />
 		</div>
 		
 		<div class="col">
