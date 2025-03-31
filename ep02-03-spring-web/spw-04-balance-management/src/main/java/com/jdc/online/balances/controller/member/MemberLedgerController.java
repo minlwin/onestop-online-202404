@@ -1,5 +1,6 @@
 package com.jdc.online.balances.controller.member;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -13,13 +14,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.jdc.online.balances.controller.member.dto.LedgerForm;
 import com.jdc.online.balances.controller.member.dto.LedgerSearch;
 import com.jdc.online.balances.model.entity.consts.BalanceType;
+import com.jdc.online.balances.service.LedgerManagementService;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("member/ledger")
 public class MemberLedgerController {
+	
+	private final LedgerManagementService service;
 
 	@GetMapping
-	String index(ModelMap model, LedgerSearch search) {
+	String index(ModelMap model, 
+			LedgerSearch form,
+			@RequestParam(required = false, defaultValue = "0") int page, 
+			@RequestParam(required = false, defaultValue = "10") int size) {
+		
+		var username = SecurityContextHolder.getContext()
+				.getAuthentication().getName();
+		
+		model.put("result", service.search(username, form, page, size));		
 		return "member/ledgers/list";
 	}
 	
@@ -38,6 +53,8 @@ public class MemberLedgerController {
 			return "member/ledgers/list";
 		}
 		
+		service.save(ledgerForm);
+		
 		return "redirect:/member/ledger";
 	}
 
@@ -45,7 +62,7 @@ public class MemberLedgerController {
 	LedgerForm ledgerForm(@RequestParam(required = false) Integer id) {
 		
 		if(null != id) {
-			// Search from Database response as form
+			return service.findForEdit(id);
 		}
 		
 		return new LedgerForm();

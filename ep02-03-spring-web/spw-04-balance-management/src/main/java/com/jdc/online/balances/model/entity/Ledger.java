@@ -1,5 +1,7 @@
 package com.jdc.online.balances.model.entity;
 
+import java.util.List;
+
 import com.jdc.online.balances.model.entity.consts.BalanceType;
 
 import jakarta.persistence.Column;
@@ -8,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -30,5 +33,8 @@ public class Ledger extends AbstractEntity {
 	private BalanceType type;
 
 	private boolean deleted;
+	
+	@OneToMany(mappedBy = "ledger")
+	private List<LedgerEntry> entry;
 
 }
