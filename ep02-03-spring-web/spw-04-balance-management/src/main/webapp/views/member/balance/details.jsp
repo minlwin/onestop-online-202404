@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+    pageEncoding="UTF-8"%>    
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
     
 <app:layout-member title="BALANCES">
 	
 	<div class="d-flex justify-content-between align-items-start">
 		<app:page-title title="Incomes Details" />
-		<a href="${root}/member/entry/edit/20250225-001" class="btn btn-danger">
+		
+		<c:url var="editUrl" value="${root}/member/entry/incomes/edit">
+			<c:param name="id" value="20250401-001"></c:param>
+		</c:url>
+		<a href="${editUrl}" class="btn btn-danger">
 			<i class="bi-pencil"></i> Edit Entry
 		</a>
 	</div>

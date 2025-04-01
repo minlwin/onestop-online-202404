@@ -26,13 +26,13 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("member/entry")
+@RequestMapping("member/entry/{type}")
 public class MemberLedgerEntryController {
 	
 	private final LedgerEntryService entryService;
 	private final LedgerManagementService ledgerService;
 	
-	@GetMapping("{type}")
+	@GetMapping
 	String index(
 			ModelMap model, 
 			@PathVariable BalanceType type,
@@ -44,22 +44,22 @@ public class MemberLedgerEntryController {
 		var username = SecurityContextHolder.getContext().getAuthentication()
 				.getName();
 		
-		model.put("result", entryService.search(username, type, search));
+		model.put("result", entryService.search(username, type, search, page, size));
 		return "member/entries/list";
 	}
 	
-	@GetMapping("{type}/add-new")
+	@GetMapping("create")
 	String addNew(ModelMap model, 
 			@PathVariable BalanceType type) {
 		return "member/entries/edit";
 	}
 	
-	@GetMapping("{type}/edit/{id}")
-	String edit(@PathVariable String id) {
+	@GetMapping("edit")
+	String edit(@RequestParam String id) {
 		return "member/entries/edit";
 	}
 
-	@PostMapping("{type}/save")
+	@PostMapping("save")
 	String save(
 			@Validated @ModelAttribute(name = "form") LedgerEntryForm entryForm, 
 			BindingResult result) {
@@ -71,12 +71,12 @@ public class MemberLedgerEntryController {
 		return "redirect:/member/balance/20250301-001";
 	}
 	
-	@PostMapping("{type}/save/add-item")
+	@PostMapping("item/add")
 	String addItem(@ModelAttribute(name = "form") LedgerEntryForm entryForm) {
 		return "member/entries/edit";
 	}
 	
-	@PostMapping("{type}/save/remove-item")
+	@PostMapping("item/remove")
 	String removeItem(@ModelAttribute(name = "form") LedgerEntryForm entryForm) {
 		return "member/entries/edit";
 	}

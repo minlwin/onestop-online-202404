@@ -23,19 +23,21 @@ public record PageResult<T>(
 		
 		var totalPage = getTotalPages();
 		var links = new ArrayList<Integer>();
-
-		links.add(page);
 		
-		while(links.getFirst() > 0 && links.size() < 3) {
-			links.addFirst(links.getFirst() - 1);
-		}
-		
-		while(links.getLast() < totalPage -1 && links.size() < 5) {
-			links.addLast(links.getLast() + 1);
-		}
-		
-		while(links.getFirst() > 0 && links.size() < 5) {
-			links.addFirst(links.getFirst() - 1);
+		if(totalPage > 0) {
+			links.add(page);
+			
+			while(links.getFirst() > 0 && links.size() < 3) {
+				links.addFirst(links.getFirst() - 1);
+			}
+			
+			while(links.getLast() < totalPage -1 && links.size() < 5) {
+				links.addLast(links.getLast() + 1);
+			}
+			
+			while(links.getFirst() > 0 && links.size() < 5) {
+				links.addFirst(links.getFirst() - 1);
+			}
 		}
 
 		return links;

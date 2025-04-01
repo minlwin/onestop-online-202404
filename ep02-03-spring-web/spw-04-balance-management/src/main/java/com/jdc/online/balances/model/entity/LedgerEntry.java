@@ -2,6 +2,7 @@ package com.jdc.online.balances.model.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.jdc.online.balances.model.entity.embeddables.LedgerEntryPk;
 
@@ -9,6 +10,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -34,5 +36,8 @@ public class LedgerEntry extends AbstractEntity {
 
 	@Column(nullable = false)
 	private LocalDateTime issueAt;
+	
+	@OneToMany(mappedBy = "entry")
+	private List<LedgerEntryItem> items;
 
 }

@@ -14,8 +14,10 @@ import com.jdc.online.balances.controller.member.dto.LedgerListItem;
 import com.jdc.online.balances.controller.member.dto.LedgerSearch;
 import com.jdc.online.balances.controller.member.dto.LedgerSelectItem;
 import com.jdc.online.balances.model.PageResult;
+import com.jdc.online.balances.model.entity.Account_;
 import com.jdc.online.balances.model.entity.Ledger;
 import com.jdc.online.balances.model.entity.Ledger_;
+import com.jdc.online.balances.model.entity.Member_;
 import com.jdc.online.balances.model.entity.consts.BalanceType;
 import com.jdc.online.balances.model.repo.LedgerRepo;
 import com.jdc.online.balances.model.repo.MemberRepo;
@@ -91,9 +93,30 @@ public class LedgerManagementService {
 		};
 	}
 
+	@PreAuthorize("authentication.name eq #username")
 	public List<LedgerSelectItem> findForEntry(String username, BalanceType type) {
-		// TODO Auto-generated method stub
-		return null;
+		return ledgerRepo.search(queryFunc(username, type));
+	}
+
+	private Function<CriteriaBuilder, CriteriaQuery<LedgerSelectItem>> queryFunc(String username, BalanceType type) {
+		return cb -> {
+			var cq = cb.createQuery(LedgerSelectItem.class);
+			var root = cq.from(Ledger.class);
+			
+			cq.multiselect(
+				root.get(Ledger_.id),
+				root.get(Ledger_.name)
+			);
+			
+			cq.where(
+				cb.equal(root.get(Ledger_.member).get(Member_.account).get(Account_.username), username),
+				cb.equal(root.get(Ledger_.type), type)
+			);
+			
+			cq.orderBy(cb.asc(root.get(Ledger_.name)));
+			
+			return cq;
+		};
 	}
 
 

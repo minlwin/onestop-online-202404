@@ -8,6 +8,8 @@
 	<c:if test="${pageResult ne null}">
 
 		<div class="d-flex">
+			
+			<c:if test="${not empty pageResult.pageLinks}">
 			<!-- Page Select -->
 			<div class="input-group me-2">
 				<span class="input-group-text">Size</span>
@@ -17,23 +19,22 @@
 					<option value="50" ${pageResult.size() eq '50' ? 'selected' : ''}>50</option>
 				</select>
 			</div>
-			
+
 			<!-- Page Links -->
 			<div class="d-flex page-links">
 				<a href="#" data-page-number="0" class="btn btn-outline-primary me-1 pageLink">
 					<i class="bi-arrow-left"></i>
 				</a>
-	
 				<c:forEach items="${pageResult.pageLinks}" var="item">
 					<a href="#" data-page-number="${item}" class="btn ${pageResult.page() eq item ? 'btn-primary' : 'btn-outline-primary'} me-1 pageLink">
 						${item + 1}
 					</a>
 				</c:forEach>			
-	
 				<a href="#" data-page-number="${pageResult.totalPages - 1}" class="btn btn-outline-primary pageLink">
 					<i class="bi-arrow-right"></i>
 				</a>
 			</div>
+			</c:if>
 		</div>
 		
 		<!-- Page Result Info -->
