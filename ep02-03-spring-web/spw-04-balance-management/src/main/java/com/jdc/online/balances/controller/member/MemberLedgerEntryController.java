@@ -1,5 +1,6 @@
 package com.jdc.online.balances.controller.member;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jdc.online.balances.controller.member.dto.LedgerEntryForm;
+import com.jdc.online.balances.controller.member.dto.LedgerEntryFormItem;
 import com.jdc.online.balances.controller.member.dto.LedgerEntrySearch;
 import com.jdc.online.balances.controller.member.dto.LedgerSelectItem;
 import com.jdc.online.balances.model.entity.consts.BalanceType;
@@ -68,16 +70,30 @@ public class MemberLedgerEntryController {
 			return "member/entries/edit";
 		}
 		
-		return "redirect:/member/balance/20250301-001";
+		var id = entryService.save(entryForm);
+		
+		return "redirect:/member/balance/%s".formatted(id);
 	}
 	
 	@PostMapping("item/add")
 	String addItem(@ModelAttribute(name = "form") LedgerEntryForm entryForm) {
+		entryForm.getItems().add(new LedgerEntryFormItem());
 		return "member/entries/edit";
 	}
 	
 	@PostMapping("item/remove")
 	String removeItem(@ModelAttribute(name = "form") LedgerEntryForm entryForm) {
+		
+		var removedItems = entryForm.getItems().stream().filter(a -> !a.isDeleted()).toList();
+		
+		removedItems = new ArrayList<>(removedItems);
+		
+		if(removedItems.isEmpty()) {
+			removedItems.add(new LedgerEntryFormItem());
+		}
+		
+		entryForm.setItems(removedItems);
+		
 		return "member/entries/edit";
 	}
 	
@@ -86,11 +102,17 @@ public class MemberLedgerEntryController {
 			@PathVariable BalanceType type, 
 			@PathVariable(required = false) String id) {
 		
+		var form = new LedgerEntryForm();
+		
 		if(StringUtils.hasLength(id)) {
-			return entryService.findForEdit(id);
+			form = entryService.findForEdit(id);
 		}
 		
-		return new LedgerEntryForm();
+		if(null == form.getItems() || form.getItems().isEmpty()) {
+			form.getItems().add(new LedgerEntryFormItem());
+		}
+		
+		return form;
 	}
 	
 	@ModelAttribute(name = "ledgers")
@@ -98,5 +120,10 @@ public class MemberLedgerEntryController {
 		var username = SecurityContextHolder.getContext().getAuthentication()
 				.getName();
 		return ledgerService.findForEntry(username, type);
+	}
+	
+	@ModelAttribute(name = "urlType")
+	String getType(@PathVariable BalanceType type) {
+		return type.name().toLowerCase();
 	}
 }

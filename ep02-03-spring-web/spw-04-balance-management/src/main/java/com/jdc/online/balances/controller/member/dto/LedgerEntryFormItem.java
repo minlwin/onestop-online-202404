@@ -15,10 +15,12 @@ public class LedgerEntryFormItem {
 	private String itemName;
 	
 	@NotNull(message = "Please enter unit price.")
-	private BigDecimal unitPrice;
+	private BigDecimal unitPrice = BigDecimal.ZERO;
 	
 	@NotNull(message = "Please enter quantity.")
-	private Integer quantity;
+	private Integer quantity = 0;
+	
+	private boolean deleted;
 	
 	public static LedgerEntryFormItem from(LedgerEntryItem entity) {
 		

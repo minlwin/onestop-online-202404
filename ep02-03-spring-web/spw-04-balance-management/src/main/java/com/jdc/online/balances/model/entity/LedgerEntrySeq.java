@@ -1,5 +1,6 @@
 package com.jdc.online.balances.model.entity;
 
+import com.jdc.online.balances.model.entity.embeddables.LedgerEntryPk;
 import com.jdc.online.balances.model.entity.embeddables.LedgerEntrySeqPk;
 
 import jakarta.persistence.Column;
@@ -16,5 +17,10 @@ public class LedgerEntrySeq {
 	
 	@Column(nullable = false)
 	private int seqNumber;
+
+	public LedgerEntryPk next() {
+		seqNumber ++;
+		return LedgerEntryPk.from(this);
+	}
 
 }

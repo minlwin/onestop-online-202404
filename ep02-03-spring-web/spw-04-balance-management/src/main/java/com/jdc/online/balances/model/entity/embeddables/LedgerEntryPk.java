@@ -3,6 +3,8 @@ package com.jdc.online.balances.model.entity.embeddables;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import com.jdc.online.balances.model.entity.LedgerEntrySeq;
+
 import jakarta.persistence.Embeddable;
 import lombok.Data;
 
@@ -30,6 +32,14 @@ public class LedgerEntryPk {
 		pk.setIssueDate(issuseDate);
 		pk.setSeqNumber(seqNumber);
 		
+		return pk;
+	}
+
+	public static LedgerEntryPk from(LedgerEntrySeq seq) {
+		var pk = new LedgerEntryPk();
+		pk.setMemberId(seq.getId().getMemberId());
+		pk.setIssueDate(seq.getId().getIssueDate());
+		pk.setSeqNumber(seq.getSeqNumber());
 		return pk;
 	}
 

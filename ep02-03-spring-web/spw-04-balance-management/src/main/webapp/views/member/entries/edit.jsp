@@ -3,16 +3,19 @@
     
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>   
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>   
 
 <app:layout-member title="${type.name().toUpperCase()}">
 	
 	<div class="d-flex justify-content-between align-items-start">
-		<app:page-title title="Edit Incomes" />
-		
+		<app:page-title title="${form.id eq null ? 'Add New' : 'Edit'} Incomes" />
 	</div>
 	
 	
-	<form action="${root}/member/entry/save" method="post" class="row">
+	<sf:form id="editForm" action="${root}/member/entry/save" method="post" modelAttribute="form" class="row">
+		
+		<sf:hidden path="id"/>
+		
 		<!-- Summary -->
 		<div class="col-4">
 		
@@ -24,19 +27,24 @@
 
 					<!-- Ledger -->
 					<app:form-group label="Ledger" cssClass="mb-3">
-						<select class="form-select">
+						<sf:select path="ledgerId" class="form-select">
 							<option value="">Select Ledger</option>
-						</select>
+							<c:forEach var="item" items="${ledgers}">
+								<option value="${item.id()}">${item.name()}</option>
+							</c:forEach>
+						</sf:select>
+						<sf:errors path="ledgerId" cssClass="text-sm text-secondary" />
 					</app:form-group>
 					
 					<!-- Particular -->
 					<app:form-group label="Particular" cssClass="mb-3">
-						<textarea cols="40" rows="3" class="form-control" placeholder="Please enter prticular."></textarea>
+						<sf:textarea path="particular" cols="40" rows="3" class="form-control" placeholder="Please enter prticular."></sf:textarea>
+						<sf:errors path="particular" cssClass="text-sm text-secondary" />
 					</app:form-group>
 					
 					<!-- Total -->
 					<app:form-group label="Total Amount">
-						<span class="form-control">10,000</span>
+						<span id="allTotal" class="form-control">10,000</span>
 					</app:form-group>
 				
 				</div>
@@ -59,42 +67,49 @@
 						<div class="col-2 text-end">Total</div>
 					</div>
 					
-					<div>
+					<div id="entryItemsContainer">
+						<c:forEach var="item" varStatus="sts" items="${form.items}">
+						
 						<div class="row mt-2">
+							<sf:hidden path="items[${sts.index}].deleted"/>
 							<div class="col">
 								<div class="input-group">
-									<button type="button" class="btn btn-outline-danger input-group-text">
+									<button data-delete-input-id="items${sts.index}.deleted" 
+										data-delete-url="${root}/member/entry/${urlType}/item/remove" type="button" class="deleteBtn btn btn-outline-danger input-group-text">
 										<i class="bi-trash"></i>
 									</button>							
-									<input type="text" class="form-control" placeholder="Enter Item Name" />
+									<sf:input path="items[${sts.index}].itemName" type="text" class="form-control" placeholder="Enter Item Name" />
 								</div>
 							</div>
 							
 							<div class="col-2">
-								<input type="number" class="form-control" />
+								<sf:input path="items[${sts.index}].unitPrice" type="number" class="form-control changesInput" />
 							</div>
 							
 							<div class="col-2">
-								<input type="number" class="form-control" />
+								<sf:input path="items[${sts.index}].quantity" type="number" class="form-control changesInput" />
 							</div>
 							<div class="col-2 text-end">
-								<span class="form-control">0</span>
+								<span id="row${sts.index}Total" class="form-control">0</span>
 							</div>
 						</div>
+						</c:forEach>
 					</div>
 					
 					<div class="mt-3">
-						<button type="button" class="btn btn-outline-primary">
+						<button id="addItemBtn" data-add-url="${root}/member/entry/${urlType}/item/add" type="button" class="btn btn-outline-primary">
 							<i class="bi-plus"></i> Add Item
 						</button>
 						
-						<button class="btn btn-outline-danger">
+						<button type="submit" class="btn btn-outline-danger">
 							<i class="bi-save"></i> Save Entry
 						</button>
 					</div>
 				</div>
 			</div>
 		</div>
-	</form>
+	</sf:form>
+	
+	<script src="${root}/resources/js/ledger-entry-edit.js"></script>
 	
 </app:layout-member>
