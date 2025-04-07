@@ -23,6 +23,7 @@ import com.jdc.online.balances.controller.member.dto.LedgerSelectItem;
 import com.jdc.online.balances.model.entity.consts.BalanceType;
 import com.jdc.online.balances.service.LedgerEntryService;
 import com.jdc.online.balances.service.LedgerManagementService;
+import com.jdc.online.balances.utils.exceptions.AppBusinessException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -63,6 +64,7 @@ public class MemberLedgerEntryController {
 
 	@PostMapping("save")
 	String save(
+			ModelMap model,
 			@Validated @ModelAttribute(name = "form") LedgerEntryForm entryForm, 
 			BindingResult result) {
 		
@@ -70,9 +72,13 @@ public class MemberLedgerEntryController {
 			return "member/entries/edit";
 		}
 		
-		var id = entryService.save(entryForm);
-		
-		return "redirect:/member/balance/%s".formatted(id);
+		try {
+			var id = entryService.save(entryForm);
+			return "redirect:/member/balance/%s".formatted(id);
+		} catch(AppBusinessException e) {
+			model.put("error", e.getMessage());
+			return "member/entries/edit";
+		}
 	}
 	
 	@PostMapping("item/add")
@@ -100,7 +106,7 @@ public class MemberLedgerEntryController {
 	@ModelAttribute(name = "form")
 	LedgerEntryForm ledgerEntryForm(
 			@PathVariable BalanceType type, 
-			@PathVariable(required = false) String id) {
+			@RequestParam(required = false) String id) {
 		
 		var form = new LedgerEntryForm();
 		

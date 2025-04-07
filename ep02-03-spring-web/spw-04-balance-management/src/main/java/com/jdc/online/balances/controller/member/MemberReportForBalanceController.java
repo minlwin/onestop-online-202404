@@ -8,10 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jdc.online.balances.controller.member.dto.BalanceSearch;
+import com.jdc.online.balances.service.MemberBalanceService;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("member/balance")
 public class MemberReportForBalanceController {
+	
+	private final MemberBalanceService service;
 
 	@GetMapping
 	String index(
@@ -22,9 +28,13 @@ public class MemberReportForBalanceController {
 		return "member/balance/list";
 	}
 
-	// ID (yyyyMMdd-000)
+	// ID (yyyyMMdd000)
 	@GetMapping("{id}")
 	String findById(@PathVariable String id, ModelMap model) {
+		
+		var details = service.findById(id);
+		model.put("details", details);
+		
 		return "member/balance/details";
 	}
 }

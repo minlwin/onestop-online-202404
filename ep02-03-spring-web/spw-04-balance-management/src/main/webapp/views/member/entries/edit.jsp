@@ -12,7 +12,7 @@
 	</div>
 	
 	
-	<sf:form id="editForm" action="${root}/member/entry/save" method="post" modelAttribute="form" class="row">
+	<sf:form id="editForm" action="${root}/member/entry/${urlType}/save" method="post" modelAttribute="form" class="row">
 		
 		<sf:hidden path="id"/>
 		
@@ -30,10 +30,11 @@
 						<sf:select path="ledgerId" class="form-select">
 							<option value="">Select Ledger</option>
 							<c:forEach var="item" items="${ledgers}">
-								<option value="${item.id()}">${item.name()}</option>
+								<option value="${item.id()}" ${item.id() eq form.ledgerId ? 'selected' : ''}>${item.name()}</option>
 							</c:forEach>
 						</sf:select>
 						<sf:errors path="ledgerId" cssClass="text-sm text-secondary" />
+						${form.ledgerId}
 					</app:form-group>
 					
 					<!-- Particular -->

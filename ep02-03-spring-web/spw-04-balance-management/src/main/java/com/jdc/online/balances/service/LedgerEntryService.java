@@ -18,13 +18,17 @@ import com.jdc.online.balances.controller.member.dto.LedgerEntryListItem;
 import com.jdc.online.balances.controller.member.dto.LedgerEntrySearch;
 import com.jdc.online.balances.model.PageResult;
 import com.jdc.online.balances.model.entity.LedgerEntry;
+import com.jdc.online.balances.model.entity.LedgerEntryItem;
 import com.jdc.online.balances.model.entity.LedgerEntry_;
 import com.jdc.online.balances.model.entity.Member;
 import com.jdc.online.balances.model.entity.consts.BalanceType;
+import com.jdc.online.balances.model.entity.embeddables.LedgerEntryItemPk;
 import com.jdc.online.balances.model.entity.embeddables.LedgerEntryPk;
+import com.jdc.online.balances.model.repo.LedgerEntryItemRepo;
 import com.jdc.online.balances.model.repo.LedgerEntryRepo;
 import com.jdc.online.balances.model.repo.LedgerRepo;
 import com.jdc.online.balances.model.repo.MemberRepo;
+import com.jdc.online.balances.utils.exceptions.AppBusinessException;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -37,6 +41,7 @@ public class LedgerEntryService {
 	
 	private final MemberRepo memberRepo;
 	private final LedgerEntryRepo entryRepo;
+	private final LedgerEntryItemRepo itemRepo;
 	private final LedgerRepo ledgerRepo;
 	private final LedgerEntryIdGenerator idGenerator;
 	
@@ -50,8 +55,8 @@ public class LedgerEntryService {
 		
 		var entryPk = LedgerEntryPk.parse(member.getId(), id);
 		
-		return safeCall(entryRepo.findById(entryPk).map(LedgerEntryForm::from)
-				, "ledger entry", "entry id", id);
+		return safeCall(entryRepo.findById(entryPk).map(LedgerEntryForm::from), 
+				"ledger entry", "entry id", id);
 	}
 	
 	@Transactional
@@ -78,6 +83,7 @@ public class LedgerEntryService {
 		
 		var lastAmount = Optional.ofNullable(member.getActivity().getBalance()).orElse(BigDecimal.ZERO);
 		var amount = form.getItems().stream()
+				.filter(a -> !a.isDeleted())
 				.map(a -> a.getUnitPrice().multiply(BigDecimal.valueOf(a.getQuantity())))
 				.reduce((a, b) -> a.add(b)).orElse(BigDecimal.ZERO);
 		
@@ -85,17 +91,120 @@ public class LedgerEntryService {
 		entry.setAmount(amount);
 		
 		// Insert Ledger Entry
+		entry = entryRepo.save(entry);
 		
 		// Insert Ledger Entry Items
+		for(var i = 0; i < form.getItems().size(); i ++) {
+			var item = form.getItems().get(i);
+			if(!item.isDeleted()) {
+				var entryItem = new LedgerEntryItem();
+				var pk = new LedgerEntryItemPk();
+				pk.setIssueDate(entry.getId().getIssueDate());
+				pk.setMemberId(entry.getId().getMemberId());
+				pk.setSeqNumber(entry.getId().getSeqNumber());
+				pk.setItemNumber(i + 1);
+				entryItem.setId(pk);
+				
+				entryItem.setEntry(entry);
+				entryItem.setItem(item.getItemName());
+				entryItem.setQuantity(item.getQuantity());
+				entryItem.setUnitPrice(item.getUnitPrice());
+				
+				itemRepo.save(entryItem);
+			}
+		}
 		
 		// Update Member Last Balance
+		var balance = switch(entry.getLedger().getType()) {
+		case Expenses -> entry.getLastAmount().subtract(amount);
+		case Incomes -> entry.getLastAmount().add(amount);
+		};
 		
-		return null;
+		member.getActivity().setBalance(balance);
+		
+		return entry.getId().getCode();
 	}
 
 	private String update(Member member, LedgerEntryForm form) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		// Check Issue Date
+		var entryId = LedgerEntryPk.parse(member.getId(), form.getId());
+		if(!entryId.getIssueDate().equals(LocalDate.now())) {
+			throw new AppBusinessException("You can only update entry for today.");
+		}
+		
+		// Get Ledger Entry
+		var entry = entryRepo.findById(entryId).get();
+		
+		// Get Ledger Entry Items
+		for(var item : entry.getItems()) {
+			// Delete All Items
+			itemRepo.deleteById(item.getId());
+		}
+		
+		// Insert all Items
+		for(var i = 0; i < form.getItems().size(); i ++) {
+			var item = form.getItems().get(i);
+			
+			if(!item.isDeleted()) {
+				var entryItem = new LedgerEntryItem();
+				var pk = new LedgerEntryItemPk();
+				pk.setIssueDate(entry.getId().getIssueDate());
+				pk.setMemberId(entry.getId().getMemberId());
+				pk.setSeqNumber(entry.getId().getSeqNumber());
+				pk.setItemNumber(i + 1);
+				entryItem.setId(pk);
+				
+				entryItem.setEntry(entry);
+				entryItem.setItem(item.getItemName());
+				entryItem.setQuantity(item.getQuantity());
+				entryItem.setUnitPrice(item.getUnitPrice());
+				
+				itemRepo.save(entryItem);
+			}
+		}
+		
+		// Update Ledger Entry Info
+		entry.setParticular(form.getParticular());
+		entry.setLedger(ledgerRepo.findById(form.getLedgerId()).get());
+		entry.setIssueAt(LocalDateTime.now());
+		
+		var lastAmount = Optional.ofNullable(member.getActivity().getBalance()).orElse(BigDecimal.ZERO);
+		var amount = form.getItems().stream()
+				.filter(a -> !a.isDeleted())
+				.map(a -> a.getUnitPrice().multiply(BigDecimal.valueOf(a.getQuantity())))
+				.reduce((a, b) -> a.add(b)).orElse(BigDecimal.ZERO);
+		
+		entry.setLastAmount(lastAmount);
+		entry.setAmount(amount);
+		
+		// Update Member Balance
+		var balance = switch(entry.getLedger().getType()) {
+		case Expenses -> entry.getLastAmount().subtract(amount);
+		case Incomes -> entry.getLastAmount().add(amount);
+		};
+
+		member.getActivity().setBalance(balance);
+		
+		// Update Remaining Entry Balances
+		var entries = entryRepo.findRemaingEntries(member.getId(), entry.getId().getIssueDate(), entry.getId().getSeqNumber());
+		
+		for(var remain : entries) {
+			remain.setLastAmount(member.getActivity().getBalance());
+			
+			var remainAmount = remain.getItems().stream()
+					.map(a -> a.getUnitPrice().multiply(BigDecimal.valueOf(a.getQuantity())))
+					.reduce((a, b) -> a.add(b)).orElse(BigDecimal.ZERO);
+					
+			var remainBalance = switch(remain.getLedger().getType()) {
+			case Expenses -> remain.getLastAmount().subtract(remainAmount);
+			case Incomes -> remain.getLastAmount().add(remainAmount);
+			};
+			
+			member.getActivity().setBalance(remainBalance);
+		}
+		
+		return entry.getId().getCode();
 	}
 
 	public PageResult<LedgerEntryListItem> search(String username, 

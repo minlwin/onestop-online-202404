@@ -9,7 +9,7 @@
 		<app:page-title title="Incomes Details" />
 		
 		<c:url var="editUrl" value="${root}/member/entry/incomes/edit">
-			<c:param name="id" value="20250401-001"></c:param>
+			<c:param name="id" value="${details.code()}"></c:param>
 		</c:url>
 		<a href="${editUrl}" class="btn btn-danger">
 			<i class="bi-pencil"></i> Edit Entry
@@ -38,23 +38,18 @@
 						</thead>
 						
 						<tbody>
+							<c:forEach var="item" items="${details.items()}" varStatus="sts">
 							<tr>
-								<td>1</td>
-								<td>Print Paper</td>
-								<td class="text-end">35,000</td>
-								<td class="text-end">2</td>
-								<td class="text-end">70,000</td>
+								<td>${sts.index + 1}</td>
+								<td>${item.itemName()}</td>
+								<td class="text-end">${item.unitPrice()}</td>
+								<td class="text-end">${item.quantity()}</td>
+								<td class="text-end">${item.total}</td>
 							</tr>
-							<tr>
-								<td>2</td>
-								<td>Maintenance Fees</td>
-								<td class="text-end">30,000</td>
-								<td class="text-end">1</td>
-								<td class="text-end">30,000</td>
-							</tr>
+							</c:forEach>
 							<tr>
 								<td colspan="4">All Total</td>
-								<td class="text-end">30,000</td>
+								<td class="text-end">${details.total}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -73,27 +68,27 @@
 					<div class="list-group list-group-flush">
 						<div class="list-group-item">
 							<div>Code</div>
-							<div>20250225-001</div>
+							<div>${details.code()}</div>
 						</div>
 					
 						<div class="list-group-item">
 							<div>Ledger</div>
-							<div>Service Charges</div>
+							<div>${details.ledgerName()}</div>
 						</div>
 
 						<div class="list-group-item">
 							<div>Amount</div>
-							<div>100,000 MMK</div>
+							<div>${details.amount()} MMK</div>
 						</div>
 
 						<div class="list-group-item">
 							<div>Issue At</div>
-							<div>2025-02-25 10:00</div>
+							<div>${dtf.formatDateTime(details.issueAt())}</div>
 						</div>
 						
 						<div class="list-group-item">
 							<div>Particular</div>
-							<div>Maintenance Fees for POS</div>
+							<div>${details.particular()}</div>
 						</div>
 						
 					</div>

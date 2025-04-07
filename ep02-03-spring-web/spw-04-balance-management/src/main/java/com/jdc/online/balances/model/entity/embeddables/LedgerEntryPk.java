@@ -19,7 +19,7 @@ public class LedgerEntryPk {
 	private static final DateTimeFormatter DF = DateTimeFormatter.ofPattern("yyyyMMdd");
 	
 	public String getCode() {
-		return "%s%03d".formatted(issueDate.format(DF));
+		return "%s%03d".formatted(issueDate.format(DF), seqNumber);
 	}
 
 	public static LedgerEntryPk parse(long memberId, String id) {

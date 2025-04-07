@@ -94,8 +94,8 @@
 				<div class="modal-body">
 					<app:form-group label="Type" cssClass="mb-3" >
 						<sf:select path="type" class="form-select" required="required">
+							<option value="">Select One</option>
 							<c:forEach var="item" items="${balanceTypes}">
-								<option value="">Select One</option>
 								<option value="${item}">${item}</option>
 							</c:forEach>
 						</sf:select>
