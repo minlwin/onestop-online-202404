@@ -2,13 +2,18 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
     
 <app:layout-member title="BALANCES">
 	
 	<app:page-title title="Balance Report" />
 	
 	<!-- Search From -->
-	<form class="row">
+	<form class="row" id="searchForm">
+		
+		<input type="hidden" name="page" id="pageInput" />
+		<input type="hidden" name="size" id="sizeInput" />
+
 		<app:form-group label="Date From" cssClass="col-auto">
 			<input name="dateFrom" type="date" class="form-control" />
 		</app:form-group>
@@ -39,23 +44,25 @@
 		</thead>
 		
 		<tbody>
+			<c:forEach var="item" items="${result.contents()}">
 			<tr>
-				<td>2025-02-25 10:00</td>
-				<td>Service Charges</td>
-				<td>Maintenance Fees for POS</td>
-				<td class="text-end">0</td>
-				<td class="text-end">100,000</td>
-				<td class="text-end">100,000</td>
+				<td>${dtf.formatDateTime(item.issueAt())}</td>
+				<td>${item.ledgerName()}</td>
+				<td>${item.particular()}</td>
+				<td class="text-end">${item.expense()}</td>
+				<td class="text-end">${item.income()}</td>
+				<td class="text-end">${item.balance()}</td>
 				<td class="text-center">
-					<a href="${root}/member/balance/20250225-001">
+					<a href="${root}/member/balance/${item.code()}">
 						<i class="bi-arrow-right"></i>
 					</a>
 				</td>
 			</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 	
 	<!-- Pagination -->
-	<app:pagination />
+	<app:pagination pageResult="${result}" />
 	
 </app:layout-member>

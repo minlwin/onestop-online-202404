@@ -5,9 +5,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.jdc.online.balances.model.entity.LedgerEntry;
+import com.jdc.online.balances.model.entity.consts.BalanceType;
 
 public record LedgerEntryDetails(
 		String code,
+		BalanceType type,
 		String ledgerName,
 		BigDecimal amount,
 		LocalDateTime issueAt,
@@ -22,6 +24,7 @@ public record LedgerEntryDetails(
 	public static LedgerEntryDetails from(LedgerEntry entity) {
 		return new LedgerEntryDetails(
 				entity.getId().getCode(), 
+				entity.getLedger().getType(),
 				entity.getLedger().getName(), 
 				entity.getAmount(), 
 				entity.getIssueAt(), 

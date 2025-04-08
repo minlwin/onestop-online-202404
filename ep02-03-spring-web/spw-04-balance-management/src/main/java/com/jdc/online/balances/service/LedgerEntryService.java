@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.function.Function;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -143,31 +144,31 @@ public class LedgerEntryService {
 		}
 		
 		// Insert all Items
-		for(var i = 0; i < form.getItems().size(); i ++) {
-			var item = form.getItems().get(i);
+		var newItems = form.getItems().stream().filter(a -> !a.isDeleted())
+				.toList();
+		
+		for(var i = 0; i < newItems.size(); i ++) {
+			var item = newItems.get(i);
 			
-			if(!item.isDeleted()) {
-				var entryItem = new LedgerEntryItem();
-				var pk = new LedgerEntryItemPk();
-				pk.setIssueDate(entry.getId().getIssueDate());
-				pk.setMemberId(entry.getId().getMemberId());
-				pk.setSeqNumber(entry.getId().getSeqNumber());
-				pk.setItemNumber(i + 1);
-				entryItem.setId(pk);
-				
-				entryItem.setEntry(entry);
-				entryItem.setItem(item.getItemName());
-				entryItem.setQuantity(item.getQuantity());
-				entryItem.setUnitPrice(item.getUnitPrice());
-				
-				itemRepo.save(entryItem);
-			}
+			var entryItem = new LedgerEntryItem();
+			var pk = new LedgerEntryItemPk();
+			pk.setIssueDate(entry.getId().getIssueDate());
+			pk.setMemberId(entry.getId().getMemberId());
+			pk.setSeqNumber(entry.getId().getSeqNumber());
+			pk.setItemNumber(i + 1);
+			entryItem.setId(pk);
+			
+			entryItem.setEntry(entry);
+			entryItem.setItem(item.getItemName());
+			entryItem.setQuantity(item.getQuantity());
+			entryItem.setUnitPrice(item.getUnitPrice());
+			
+			itemRepo.save(entryItem);
 		}
 		
 		// Update Ledger Entry Info
 		entry.setParticular(form.getParticular());
 		entry.setLedger(ledgerRepo.findById(form.getLedgerId()).get());
-		entry.setIssueAt(LocalDateTime.now());
 		
 		var lastAmount = Optional.ofNullable(member.getActivity().getBalance()).orElse(BigDecimal.ZERO);
 		var amount = form.getItems().stream()
@@ -207,6 +208,7 @@ public class LedgerEntryService {
 		return entry.getId().getCode();
 	}
 
+	@PreAuthorize("authentication.name eq #username")
 	public PageResult<LedgerEntryListItem> search(String username, 
 			BalanceType type, LedgerEntrySearch search, int page, int size) {
 		return entryRepo.search(queryFunc(username, type, search), countFunc(username, type, search), page, size);

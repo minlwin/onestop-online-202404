@@ -1,6 +1,5 @@
 package com.jdc.online.balances.controller.member;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -89,17 +88,6 @@ public class MemberLedgerEntryController {
 	
 	@PostMapping("item/remove")
 	String removeItem(@ModelAttribute(name = "form") LedgerEntryForm entryForm) {
-		
-		var removedItems = entryForm.getItems().stream().filter(a -> !a.isDeleted()).toList();
-		
-		removedItems = new ArrayList<>(removedItems);
-		
-		if(removedItems.isEmpty()) {
-			removedItems.add(new LedgerEntryFormItem());
-		}
-		
-		entryForm.setItems(removedItems);
-		
 		return "member/entries/edit";
 	}
 	

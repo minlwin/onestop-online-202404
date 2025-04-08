@@ -31,9 +31,9 @@ public class LedgerEntryForm {
 		form.setId(entity.getId().getCode());
 		form.setLedgerId(entity.getLedger().getId());
 		form.setParticular(entity.getParticular());
-		
-		form.setItems(entity.getItems()
-				.stream().map(LedgerEntryFormItem::from).toList());
+		var items = entity.getItems()
+				.stream().map(LedgerEntryFormItem::from).toList();
+		form.setItems(new ArrayList<>(items));
 		
 		return form;
 	}

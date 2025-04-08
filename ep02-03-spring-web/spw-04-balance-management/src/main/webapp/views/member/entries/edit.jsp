@@ -17,7 +17,7 @@
 		<sf:hidden path="id"/>
 		
 		<!-- Summary -->
-		<div class="col-4">
+		<div class="col-3">
 		
 			<div class="card">
 				<div class="card-body">
@@ -34,7 +34,6 @@
 							</c:forEach>
 						</sf:select>
 						<sf:errors path="ledgerId" cssClass="text-sm text-secondary" />
-						${form.ledgerId}
 					</app:form-group>
 					
 					<!-- Particular -->
@@ -63,37 +62,41 @@
 					
 					<div class="row">
 						<div class="col">Item Name</div>
-						<div class="col-2">Unit Price</div>
-						<div class="col-2">Quantity</div>
+						<div class="col-3">Unit Price</div>
+						<div class="col-3">Quantity</div>
 						<div class="col-2 text-end">Total</div>
 					</div>
 					
 					<div id="entryItemsContainer">
 						<c:forEach var="item" varStatus="sts" items="${form.items}">
 						
-						<div class="row mt-2">
-							<sf:hidden path="items[${sts.index}].deleted"/>
-							<div class="col">
-								<div class="input-group">
-									<button data-delete-input-id="items${sts.index}.deleted" 
-										data-delete-url="${root}/member/entry/${urlType}/item/remove" type="button" class="deleteBtn btn btn-outline-danger input-group-text">
-										<i class="bi-trash"></i>
-									</button>							
-									<sf:input path="items[${sts.index}].itemName" type="text" class="form-control" placeholder="Enter Item Name" />
+							<div class="row mt-2 ${item.deleted ? 'd-none' : ''}">
+								<sf:hidden path="items[${sts.index}].deleted"/>
+								<div class="col">
+									<div class="input-group">
+										<button data-delete-input-id="items${sts.index}.deleted" 
+											data-delete-url="${root}/member/entry/${urlType}/item/remove" type="button" class="deleteBtn btn btn-outline-danger input-group-text">
+											<i class="bi-trash"></i>
+										</button>							
+										<sf:input path="items[${sts.index}].itemName" type="text" class="form-control" placeholder="Enter Item Name" />
+									</div>
+									<sf:errors path="items[${sts.index}].itemName" cssClass="text-sm text-secondary" />
+								</div>
+								
+								<div class="col-3">
+									<sf:input path="items[${sts.index}].unitPrice" type="number" class="form-control changesInput" />
+									<sf:errors path="items[${sts.index}].unitPrice" cssClass="text-sm text-secondary" />
+								</div>
+								
+								<div class="col-3">
+									<sf:input path="items[${sts.index}].quantity" type="number" class="form-control changesInput" />
+									<sf:errors path="items[${sts.index}].quantity" cssClass="text-sm text-secondary" />
+								</div>
+								<div class="col-2 text-end">
+									<span id="row${sts.index}Total" class="form-control">0</span>
 								</div>
 							</div>
-							
-							<div class="col-2">
-								<sf:input path="items[${sts.index}].unitPrice" type="number" class="form-control changesInput" />
-							</div>
-							
-							<div class="col-2">
-								<sf:input path="items[${sts.index}].quantity" type="number" class="form-control changesInput" />
-							</div>
-							<div class="col-2 text-end">
-								<span id="row${sts.index}Total" class="form-control">0</span>
-							</div>
-						</div>
+
 						</c:forEach>
 					</div>
 					
