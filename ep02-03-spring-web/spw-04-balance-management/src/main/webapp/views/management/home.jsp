@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
     
 <app:layout-management title="HOME">
 	
@@ -9,10 +10,19 @@
 		<app:page-title title="Admin Home" />
 	
 		<div class="btn-group">
-			<input type="radio" name="display" class="btn-check" checked id="monthly" />
+			
+			<c:url var="monthlyApi" value="${root}/admin/home/load">
+				<c:param name="type" value="Monthly" />
+			</c:url>
+		
+			<input data-rest-api="${monthlyApi}" type="radio" name="display" class="btn-check" checked id="monthly" />
 			<label for="monthly" class="btn btn-outline-secondary">Monthly</label>
 			
-			<input type="radio" name="display" class="btn-check" id="yearly" />
+			<c:url var="yearlyApi" value="${root}/admin/home/load">
+				<c:param name="type" value="Yearly" />
+			</c:url>
+
+			<input data-rest-api="${yearlyApi}" type="radio" name="display" class="btn-check" id="yearly" />
 			<label for="yearly" class="btn btn-outline-secondary">Yearly</label>
 		</div>
 	</div>
@@ -27,7 +37,7 @@
 					</h5>
 				</div>
 				<div class="card-body">
-					<h4><i class="<bi-people></bi-people>"></i> 15</h4>
+					<h4><i class="<bi-people></bi-people>"></i> ${vo.lastMonth()}</h4>
 				</div>
 			</div>
 
@@ -39,7 +49,7 @@
 					</h5>
 				</div>
 				<div class="card-body">
-					<h4><i class="<bi-people></bi-people>"></i> 150</h4>
+					<h4><i class="<bi-people></bi-people>"></i> ${vo.lastYear()}</h4>
 				</div>
 			</div>
 
@@ -51,7 +61,7 @@
 					</h5>
 				</div>
 				<div class="card-body">
-					<h4><i class="<bi-people></bi-people>"></i> 1,560</h4>
+					<h4><i class="<bi-people></bi-people>"></i> ${vo.totalMembers()}</h4>
 				</div>
 			</div>
 		</div>

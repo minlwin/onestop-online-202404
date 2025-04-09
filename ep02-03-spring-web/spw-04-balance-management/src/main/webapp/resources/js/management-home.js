@@ -1,33 +1,45 @@
 document.addEventListener('DOMContentLoaded', () => {
 	
 	am5.ready(() => {
-		let date = new Date();
-		date.setHours(0, 0, 0, 0);
-		let value = 100;
 
-		function generateData() {
-		  value = Math.round((Math.random() * 10 - 5) + value);
-		  am5.time.add(date, "day", 1);
-		  return {
-		    date: date.getTime(),
-		    value: value
-		  };
+		// Load Data
+		const loadData = (url) => {
+			fetch(url, {
+				method: 'GET',
+				headers : {
+					'Content-Type' : 'application-json'
+				}
+			}).then(response => {
+				if(!response.ok) {
+					console.log(response.json())
+					throw new Error(`API Error : ${response.status}`)
+				}
+				return response.json()	
+			}).then(data => {
+				loadChart(data)
+			})
+			.catch(error => {
+				console.error('Error Fetching API', error)	
+			})
 		}
-
-		function generateDatas(count) {
-		  var data = [];
-		  for (var i = 0; i < count; ++i) {
-		    data.push(generateData());
-		  }
-		  return data;
-		}
-
-		loadChart(generateDatas(1200))
+		
+		const monthly = document.getElementById('monthly')
+		const yearly = document.getElementById('yearly')
+		
+		monthly.addEventListener('click', () => loadData(monthly.dataset['restApi']))
+		yearly.addEventListener('click', () => loadData(yearly.dataset['restApi']))
+		
+		const monthlyUrl = monthly.dataset['restApi']
+		loadData(monthlyUrl)
+		
 	})
 })
 
 
 function loadChart(data) {
+	
+	console.log(JSON.stringify(data))
+	
 	// Create root element
 	// https://www.amcharts.com/docs/v5/getting-started/#Root_element
 	var root = am5.Root.new("adminChart");
@@ -59,17 +71,9 @@ function loadChart(data) {
 	cursor.lineY.set("visible", false);
 
 
-	// Generate random data
-
-
 	// Create axes
 	// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
 	var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
-	  maxDeviation: 0.2,
-	  baseInterval: {
-	    timeUnit: "day",
-	    count: 1
-	  },
 	  renderer: am5xy.AxisRendererX.new(root, {
 	    minorGridEnabled:true
 	  }),
