@@ -2,8 +2,6 @@ package com.jdc.online.balances.controller.management;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.IntStream;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jdc.online.balances.controller.management.dto.AdminHomeVo;
 import com.jdc.online.balances.controller.management.dto.LineChartVo;
+import com.jdc.online.balances.service.AdminChartDataService;
 import com.jdc.online.balances.service.MemberManagementService;
 import com.jdc.online.balances.utils.LoadType;
 
@@ -25,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminHomeController {
 
 	private final MemberManagementService memberService;
+	private final AdminChartDataService chartDataService;
 	
 	@GetMapping
 	String index(ModelMap model) {
@@ -41,9 +41,7 @@ public class AdminHomeController {
 	@ResponseBody
 	@GetMapping("load")
 	List<LineChartVo> loadData(@RequestParam(required = false, defaultValue = "Monthly") LoadType type) {
-		return IntStream.iterate(1, (a) -> a + 1)
-				.limit(1200)
-				.mapToObj(a -> new LineChartVo(a, ThreadLocalRandom.current().nextLong(0, 999999))).toList();
+		return chartDataService.load(type);
 	}
 	
 }

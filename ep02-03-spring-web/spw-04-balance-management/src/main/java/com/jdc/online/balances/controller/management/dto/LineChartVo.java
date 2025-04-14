@@ -1,7 +1,9 @@
 package com.jdc.online.balances.controller.management.dto;
 
+import java.time.LocalDate;
+
 public record LineChartVo(
-		int date,
+		LocalDate date,
 		Long value) {
 
 }

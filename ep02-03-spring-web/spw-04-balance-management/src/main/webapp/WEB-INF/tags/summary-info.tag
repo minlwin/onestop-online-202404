@@ -12,7 +12,7 @@
 		</div>
 		<h4 class="d-flex justify-content-between">
 			<i class="${icon}"></i> 
-			<span>${value}</span>
+			<span id="${title.toLowerCase()}">${value}</span>
 		</h4>
 	</div>
 </div>

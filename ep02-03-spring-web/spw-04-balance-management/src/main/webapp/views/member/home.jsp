@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
     
 <app:layout-member title="HOME">
 	
@@ -9,10 +10,21 @@
 		<app:page-title title="Member Home" />
 		
 		<div class="btn-group">
-			<input type="radio" name="display" class="btn-check" checked id="monthly" />
+			
+			<c:url var="summaryMonthly" value="${root}/member/chart/summary">
+				<c:param name="type" value="Monthly" />
+			</c:url>
+			
+			<input type="radio" name="display" class="btn-check" checked id="monthly"
+			 	data-summary-url="${summaryMonthly}" />
 			<label for="monthly" class="btn btn-outline-primary">Monthly</label>
 			
-			<input type="radio" name="display" class="btn-check" id="yearly" />
+			<c:url var="summaryYearly" value="${root}/member/chart/summary">
+				<c:param name="type" value="Yearly" />
+			</c:url>
+
+			<input type="radio" name="display" class="btn-check" id="yearly" 
+				data-summary-url="${summaryYearly}"  />
 			<label for="yearly" class="btn btn-outline-primary">Yearly</label>
 		</div>
 	</div>
