@@ -14,17 +14,33 @@
 			<c:url var="summaryMonthly" value="${root}/member/chart/summary">
 				<c:param name="type" value="Monthly" />
 			</c:url>
+			<c:url var="balanceMonthly" value="${root}/member/chart/balance">
+				<c:param name="type" value="Monthly" />
+			</c:url>
+			<c:url var="ledgerMonthly" value="${root}/member/chart/ledger">
+				<c:param name="type" value="Monthly" />
+			</c:url>
 			
 			<input type="radio" name="display" class="btn-check" checked id="monthly"
-			 	data-summary-url="${summaryMonthly}" />
+			 	data-summary-url="${summaryMonthly}" 
+			 	data-balance-url="${balanceMonthly}" 
+			 	data-ledger-url="${ledgerMonthly}" />
 			<label for="monthly" class="btn btn-outline-primary">Monthly</label>
 			
 			<c:url var="summaryYearly" value="${root}/member/chart/summary">
 				<c:param name="type" value="Yearly" />
 			</c:url>
+			<c:url var="balanceYearly" value="${root}/member/chart/balance">
+				<c:param name="type" value="Yearly" />
+			</c:url>
+			<c:url var="ledgerYearly" value="${root}/member/chart/ledger">
+				<c:param name="type" value="Yearly" />
+			</c:url>
 
 			<input type="radio" name="display" class="btn-check" id="yearly" 
-				data-summary-url="${summaryYearly}"  />
+				data-summary-url="${summaryYearly}"
+				data-balance-url="${balanceYearly}" 
+				data-ledger-url="${ledgerYearly}"  />
 			<label for="yearly" class="btn btn-outline-primary">Yearly</label>
 		</div>
 	</div>
