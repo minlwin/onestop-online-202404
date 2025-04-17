@@ -170,7 +170,7 @@ public class LedgerEntryService {
 		entry.setParticular(form.getParticular());
 		entry.setLedger(ledgerRepo.findById(form.getLedgerId()).get());
 		
-		var lastAmount = Optional.ofNullable(member.getActivity().getBalance()).orElse(BigDecimal.ZERO);
+		var lastAmount = entry.getLastAmount();
 		var amount = form.getItems().stream()
 				.filter(a -> !a.isDeleted())
 				.map(a -> a.getUnitPrice().multiply(BigDecimal.valueOf(a.getQuantity())))

@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @RequiredArgsConstructor
 @PropertySource(value = "classpath:/admin-user.properties")
+@PropertySource(value = "classpath:/patch.properties")
 public class AdminUserInitializer {
 	
 	private final PasswordEncoder passwordEncoder;
