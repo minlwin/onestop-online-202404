@@ -1,0 +1,1 @@
+const person1 = new Person("Thidar", "Aung")
