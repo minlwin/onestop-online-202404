@@ -1,4 +1,5 @@
 class Controls {
+    private state:string
     value:string
     action:() => void
 }
@@ -12,10 +13,6 @@ function useSelectControl(control:SelectableControls) {
     console.log(control.value)
 }
 
-class Select implements SelectableControls {
-    constructor(public value:string, readonly selected:boolean) {}
-
-    action() {
-        
-    }
+class Select extends Controls implements SelectableControls {
+    selected: boolean
 }
