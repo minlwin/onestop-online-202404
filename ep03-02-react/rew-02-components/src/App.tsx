@@ -2,6 +2,8 @@ import { NavLink, Route, Routes } from 'react-router'
 import './App.css'
 import ProductList from './pages/product-list'
 import ComponentAsArgs from './pages/component-as-args'
+import ConditionalRendering from './pages/conditional-rendering'
+import PassingHandler from './pages/passing-handler'
 
 export default function App() {
 
@@ -13,6 +15,8 @@ export default function App() {
         <Routes>
           <Route index element={<ProductList />} />
           <Route path='/as-arg' element={<ComponentAsArgs />} />
+          <Route path='/conditional' element={<ConditionalRendering />} />
+          <Route path='/passing' element={<PassingHandler />} />
         </Routes>
       </div>
     </>
@@ -28,6 +32,8 @@ function NavBar() {
         <ul className="navbar-nav">
           <NavItem path='/' name='Product List' />
           <NavItem path='/as-arg' name='As Argument' />
+          <NavItem path='/conditional' name='Conditional' />
+          <NavItem path='/passing' name='Passing' />
         </ul>
       </div>
     </nav>

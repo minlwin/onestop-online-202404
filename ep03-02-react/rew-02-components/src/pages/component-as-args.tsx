@@ -1,4 +1,4 @@
-import { Atom, LogIn, Save } from "lucide-react";
+import { Atom, LogIn } from "lucide-react";
 import PageTitle from "../components/PageTitle";
 
 export default function ComponentAsArgs() {
