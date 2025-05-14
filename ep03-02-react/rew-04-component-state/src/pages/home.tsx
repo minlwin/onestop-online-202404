@@ -58,7 +58,7 @@ function WithoutState() {
 }
 
 function WithState() {
-    const [index, setState] = useState(0)
+    const [index, setState]:[number, React.Dispatch<React.SetStateAction<number>>] = useState<number>(0)
 
     const handleNext = () => {
         setState(index + 1);
