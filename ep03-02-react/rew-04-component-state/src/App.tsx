@@ -4,6 +4,7 @@ import MultipleState from "./pages/multiple-state"
 import StateObject from "./pages/state-object"
 import SpreadStateObject from "./pages/state-spread"
 import StateNestedObject from "./pages/state-nested"
+import StateArray from "./pages/state-array"
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/object" element={<StateObject />} />
           <Route path="/spread" element={<SpreadStateObject />} />
           <Route path="/nested" element={<StateNestedObject />} />
+          <Route path="/array" element={<StateArray />} />
         </Routes>
       </main>
     </>
@@ -36,14 +38,18 @@ function NavBar() {
           <li className="nav-item">
             <NavLink className={'nav-link'} to={'/multiple'}>Multiple State</NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink className={'nav-link'} to={'/object'}>Object as a State</NavLink>
+          <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+              State Object
+            </a>
+            <ul className="dropdown-menu">
+              <li><NavLink className={'dropdown-item'} to={'/object'}>Object as a State</NavLink></li>
+              <li><NavLink className={'dropdown-item'} to={'/spread'}>Spread State Object</NavLink></li>
+              <li><NavLink className={'dropdown-item'} to={'/nested'}>Nested State Object</NavLink></li>
+            </ul>
           </li>
           <li className="nav-item">
-            <NavLink className={'nav-link'} to={'/spread'}>Spread State Object</NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className={'nav-link'} to={'/nested'}>Nested State Object</NavLink>
+            <NavLink className={'nav-link'} to={'/array'}>Array As State</NavLink>
           </li>
         </ul>
       </div>

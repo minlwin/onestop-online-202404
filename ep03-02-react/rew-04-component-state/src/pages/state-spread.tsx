@@ -5,7 +5,7 @@ export default function SpreadStateObject() {
 
     const [user, setUser] = useState<User>({name : '', phone : '', email : ''})
 
-    const changeName:ChangeEventHandler<HTMLInputElement> = (event) => {
+    const changeName = (event:React.ChangeEvent<HTMLInputElement>) => {
         setUser({...user, name : event.target.value})
     }
 
