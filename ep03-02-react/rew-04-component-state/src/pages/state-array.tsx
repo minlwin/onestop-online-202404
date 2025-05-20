@@ -1,24 +1,38 @@
 import { useState } from "react"
 
+let nextId = 0;
+
 export default function StateArray() {
 
     const [list, setList] = useState<Item[]>([])
     const [item, setItem] = useState<Item | undefined>(undefined)
 
-    const addItem = (item:Item) => {
-        setList([...list, item])
-    }
-
-    const deleteItem = (id: number) => {
-        setList(list.filter(item => item.id !== id))
-    }
-
     const saveItem = () => {
-        if(item && item.id == 0) {
-            addItem(item)
+
+        if(item) {
+            if(!item.id) {
+                // Add New
+                setList([...list.map(a => ({...a})), {...item, id : ++ nextId}])
+            } else {
+                // Update
+                const index = list.findIndex(a => a.id === item.id)
+                setList([
+                    ...list.slice(0, index),
+                    {... item},
+                    ...list.slice(index + 1)
+                ])
+            }
             setItem(undefined)
         }
     }
+
+    const onItemAction:ItemAction = (id, action) => {
+        if(action === 'Edit') {
+            setItem(list.find(a => a.id === id))
+        } else if (action === 'Delete') {
+            setList(list.filter(a => a.id !== id).map(a => ({...a})))
+        }
+    } 
 
     return (
         <>
@@ -26,14 +40,14 @@ export default function StateArray() {
 
             <div className="row mt-4">
                 <div className="col-3">
-                    <Card title="Edit Item">
+                    <Card title={item ? 'Edit Item' : 'Add New Item'}>
                         <ItemForm item={item} setItem={setItem} saveItem={saveItem} />
                     </Card>
                 </div>
 
                 <div className="col">
                     <Card title="Item List">
-                        <ItemList list={list} />
+                        <ItemList list={list} onAction={onItemAction} />
                     </Card>
                 </div>
             </div>
@@ -89,7 +103,7 @@ function ItemForm({item, setItem, saveItem} : {
     )
 }
 
-function ItemList({list} : {list: Item[]}) {
+function ItemList({list, onAction} : {list: Item[], onAction?:ItemAction}) {
 
     if(list.length === 0) {
         return <span>There is no item</span>
@@ -103,18 +117,44 @@ function ItemList({list} : {list: Item[]}) {
                     <th>Name</th>
                     <th>Category</th>
                     <th>Price</th>
+                    <td></td>
                 </tr>
             </thead>
             <tbody>
-                {list.map((item, index) => 
-                    <tr key={index}>
-                        <td>{item.id}</td>
-                        <td>{item.name}</td>
-                        <td>{item.category}</td>
-                        <td>{item.price}</td>
-                    </tr>
-                )}
+                {list.map((item) => <ItemRow item={item} onAction={onAction}  />)}
             </tbody>
         </table>
+    )
+}
+
+type ItemAction = (id:number, action : 'Edit' | 'Delete') => void
+
+function ItemRow({item, onAction} : {item:Item, onAction?:ItemAction}) {
+    return (
+        <tr key={item.id}>
+            <td>{item.id}</td>
+            <td>{item.name}</td>
+            <td>{item.category}</td>
+            <td>{item.price}</td>
+            <td>
+                <a href="#" onClick={e => {
+                    e.preventDefault()
+                    if(onAction) {
+                        onAction(item.id, 'Edit')
+                    }
+                }} className="inline-block me-4 btn-link">
+                    <i className="bi-pencil"></i>
+                </a>
+
+                <a href="#" onClick={e => {
+                    e.preventDefault()
+                    if(onAction) {
+                        onAction(item.id, 'Delete')
+                    }
+                }} className="btn-link">
+                    <i className="bi-trash"></i>
+                </a>
+            </td>
+        </tr>
     )
 }
