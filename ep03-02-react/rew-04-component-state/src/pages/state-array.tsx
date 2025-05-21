@@ -1,26 +1,29 @@
 import { useState } from "react"
+import { useImmer, type Updater } from "use-immer";
 
 let nextId = 0;
 
 export default function StateArray() {
 
-    const [list, setList] = useState<Item[]>([])
     const [item, setItem] = useState<Item | undefined>(undefined)
+    const [list, updateList]:[Item[], Updater<Item[]>] = useImmer<Item[]>([])
 
     const saveItem = () => {
 
         if(item) {
             if(!item.id) {
                 // Add New
-                setList([...list.map(a => ({...a})), {...item, id : ++ nextId}])
+                updateList(draft => {
+                    draft.push({...item, id : ++ nextId})
+                })
             } else {
                 // Update
-                const index = list.findIndex(a => a.id === item.id)
-                setList([
-                    ...list.slice(0, index),
-                    {... item},
-                    ...list.slice(index + 1)
-                ])
+                updateList(draft => {
+                    const index = draft.findIndex(a => a.id == item.id)
+                    if(index >= 0) {
+                        draft[index] = item
+                    }
+                })
             }
             setItem(undefined)
         }
@@ -30,7 +33,8 @@ export default function StateArray() {
         if(action === 'Edit') {
             setItem(list.find(a => a.id === id))
         } else if (action === 'Delete') {
-            setList(list.filter(a => a.id !== id).map(a => ({...a})))
+            updateList(list.filter(a => a.id != id))
+            setItem(undefined)
         }
     } 
 
@@ -80,6 +84,11 @@ function ItemForm({item, setItem, saveItem} : {
     setItem: (item:Item | undefined) => void,
     saveItem: () => void
 }) {
+
+    const isValid = () => {
+        return item?.name && item?.category && item?.price
+    }
+
     return (
         <form>
             <div className="mb-3">
@@ -95,7 +104,7 @@ function ItemForm({item, setItem, saveItem} : {
                 <input onChange={e => setItem(item ? {...item, price: Number.parseInt(e.target.value)} : {id: 0, name : '', category : '', price :  Number.parseInt(e.target.value)})} type="number" value={item?.price || 0} className="form-control" placeholder="Enter Price" />
             </div>
 
-            <button onClick={e => {
+            <button disabled={!isValid()} onClick={e => {
                 e.preventDefault()
                 saveItem()
             }} className="btn btn-primary">Save</button>
@@ -121,7 +130,7 @@ function ItemList({list, onAction} : {list: Item[], onAction?:ItemAction}) {
                 </tr>
             </thead>
             <tbody>
-                {list.map((item) => <ItemRow item={item} onAction={onAction}  />)}
+                {list.map((item) => <ItemRow key={item.id} item={item} onAction={onAction}  />)}
             </tbody>
         </table>
     )
