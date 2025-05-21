@@ -1,10 +1,9 @@
 import { useState } from "react"
 import { useImmer, type Updater } from "use-immer";
 
-let nextId = 0;
-
 export default function StateArray() {
 
+    const [id, setId] = useState(1)
     const [item, setItem] = useState<Item | undefined>(undefined)
     const [list, updateList]:[Item[], Updater<Item[]>] = useImmer<Item[]>([])
 
@@ -14,7 +13,8 @@ export default function StateArray() {
             if(!item.id) {
                 // Add New
                 updateList(draft => {
-                    draft.push({...item, id : ++ nextId})
+                    draft.push({...item, id : id})
+                    setId(id + 1)
                 })
             } else {
                 // Update
