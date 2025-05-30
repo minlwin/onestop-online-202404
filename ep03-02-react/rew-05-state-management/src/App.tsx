@@ -22,10 +22,22 @@ function NavBar() {
         </NavLink>
 
         <ul className="navbar-nav">
-          <li className="nav-item">
-            <NavLink to="/structure/deeply-nested" className="nav-link">
-              <i className="bi-bezier2"></i> Nested State
-            </NavLink>
+          <li className="nav-item dropdown">
+            <a href="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+              State Structure
+            </a>
+            <ul className="dropdown-menu">
+              <li>
+                <NavLink to="/structure/deeply-nested" className="dropdown-item">
+                  <i className="bi-bezier2"></i> Nested State
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/structure/flat" className="dropdown-item">
+                  <i className="bi-bezier"></i> Flat State
+                </NavLink>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>

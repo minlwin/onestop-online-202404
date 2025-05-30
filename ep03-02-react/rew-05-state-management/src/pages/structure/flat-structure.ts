@@ -1,10 +1,15 @@
 export type FlatPlan = {
     id: number
     title: string
-    childIds?: number[]
+    childIds: number[]
 }
 
-export const flatTravelPlan: Record<number, FlatPlan> = {
+export const flatTravelPlan:Record<number, FlatPlan> = {
+  0: {
+    id: 0,
+    title: '(Root)',
+    childIds: [1, 42, 46],
+  },
   1: {
     id: 1,
     title: 'Earth',
