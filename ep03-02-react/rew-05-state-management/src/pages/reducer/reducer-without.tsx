@@ -9,7 +9,7 @@ export default function WithoutReducer() {
 
     const [id, setId] = useState(0)
     const [members, setMembers] = useState<Member[]>([])
-    const [target, setTarget] = useState<Member>(DEFAULT_MEMBER)
+    const [target, setTarget] = useState<Member>({...DEFAULT_MEMBER})
 
     function addMember(member:Member) {
         setMembers([...members.map(a => ({...a})), member])
@@ -17,7 +17,11 @@ export default function WithoutReducer() {
 
     function updateMember(member:Member) {
         const index = members.findIndex(a => a.id == member.id)
-        setMembers([...members.splice(0, index).map(a => ({...a})), {...member}, ...members.splice(index)])
+        setMembers([
+            ...members.splice(0, index).map(a => ({...a})), 
+            {...member}, 
+            ...members.splice(index + 1).map(a => ({...a}))
+        ])
     }
 
     function deleteMember(id: number) {
@@ -36,13 +40,12 @@ export default function WithoutReducer() {
     }
 
     function saveMember(member:Member) {
-        if(member.id == 0) {
-            setId(id + 1)
+        if(!member.id) {
             addMember({...member , id:id + 1 })
+            setId(id + 1)
         } else {
             updateMember(member)
         }
-
         setTarget({...DEFAULT_MEMBER})
     } 
 

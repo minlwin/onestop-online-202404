@@ -25,7 +25,7 @@ export default function ImmerWithReducer() {
     }
 
     function saveMember(member:Member) {
-        if(member.id == 0) {
+        if(!member.id) {
             setId(id + 1)
             dispatch({type : 'create', member: {...member , id:id + 1 }})
         } else {

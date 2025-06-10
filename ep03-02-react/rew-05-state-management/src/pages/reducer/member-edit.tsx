@@ -10,19 +10,17 @@ export default function MemberEditForm({member, saveMember, clearForm} : {member
         handleSubmit,
         reset,
         formState : {errors}
-    } = useForm<Member>()
+    } = useForm<Member>({values : member})
 
     useEffect(() => {
-        // Reset form values when member changes
-        reset({...member});
-    }, [member, reset]);
-
+        reset(member)
+    }, [member, reset])
 
     return (
         <section>
             <h4>{member.id ? "Edit" : "Add New"} Member</h4>
 
-            <form onSubmit={handleSubmit(saveMember)}>
+            <form onSubmit={handleSubmit(saveMember)} className="form">
                 <FormGroup label="Name">
                     <input className="form-control" placeholder="Enter name" {...register('name', {required : true})} />
                     {errors.name && <span className="text-secondary">Please Enter Name</span>}

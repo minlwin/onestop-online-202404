@@ -15,9 +15,8 @@ export function memberReducer(state: Member[], action: MemberAction) {
     case 'update' :
         if(action.member) {
             const pox = state.findIndex(a => a.id == action.member?.id)
-            return [...state.splice(0, pox), {...action.member}, ...state.splice(pox)]
-        } else {
-            return [...state]
-        }
+            state[pox] = action.member
+        } 
+        return [...state.map(a => ({...a}))]
     }
 }
