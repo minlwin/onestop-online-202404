@@ -39,8 +39,21 @@ function NavBar() {
               </li>
             </ul>
           </li>
-          <li className="nav-item">
-            <NavLink to="/reducer" className="nav-link">Using Reducer</NavLink>
+          <li className="nav-item dropdown">
+            <a href="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+              Reducer
+            </a>
+            <ul className="dropdown-menu">
+              <li>
+                <NavLink to="/reducer/without" className="dropdown-item">Without Reducer</NavLink>
+              </li>
+              <li>
+                <NavLink to="/reducer/with" className="dropdown-item">With Reducer</NavLink>
+              </li>
+              <li>
+                <NavLink to="/reducer/immer" className="dropdown-item">Immer with Reducer</NavLink>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>

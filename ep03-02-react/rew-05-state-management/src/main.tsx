@@ -5,7 +5,9 @@ import { BrowserRouter, Route, Routes } from 'react-router'
 import DeeplyNestedState from './pages/structure/deeply-nested-state.tsx'
 import Home from './pages/home.tsx'
 import FlatStructure from './pages/structure/flat-structure-state.tsx'
-import ReducerHome from './pages/reducer/reducer-home.tsx'
+import WithoutReducer from './pages/reducer/reducer-without.tsx'
+import WithReducer from './pages/reducer/reducer-with.tsx'
+import ImmerWithReducer from './pages/reducer/reducer-with-immer.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -15,7 +17,9 @@ createRoot(document.getElementById('root')!).render(
           <Route index element={<Home />} />
           <Route path="/structure/deeply-nested" element={<DeeplyNestedState />} />
           <Route path="/structure/flat" element={<FlatStructure />} />
-          <Route path="/reducer" element={<ReducerHome />} />
+          <Route path="/reducer/without" element={<WithoutReducer />} />
+          <Route path="/reducer/with" element={<WithReducer />} />
+          <Route path="/reducer/immer" element={<ImmerWithReducer />} />
         </Route>
       </Routes>
     </BrowserRouter>    
