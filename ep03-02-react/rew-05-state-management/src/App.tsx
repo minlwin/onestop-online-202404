@@ -52,6 +52,7 @@ const REDUCER_MENU :DropdownMenuModel = {
 const CONTEXT_MENU :DropdownMenuModel = {
   title: "Context",
   items: [
-    {name : "Sample 1", link : "/context/sample1"}
+    {name : "Sample 1", link : "/context/sample1"},
+    {name : "Sample 2", link : "/context/sample2"},
   ]
 }

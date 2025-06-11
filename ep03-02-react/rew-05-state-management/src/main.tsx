@@ -9,6 +9,7 @@ import WithoutReducer from './pages/reducer/reducer-without.tsx'
 import WithReducer from './pages/reducer/reducer-with.tsx'
 import ImmerWithReducer from './pages/reducer/reducer-with-immer.tsx'
 import UsingContext1 from './pages/context/using-context-1.tsx'
+import UsingContext2 from './pages/context/using-context-2.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/reducer/with" element={<WithReducer />} />
           <Route path="/reducer/immer" element={<ImmerWithReducer />} />
           <Route path="/context/sample1" element={<UsingContext1 />} />
+          <Route path="/context/sample2" element={<UsingContext2 />} />
         </Route>
       </Routes>
     </BrowserRouter>    
