@@ -54,5 +54,7 @@ const CONTEXT_MENU :DropdownMenuModel = {
   items: [
     {name : "Sample 1", link : "/context/sample1"},
     {name : "Sample 2", link : "/context/sample2"},
+    {name : "Sample 3", link : "/context/sample3"},
+    {name : "Sample 4", link : "/context/sample4"},
   ]
 }

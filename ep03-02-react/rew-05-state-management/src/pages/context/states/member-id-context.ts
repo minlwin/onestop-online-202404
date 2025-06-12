@@ -17,14 +17,9 @@ function useMemberIdContext() {
     return context
 }
 
-function useNextMemberId()  {
-    const context = useMemberIdContext()
-    const nextId = context.id + 1
-    context.setId(nextId)
-    return nextId
-}
+
 
 export {
     MemberIdContext, 
-    useNextMemberId
+    useMemberIdContext
 }
