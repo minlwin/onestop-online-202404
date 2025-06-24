@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jdc.online.location.api.dto.StateSearch;
 import com.jdc.online.location.model.entity.State;
 import com.jdc.online.location.model.repo.StateRepo;
 
@@ -19,8 +20,8 @@ public class StateApi {
 	private StateRepo repo;
 	
 	@GetMapping
-	List<State> getAll() {
-		return repo.findAll();
+	List<State> search(StateSearch search) {
+		return repo.search(search.queryFunc());
 	}
 	
 	@GetMapping("{id}")

@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Spr02LocationApiApplication {
+public class LocationApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Spr02LocationApiApplication.class, args);
+		SpringApplication.run(LocationApiApplication.class, args);
 	}
 
 }
