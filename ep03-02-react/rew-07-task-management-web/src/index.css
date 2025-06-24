@@ -1,0 +1,12 @@
+.btn-wrapper {
+  padding-top: 2rem;
+}
+
+.pagination-link {
+  display: inline-block;
+  width: 2.6rem;
+}
+
+.pagination-info {
+  width: 160px;
+}
