@@ -4,13 +4,18 @@ import { FormGroup } from "../../ui/form-group";
 import Page from "../../ui/page";
 import Pagination from "../../ui/pagination";
 import { Link, useNavigate } from "react-router";
+import { useState } from "react";
+import type { MemberListItem, MemberSearchResult } from "../../model/output/member-list-item";
+import { searchMember } from "../../model/client/member-client";
 
 export default function MemberList() {
 
     const {register, handleSubmit} = useForm<MemberSearch>()
+    const [result, setResult] = useState<MemberSearchResult | undefined>(undefined)
 
-    function search(form:MemberSearch) {
-        console.log(form)
+    async function search(form:MemberSearch) {
+        const searchResult = await searchMember(form)
+        setResult(searchResult)
     }
 
     return (
@@ -48,6 +53,21 @@ export default function MemberList() {
                 </div>
             </form>
 
+            {result ? 
+                <MemberTable result={result} /> :
+                <></>
+            }
+
+        </Page>
+    )
+}
+
+function MemberTable({result} : {result : MemberSearchResult}) {
+
+    const {list, pager} = result
+
+    return (
+        <>
             <table className="table table-bordered table-striped table-hover mt-3">
                 <thead>
                     <tr>
@@ -56,22 +76,26 @@ export default function MemberList() {
                         <th>Position</th>
                         <th>Entry At</th>
                         <th className="text-end">Projects</th>
-                        <th className="text-end">Tasks</th>
+                        <th className="text-end">TODO</th>
+                        <th className="text-end">Behind</th>
+                        <th className="text-end">Complete</th>
                         <th></th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <MemberRow />
+                {list.map(item => 
+                    <MemberRow key={item.id} member={item} />
+                )}
                 </tbody>
             </table>
 
-            <Pagination />
-        </Page>
+            <Pagination pager={pager} />        
+        </>
     )
 }
 
-function MemberRow() {
+function MemberRow({member} : {member : MemberListItem}) {
 
     const navigate = useNavigate()
 
@@ -81,18 +105,20 @@ function MemberRow() {
 
     return (
         <tr>
-            <td>1</td>
-            <td>Aung Aung</td>
-            <td>PM</td>
-            <td>2025-04-01</td>
-            <td className="text-end">3</td>
-            <td className="text-end">20</td>
+            <td>{member.id}</td>
+            <td>{member.name}</td>
+            <td>{member.position}</td>
+            <td>{member.entryAt}</td>
+            <td className="text-end">{member.projects}</td>
+            <td className="text-end">{member.created + member.onSchedule}</td>
+            <td className="text-end">{member.behind}</td>
+            <td className="text-end">{member.completed}</td>
             <td className="text-center">
                 <a href="#" onClick={e => {
                     e.preventDefault()
-                    showDetails(1)
+                    showDetails(member.id)
                 }} className="icon-link">
-                    <i className="bi-send"></i>
+                    <i className="bi-arrow-right"></i>
                 </a>
             </td>
         </tr>

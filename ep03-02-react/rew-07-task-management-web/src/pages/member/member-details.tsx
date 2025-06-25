@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import Page from "../../ui/page";
 import { useEffect } from "react";
 
@@ -12,7 +12,11 @@ export default function MemberDetails() {
 
     return (
         <Page title="Member Details" icon="bi-person">
-            <div></div>
+            <div>
+                <Link to={`/member/edit?id=${params.id}`} className="btn btn-outline-dark">
+                    Edit Member
+                </Link>
+            </div>
         </Page>
     )
 }
