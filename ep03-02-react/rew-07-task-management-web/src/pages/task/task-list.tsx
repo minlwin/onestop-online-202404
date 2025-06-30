@@ -1,4 +1,4 @@
-export default function TaskList() {
+export default function TaskListComponent() {
     return (
         <></>
     )

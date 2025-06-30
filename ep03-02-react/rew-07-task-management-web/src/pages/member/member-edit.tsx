@@ -6,7 +6,7 @@ import { useNavigate, useSearchParams } from "react-router";
 import { useEffect } from "react";
 import { createMember, findMemberEditForm, updateMember } from "../../model/client/member-client";
 
-export default function MemberEdit() {
+export default function MemberEditComponent() {
 
     const {register, handleSubmit, reset} = useForm<MemberEditForm>()
 
