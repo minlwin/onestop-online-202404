@@ -1,18 +1,25 @@
 import { Link } from "react-router";
 import { FormGroup } from "../../ui/form-group";
-import Page from "../../ui/page";
 import { useForm } from "react-hook-form";
 import type { ProjectSearch } from "../../model/input/project-search";
-import { useState } from "react";
-import type { ProjectSearchResult } from "../../model/output/project-list.item";
+import type { ProjectListItem, ProjectSearchResult } from "../../model/output/project-list-item";
 import { searchProject } from "../../model/client/project-client";
 import NoData from "../../ui/no-data";
-import Pagination from "../../ui/pagination";
+import { useSearchResultList, useSearcResultSetter } from "../../model/context/search-result-context";
+import SearchPage from "../../ui/search-page";
 
 export default function ProjectListComponent() {
+    return (
+        <SearchPage title="Project Management" icon="bi-rocket" searchForm={<SearchForm />}>
+            <ProjectSearchResult />
+        </SearchPage>
+    )
+}
 
+function SearchForm() {
+
+    const setResult = useSearcResultSetter()
     const {register, handleSubmit} = useForm<ProjectSearch>()
-    const [result, setResult] = useState<ProjectSearchResult | undefined>(undefined)
 
     async function search(form:ProjectSearch) {
         const response = await searchProject(form)
@@ -20,50 +27,44 @@ export default function ProjectListComponent() {
     }
 
     return (
-        <Page title="Project Management" icon="bi-rocket">
-            <form onSubmit={handleSubmit(search)} className="row">
-                <FormGroup className="col-auto" label="Status">
-                    <select className="form-select" {...register('staus')}>
-                        <option value="">All Status</option>
-                    </select>
-                </FormGroup>
+        <form onSubmit={handleSubmit(search)} className="row">
+            <FormGroup className="col-auto" label="Status">
+                <select className="form-select" {...register('staus')}>
+                    <option value="">All Status</option>
+                </select>
+            </FormGroup>
 
-                <FormGroup className="col-auto" label="Start From">
-                    <input type="date" className="form-control" {...register('startFrom')} />
-                </FormGroup>
+            <FormGroup className="col-auto" label="Start From">
+                <input type="date" className="form-control" {...register('startFrom')} />
+            </FormGroup>
 
-                <FormGroup className="col-auto" label="Start To">
-                    <input type="date" className="form-control" {...register('startTo')} />
-                </FormGroup>
+            <FormGroup className="col-auto" label="Start To">
+                <input type="date" className="form-control" {...register('startTo')} />
+            </FormGroup>
 
-                <FormGroup className="col-auto" label="Keyword">
-                    <input type="text" placeholder="Search Keyword" className="form-control" {...register('keyword')} />
-                </FormGroup>
+            <FormGroup className="col-auto" label="Keyword">
+                <input type="text" placeholder="Search Keyword" className="form-control" {...register('keyword')} />
+            </FormGroup>
 
-                <div className="col btn-wrapper">
-                    <button type="submit" className="btn btn-dark me-2">
-                        <i className="bi-search"></i> Search
-                    </button>
-                    <Link to='' className="btn btn-outline-dark">
-                        <i className="bi-plus-lg"></i> Create Project
-                    </Link>
-                </div>
-            </form>
-
-            <section className="mt-4">
-                <ProjectSearchResult result={result} />
-            </section>
-        </Page>
+            <div className="col btn-wrapper">
+                <button type="submit" className="btn btn-dark me-2">
+                    <i className="bi-search"></i> Search
+                </button>
+                <Link to='' className="btn btn-outline-dark">
+                    <i className="bi-plus-lg"></i> Create Project
+                </Link>
+            </div>
+        </form>        
     )
 }
 
-function ProjectSearchResult({result} : {result? : ProjectSearchResult}) {
-   
-    if(!result) {
+function ProjectSearchResult() {
+    
+    const list = useSearchResultList<ProjectListItem>()
+
+    if(!list.length) {
         return <NoData dataName="project" />
     }
-
-    const {list, pager} = result
 
     return (
         <>
@@ -95,8 +96,6 @@ function ProjectSearchResult({result} : {result? : ProjectSearchResult}) {
                 )}
                 </tbody>
             </table>
-
-            <Pagination pager={pager} />        
         </>
     )
 }

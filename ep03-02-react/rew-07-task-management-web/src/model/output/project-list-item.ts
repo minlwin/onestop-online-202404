@@ -1,4 +1,4 @@
-import type { Pager } from "./_common"
+import type { PageResult } from "./_common"
 
 export interface ProjectListItem {
     id: number
@@ -11,8 +11,4 @@ export interface ProjectListItem {
     tasks: number
 }
 
-export type ProjectSearchResult = {
-    list : ProjectListItem[]
-} & {
-    pager : Pager
-}
+export type ProjectSearchResult = PageResult<ProjectListItem>

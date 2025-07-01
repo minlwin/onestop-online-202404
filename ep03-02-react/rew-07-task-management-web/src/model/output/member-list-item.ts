@@ -1,4 +1,4 @@
-import type { Pager } from "./_common"
+import type { PageResult } from "./_common"
 
 export interface MemberListItem {
     id: number
@@ -13,8 +13,4 @@ export interface MemberListItem {
     cancled: number
 }
 
-export type MemberSearchResult = {
-    list: MemberListItem[]
-} & {
-    pager: Pager
-}
+export type MemberSearchResult = PageResult<MemberListItem>

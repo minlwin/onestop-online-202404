@@ -6,6 +6,12 @@ export type Pager = {
     links: number[]
 }
 
+export type PageResult<T> = {
+    list: T[]
+} & {
+    pager?: Pager
+}
+
 export const DUMMY_PAGE:Pager = {
     page: 2,
     size: 10,

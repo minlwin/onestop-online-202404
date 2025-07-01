@@ -1,6 +1,6 @@
 import type { ProjectSearch } from "../input/project-search";
 import { DUMMY_PAGE } from "../output/_common";
-import type { ProjectListItem, ProjectSearchResult } from "../output/project-list.item";
+import type { ProjectListItem, ProjectSearchResult } from "../output/project-list-item";
 
 export async function searchProject(form: ProjectSearch) : Promise<ProjectSearchResult> {
     console.log(form)
