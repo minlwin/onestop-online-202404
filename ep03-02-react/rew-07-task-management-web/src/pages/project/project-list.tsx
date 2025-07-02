@@ -7,6 +7,7 @@ import { searchProject } from "../../model/client/project-client";
 import NoData from "../../ui/no-data";
 import { useSearchResultList, useSearcResultSetter } from "../../model/context/search-result-context";
 import SearchPage from "../../ui/search-page";
+import ShowDetails from "../../ui/show-details";
 
 export default function ProjectListComponent() {
     return (
@@ -50,7 +51,7 @@ function SearchForm() {
                 <button type="submit" className="btn btn-dark me-2">
                     <i className="bi-search"></i> Search
                 </button>
-                <Link to='' className="btn btn-outline-dark">
+                <Link to='/project/edit' className="btn btn-outline-dark">
                     <i className="bi-plus-lg"></i> Create Project
                 </Link>
             </div>
@@ -79,6 +80,7 @@ function ProjectSearchResult() {
                         <th>Status</th>
                         <th className="text-end">Members</th>
                         <th className="text-end">Tasks</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -92,6 +94,9 @@ function ProjectSearchResult() {
                         <td>{item.status}</td>
                         <td className="text-end">{item.members}</td>
                         <td className="text-end">{item.tasks}</td>
+                        <td className="text-center">
+                            <ShowDetails to={`/project/details/${item.id}`} />
+                        </td>
                     </tr>
                 )}
                 </tbody>

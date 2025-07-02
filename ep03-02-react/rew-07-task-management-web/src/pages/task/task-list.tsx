@@ -6,6 +6,7 @@ import { useSearchResultList, useSearcResultSetter } from "../../model/context/s
 import { searchTask } from "../../model/client/task-client";
 import type { TaskListItem } from "../../model/output/task-list-item";
 import NoData from "../../ui/no-data";
+import ShowDetails from "../../ui/show-details";
 
 export default function TaskListComponent() {
     return (
@@ -74,6 +75,7 @@ function SearchResult() {
                     <th>Start At</th>
                     <th>Mile Stone</th>
                     <th>Status</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -87,6 +89,9 @@ function SearchResult() {
                     <td>{item.startAt}</td>
                     <td>{item.mileStone}</td>
                     <td>{item.status}</td>
+                    <td className="text-center">
+                        <ShowDetails to={`/task/details/${item.id}`} />
+                    </td>
                 </tr>
             )}
             </tbody>
