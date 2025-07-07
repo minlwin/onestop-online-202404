@@ -1,6 +1,6 @@
 import type { MemberEditForm } from "../input/member-edit-form";
 import type { MemberSearch } from "../input/member-search";
-import { DUMMY_PAGE } from "../output/_common";
+import { DUMMY_PAGE, type ModificationResult } from "../output/_common";
 import type { MemberDetails } from "../output/member-details";
 import type { MemberListItem, MemberSearchResult } from "../output/member-list-item";
 
@@ -45,14 +45,14 @@ export async function findMemberEditForm(id:string):Promise<MemberEditForm> {
     }
 }
 
-export async function updateMember(id:string, form:MemberEditForm):Promise<number> {
+export async function updateMember(id:string, form:MemberEditForm):Promise<ModificationResult> {
     console.log({id: id, ...form})
-    return 1
+    return {id : 1}
 }
 
-export async function createMember(form:MemberEditForm):Promise<number> {
+export async function createMember(form:MemberEditForm):Promise<ModificationResult> {
     console.log(form)
-    return 1
+    return {id : 1}
 }
 
 const DUMMY_MEMBERS:MemberListItem[] = [

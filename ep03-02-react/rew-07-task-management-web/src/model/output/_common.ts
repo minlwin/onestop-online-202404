@@ -19,3 +19,7 @@ export const DUMMY_PAGE:Pager = {
     totalSize: 26,
     links: [0, 1, 2]
 }
+
+export type ModificationResult = {
+    id: unknown
+}

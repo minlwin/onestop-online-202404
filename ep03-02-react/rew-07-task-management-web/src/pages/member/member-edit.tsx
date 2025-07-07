@@ -30,7 +30,7 @@ export default function MemberEditComponent() {
     async function saveMember(form:MemberEditForm) {
         const id = queryParams.get('id')
         const result = id ? await updateMember(id, form) : await createMember(form)
-        navigate(`/member/details/${result}`)
+        navigate(`/member/details/${result.id}`)
     }
 
     return (
