@@ -1,9 +1,9 @@
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import { FormGroup } from "../../../ui/form-group";
 import { useForm } from "react-hook-form";
 import type { TaskSearch } from "../../../model/input/task-search";
 import { searchTask } from "../../../model/client/task-client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { TaskListItem } from "../../../model/output/task-list-item";
 import type { Pager } from "../../../model/output/_common";
 import NoData from "../../../ui/no-data";
@@ -11,9 +11,18 @@ import Pagination from "../../../ui/pagination";
 
 export default function ProjectTaskList() {
 
-    const {handleSubmit} = useForm<TaskSearch>()
+    const {handleSubmit, reset, register} = useForm<TaskSearch>()
     const [list, setList] = useState<TaskListItem[]>([])
     const [pager, setPager] = useState<Pager>()
+
+    const params = useParams()
+    const projectId = params.id
+
+    useEffect(() => {
+        if(projectId) {
+            reset({projectId : projectId})
+        }
+    }, [projectId, reset])
 
     async function search(params:TaskSearch) {
         const {list, pager} = await searchTask(params)
@@ -25,21 +34,21 @@ export default function ProjectTaskList() {
         <>
             <form onSubmit={handleSubmit(search)} className="row">
                 <FormGroup className="col-auto" label="Status">
-                    <select className="form-select">
+                    <select {...register('status')} className="form-select">
                         <option value="">All Status</option>
                     </select>
                 </FormGroup>
 
                 <FormGroup label="Start From" className="col-auto">
-                    <input type="date" className="form-control" />
+                    <input {...register('startFrom')} type="date" className="form-control" />
                 </FormGroup>
 
                 <FormGroup label="Start To" className="col-auto">
-                    <input type="date" className="form-control" />
+                    <input {...register('startTo')} type="date" className="form-control" />
                 </FormGroup>
 
                 <FormGroup label="Keyword" className="col-auto">
-                    <input placeholder="Search Keyword" className="form-control" />
+                    <input {...register('keyword')} placeholder="Search Keyword" className="form-control" />
                 </FormGroup>
 
                 <div className="col btn-wrapper">
