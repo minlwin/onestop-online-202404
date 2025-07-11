@@ -8,16 +8,14 @@ import MemberEditComponent from './pages/member/member-edit.tsx'
 import MemberDetailsComponent from './pages/member/member-details.tsx'
 import ProjectListComponent from './pages/project/project-list.tsx'
 import HomeComponent from './pages/home.tsx'
-import TaskListComponent from './pages/task/task-list.tsx'
 import ProjectEdit from './pages/project/project-edit.tsx'
-import TaskEdit from './pages/task/task-edit.tsx'
-import TaskDetails from './pages/task/task-details.tsx'
 import ProjectDetails from './pages/project/details/_layout.tsx'
 import ProjectTaskList from './pages/project/details/task-list.tsx'
 import ProjectCategoryList from './pages/project/details/category-list.tsx'
 import ProjectMemberList from './pages/project/details/member-list.tsx'
 import ProjectTaskEdit from './pages/project/details/task-edit.tsx'
 import ProjectOverview from './pages/project/details/project-overview.tsx'
+import ProjectTaskDetails from './pages/project/details/task-details.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -33,13 +31,11 @@ createRoot(document.getElementById('root')!).render(
             <Route path='member' element={<ProjectMemberList />} />
             <Route path='task' element={<ProjectTaskList />} />
             <Route path='task/edit' element={<ProjectTaskEdit />} />
+            <Route path='task/:taksId' element={<ProjectTaskDetails />} />
           </Route>
           <Route path='member' element={<MemberListComponent />} />
           <Route path='member/edit' element={<MemberEditComponent />} />
           <Route path='member/details/:id' element={<MemberDetailsComponent />} />
-          <Route path='task' element={<TaskListComponent />} />
-          <Route path='task/edit' element={<TaskEdit />} />
-          <Route path='task/details/:id' element={<TaskDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>

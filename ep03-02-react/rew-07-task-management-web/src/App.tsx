@@ -22,11 +22,6 @@ function NavBar() {
 
         <ul className="navbar-nav">
           <li className="nav-item">
-            <NavLink to="/task" className="nav-link">
-              <i className="bi-stack"></i> Tasks
-            </NavLink>
-          </li>
-          <li className="nav-item">
             <NavLink to="/project" className="nav-link">
               <i className="bi-rocket-takeoff"></i> Projects
             </NavLink>

@@ -5,18 +5,22 @@ import { useParams } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import type { CategoryListItem } from "../../../model/output/category-list-item";
 import NoData from "../../../ui/no-data";
-import { searchCategory } from "../../../model/client/category-client";
+import { createCategory, searchCategory, updateCategory } from "../../../model/client/category-client";
 import ModalDialog from "../../../ui/modal-dialog";
-import ModalStateContextProvider from "../../../model/context/modal-state-context-provider";
+import ModalStateContextProvider from "../../../model/provider/modal-state-context-provider";
 import { useModalStateContext } from "../../../model/context/modal-state-context";
 import type { CategoryForm } from "../../../model/input/category-form";
 import ErrorMessage from "../../../ui/error-message";
+import CategoryEditContextProvider from "../../../model/provider/category-edit-context-provider";
+import { useEditCategory, type EditCategory } from "../../../model/context/edit-category-context";
 
 export default function ProjectCategoryList() {
     return (
         <ModalStateContextProvider>
-            <CategoryList />
-            <CategoryEditDialog />
+            <CategoryEditContextProvider>
+                <CategoryList />
+                <CategoryEditDialog />
+            </CategoryEditContextProvider>    
         </ModalStateContextProvider>
     )
 }
@@ -28,8 +32,8 @@ function CategoryList() {
     const {register, reset, handleSubmit} = useForm<CategorySearch>()
     const [list, setList] = useState<CategoryListItem[]>([])
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_, setShowDialog] = useModalStateContext()
+    const [_1, setShowDialog] = useModalStateContext()
+    const [_2, setEditCategory] = useEditCategory()
 
     useEffect(() => {
         if(projectId) {
@@ -42,6 +46,16 @@ function CategoryList() {
         setList(response)
     }
 
+    function addNew() {
+        setEditCategory(undefined)
+        setShowDialog(true)
+    }
+
+    function edit(item: EditCategory) {
+        setEditCategory(item)
+        setShowDialog(true)
+    }
+    
     return (
         <>
             <form onSubmit={handleSubmit(search)} className="row">
@@ -54,7 +68,7 @@ function CategoryList() {
                         <i className="bi-search"></i> Search
                     </button>
 
-                    <button type="button" onClick={() => setShowDialog(true)} className="btn btn-outline-dark ms-2">
+                    <button type="button" onClick={addNew} className="btn btn-outline-dark ms-2">
                         <i className="bi-plus"></i> Add New
                     </button>
                 </div>
@@ -72,6 +86,7 @@ function CategoryList() {
                             <th className="text-end">Behind</th>
                             <th className="text-end">Paused</th>
                             <th className="text-end">Finished</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,6 +99,12 @@ function CategoryList() {
                             <td className="text-end">{item.behind}</td>
                             <td className="text-end">{item.paused}</td>
                             <td className="text-end">{item.finished}</td>
+                            <td className="text-center">
+                                <a type="button" className="icon-btn" 
+                                    onClick={() => edit({id: item.id, name: item.name})}>
+                                    <i className="bi-pencil"></i>
+                                </a>
+                            </td>
                         </tr>
                     )}    
                     </tbody>
@@ -99,22 +120,40 @@ function CategoryList() {
 function CategoryEditDialog() {
 
     const formRef = useRef<HTMLFormElement | null>(null)
-    const {register, handleSubmit, formState : {errors}} = useForm<CategoryForm>()
+    const {register, handleSubmit, reset,formState : {errors}} = useForm<CategoryForm>()
     const [showDialog, setShowDialog] = useModalStateContext()
+    const [editCategory, setEditCategory] = useEditCategory()
+
+    useEffect(() => {
+        if (editCategory) {
+            reset({name: editCategory.name})
+        } else {
+            reset({name: ''})
+        }
+    }, [editCategory, reset])
 
     async function onSave(form: CategoryForm) {
-        console.log(form)
+        if (editCategory) {
+            await updateCategory(editCategory.id, form)
+            setEditCategory(undefined)
+        } else {
+            await createCategory(form)
+        }
         setShowDialog(false)
     }
 
     return (
-        <ModalDialog title="Edit Category" show={showDialog}  onHide={() => setShowDialog(false)} onSave={() => formRef.current?.submit()}>
+        <ModalDialog title={editCategory ? "Edit Category" : "Add New Category"} show={showDialog}  
+            onHide={() => setShowDialog(false)} 
+            onSave={() => formRef.current?.requestSubmit()}>
+            
             <form ref={formRef} onSubmit={handleSubmit(onSave)} className="row">
                 <FormGroup label="Name">
                     <input {...register('name', {required : true})} type="text" className="form-control" placeholder="Enter Category Name" />
                     {errors.name && <ErrorMessage message="Please enter category name." />}
                 </FormGroup>
             </form>
+
         </ModalDialog>
     )
 }
