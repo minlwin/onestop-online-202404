@@ -3,6 +3,7 @@ package com.jdc.online.task.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,7 +55,7 @@ public class ProjectApi {
 	 * @return
 	 */
 	@PostMapping
-	ModificationResult<Integer> create(@RequestBody ProjectForm form) {
+	ModificationResult<Integer> create(@Validated @RequestBody ProjectForm form) {
 		return service.create(form);
 	}
 	
@@ -67,7 +68,7 @@ public class ProjectApi {
 	 */
 	@PutMapping("{id}")
 	ModificationResult<Integer> update(@PathVariable int id, 
-			@RequestBody ProjectForm form) {
+			@Validated @RequestBody ProjectForm form) {
 		return service.update(id, form);
 	}
 }
