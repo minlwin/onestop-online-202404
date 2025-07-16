@@ -5,7 +5,7 @@ export default function App() {
     <>
       <NavBar />
 
-      <main className="container mt-4">
+      <main className="container-fluid mt-4">
         <Outlet />
       </main>
     </>
@@ -15,7 +15,7 @@ export default function App() {
 function NavBar() {
   return (
     <nav className="navbar navbar-dark bg-black navbar-expand">
-      <div className="container">
+      <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           <i className="bi-house"></i> Task Manager
         </Link>
