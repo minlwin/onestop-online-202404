@@ -11,8 +11,12 @@ import com.jdc.online.task.api.input.TaskForm;
 import com.jdc.online.task.api.input.TaskSearch;
 import com.jdc.online.task.api.output.TaskDetails;
 import com.jdc.online.task.api.output.TaskListItem;
+import com.jdc.online.task.model.entity.Project_;
+import com.jdc.online.task.model.entity.Tasks;
+import com.jdc.online.task.model.entity.Tasks_;
 import com.jdc.online.task.model.repo.ProjectRepo;
 import com.jdc.online.task.model.repo.TaskRepo;
+import com.jdc.online.task.utils.ApiBusinessException;
 
 @Service
 @Transactional(readOnly = true)
@@ -25,6 +29,9 @@ public class TaskService {
 
 	@Transactional
 	public ModificationResult<Integer> create(TaskForm form) {
+		
+		checkBusinessRule(form);
+		
 		var project = projectRepo.findById(form.projectId()).orElseThrow();
 		var entity = taskRepo.save(form.entity(project));
 		return ModificationResult.success(entity.getId());
@@ -32,19 +39,48 @@ public class TaskService {
 
 	@Transactional
 	public ModificationResult<Integer> update(int id, TaskForm form) {
-		var entity = taskRepo.findById(id).orElseThrow();
+		
+		checkBusinessRule(form);
+
+		var entity = taskRepo.findById(id)
+				.orElseThrow(() -> new ApiBusinessException("There is task with id %d.".formatted(id)));
+		
 		form.update(entity);
 		return ModificationResult.success(id);
 	}
 
 	public List<TaskListItem> search(TaskSearch search) {
-		// TODO Auto-generated method stub
-		return null;
+		return taskRepo.search(cb -> {
+			var cq = cb.createQuery(TaskListItem.class);
+			
+			var root = cq.from(Tasks.class);
+			TaskListItem.select(cq, root);
+			
+			cq.where(search.where(cb, root));
+			
+			cq.orderBy(
+				cb.desc(root.get(Tasks_.project).get(Project_.id)),
+				cb.desc(root.get(Tasks_.id))
+			);
+					
+			return cq;
+		});
 	}
 
 	public TaskDetails findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		var entity = taskRepo.findById(id)
+				.orElseThrow(() -> new ApiBusinessException("There is task with id %d.".formatted(id)));
+		return TaskDetails.from(entity);
 	}
+
+	private void checkBusinessRule(TaskForm form) {
+		
+		if(form.startDate() != null 
+				&& form.endDate() != null
+				&& form.startDate().isAfter(form.endDate())) {
+			throw new ApiBusinessException("End date must be later than Start date.");
+		}
+	}
+
 
 }
