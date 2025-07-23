@@ -14,15 +14,11 @@ export default function App() {
 
 function NavigationBar() {
   return (
-    <nav className="px-16 flex justify-between items-center w-full bg-teal-700 text-white">
+    <nav className="px-16 py-4 flex justify-between items-center w-full bg-teal-700 text-white">
       <div>
         <Link to={'/'}>Task Management</Link>
       </div>
 
-      <div>
-        <Link className="inline-block px-4 py-4 hover:bg-teal-400" to="/project">Projects</Link>
-        <Link className="inline-block px-4 py-4 hover:bg-teal-400" to="/task">Tasks</Link>
-      </div>
     </nav>
   )
 } 

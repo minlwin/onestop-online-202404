@@ -9,13 +9,22 @@ import { searchProject } from "@/lib/client/project-client";
 import type { ProjectSearch } from "@/lib/model/input/project-search";
 import type { ProjectListItem } from "@/lib/model/output/project-list-item";
 import { ArrowRight, Folder, Plus, Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 
 export default function ProjectList() {
 
     const [list, setList] = useState<ProjectListItem[]>([])
+
+    useEffect(() => {
+        async function load() {
+            const result = await searchProject({})
+            setList(result)
+        }
+
+        load()
+    }, [])
 
     async function search(form:ProjectSearch) {
         const result = await searchProject(form)

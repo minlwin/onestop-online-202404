@@ -1,7 +1,6 @@
 package com.jdc.online.task.api.output;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import com.jdc.online.task.model.entity.Project;
 
@@ -10,8 +9,7 @@ public record ProjectDetails(
 		String name,
 		LocalDate startDate,
 		LocalDate dueDate,
-		String details,
-		List<TaskListItem> tasks) {
+		String details) {
 
 	public static ProjectDetails from(Project entity) {
 		return new ProjectDetails(
@@ -19,8 +17,7 @@ public record ProjectDetails(
 				entity.getName(), 
 				entity.getStartDate(), 
 				entity.getDueDate(), 
-				entity.getDescription(), 
-				entity.getTasks().stream().map(TaskListItem::from).toList());
+				entity.getDescription());
 	}
 
 }
