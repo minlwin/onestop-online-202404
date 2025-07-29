@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.0",
     "@radix-ui/react-accordion": "^1.2.11",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
@@ -23,7 +24,8 @@
     "react-hook-form": "^7.60.0",
     "react-router": "^7.7.0",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.11",
+    "zod": "^4.0.13"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",

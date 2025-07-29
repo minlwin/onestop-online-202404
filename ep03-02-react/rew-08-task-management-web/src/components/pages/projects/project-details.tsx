@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { findProjectById } from "@/lib/client/project-client";
 import type { ProjectDetails } from "@/lib/model/output/project-details";
-import { Calendar, Files, Folder, Info, Pencil, Plus } from "lucide-react";
+import { Calendar, Files, Folder, Info, Pencil } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate, useParams } from "react-router";
 
@@ -93,7 +93,6 @@ function TasksInProject() {
             <CardHeader>
                 <CardTitle className="flex justify-between">
                     <div className="flex items-center"><Files className="me-2" /> Tasks in Project</div>
-                    <Button><Plus /> Add New Task</Button>
                 </CardTitle>
                 <CardDescription></CardDescription>
             </CardHeader>
