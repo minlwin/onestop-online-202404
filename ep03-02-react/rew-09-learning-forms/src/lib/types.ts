@@ -10,3 +10,8 @@ export type MenuGroup = {
   label: string
   items: MenuItem []
 }
+
+export type Option = {
+  id : string
+  value : string
+}

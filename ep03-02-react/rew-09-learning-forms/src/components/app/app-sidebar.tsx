@@ -65,8 +65,8 @@ const MENU:MenuGroup[] = [
     label : "Form with UI Component" , 
     items : [
       {title : "Inputs", url: "/basic/inputs", icon: PenBox},
-      {title : "Check Box", url: "", icon: CheckSquare},
-      {title : "Radio Group", url: "", icon: CheckCircle},
+      {title : "Check Box", url: "/basic/checks", icon: CheckSquare},
+      {title : "Radio Group", url: "/basic/radio", icon: CheckCircle},
       {title : "Calendar", url: "", icon: Calendar},
       {title : "Selets", url: "", icon: ListCheck},
     ]
