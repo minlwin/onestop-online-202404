@@ -1,5 +1,5 @@
 import FormActions from "@/components/app/form-actions";
-import CustomRadioGroup from "@/components/custom/custom-radio-group";
+import CustomSelect from "@/components/custom/custom-select";
 import { Form } from "@/components/ui/form";
 import { SUBJECTS } from "@/lib/consts";
 import { useFormResult } from "@/lib/context/form-result-context";
@@ -14,30 +14,33 @@ const FormSchema = z.object({
 
 type FormType = z.infer<typeof FormSchema>
 
-export default function UiRadios() {
+export default function UiSelect() {
+
     const {setResult} = useFormResult()
     useEffect(() => setResult(), [setResult])
 
     const form = useForm<FormType>({
-        resolver : zodResolver(FormSchema),
+        resolver :zodResolver(FormSchema),
         defaultValues: {
             subject : ""
         }
     })
 
+    const saveAction = (form: FormType) => setResult(JSON.stringify(form, null, 2))
     const clear = () => {
         form.reset()
         setResult()
     }
 
-    const saveAction = (form: FormType) => {
-        setResult(JSON.stringify(form, null, 2))
-    }
-
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(saveAction)}>
-                <CustomRadioGroup control={form.control} path="subject" label="Subject" className="mb-3" options={SUBJECTS} />
+
+                <CustomSelect className="mb-4" widthClass="w-1/2"
+                    control={form.control} 
+                    path="subject" 
+                    options={SUBJECTS} />
+
                 <FormActions clear={clear} />
             </form>
         </Form>

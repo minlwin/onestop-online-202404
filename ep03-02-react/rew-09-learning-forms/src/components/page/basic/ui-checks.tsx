@@ -3,8 +3,8 @@ import CustomCheckMultiple from "@/components/custom/custom-check-multiple"
 import CustomCheckSingle from "@/components/custom/custom-check-single"
 import CustomInput from "@/components/custom/custom-input"
 import { Form } from "@/components/ui/form"
+import { SUBJECTS } from "@/lib/consts"
 import { useFormResult } from "@/lib/context/form-result-context"
-import type { Option } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
@@ -17,13 +17,6 @@ const FormSchema = z.object({
 })
 
 type FormType = z.infer<typeof FormSchema>
-
-const SUBJECTS:Option[] = [
-    {id : "1", value : "Java Basic"},
-    {id : "2", value : "Spring Framework"},
-    {id : "3", value : "TypeScript"},
-    {id : "4", value : "React"},
-]
 
 export default function UiChecks() {
 

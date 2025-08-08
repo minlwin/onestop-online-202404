@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar"
-import { House, ChevronDown, Group, Settings, Files, Calendar, CheckCircle, CheckSquare, ListCheck, PenBox, File, Image } from "lucide-react"
+import { House, ChevronDown, Group, Settings, Files, Calendar, CheckCircle, CheckSquare, ListCheck, PenBox, File, Image, Flag } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible"
 import type { MenuGroup } from "@/lib/types"
 import { Link } from "react-router"
@@ -67,8 +67,9 @@ const MENU:MenuGroup[] = [
       {title : "Inputs", url: "/basic/inputs", icon: PenBox},
       {title : "Check Box", url: "/basic/checks", icon: CheckSquare},
       {title : "Radio Group", url: "/basic/radio", icon: CheckCircle},
-      {title : "Calendar", url: "", icon: Calendar},
-      {title : "Selets", url: "", icon: ListCheck},
+      {title : "Calendar", url: "/basic/date-picker", icon: Calendar},
+      {title : "Selets", url: "/basic/select", icon: ListCheck},
+      {title : "Using All", url: "/basic/all", icon: Flag}
     ]
   },
   {
