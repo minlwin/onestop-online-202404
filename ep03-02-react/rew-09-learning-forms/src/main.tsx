@@ -9,6 +9,9 @@ import UiRadios from './components/page/basic/ui-radios.tsx'
 import UiDatePicker from './components/page/basic/ui-date-picker.tsx'
 import UiSelect from './components/page/basic/ui-select.tsx'
 import UsingAll from './components/page/basic/using-all.tsx'
+import TextFile from './components/page/files/text-file.tsx'
+import ImageSingle from './components/page/files/image-single.tsx'
+import ImageMultiple from './components/page/files/image-multiple.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -21,6 +24,9 @@ createRoot(document.getElementById('root')!).render(
           <Route path='basic/date-picker' element={<UiDatePicker />} />    
           <Route path='basic/select' element={<UiSelect />} />    
           <Route path='basic/all' element={<UsingAll />} />    
+          <Route path='file/text' element={<TextFile />} />    
+          <Route path='file/image-single' element={<ImageSingle />} />    
+          <Route path='file/image-multiple' element={<ImageMultiple />} />    
         </Route>
       </Routes>
     </BrowserRouter>

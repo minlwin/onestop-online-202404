@@ -75,9 +75,9 @@ const MENU:MenuGroup[] = [
   {
     label: "Using Files",
     items : [
-      {title: "Text File", url: "", icon: File},
-      {title: "Single Image File", url: "", icon: Image},
-      {title: "Multiple Image Files", url: "", icon: Files},
+      {title: "Text File", url: "/file/text", icon: File},
+      {title: "Single Image File", url: "/file/image-single", icon: Image},
+      {title: "Multiple Image Files", url: "/file/image-multiple", icon: Files},
     ]
   },
   {
