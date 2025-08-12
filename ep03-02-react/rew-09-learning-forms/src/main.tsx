@@ -12,6 +12,9 @@ import UsingAll from './components/page/basic/using-all.tsx'
 import TextFile from './components/page/files/text-file.tsx'
 import ImageSingle from './components/page/files/image-single.tsx'
 import ImageMultiple from './components/page/files/image-multiple.tsx'
+import FormGroup from './components/page/nested-form/form-group.tsx'
+import FormArray from './components/page/nested-form/form-array.tsx'
+import DynamicForm from './components/page/nested-form/dynamic-form.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -26,7 +29,10 @@ createRoot(document.getElementById('root')!).render(
           <Route path='basic/all' element={<UsingAll />} />    
           <Route path='file/text' element={<TextFile />} />    
           <Route path='file/image-single' element={<ImageSingle />} />    
-          <Route path='file/image-multiple' element={<ImageMultiple />} />    
+          <Route path='file/image-multiple' element={<ImageMultiple />} />  
+          <Route path='nested/form-group' element={<FormGroup />} />
+          <Route path='nested/form-array' element={<FormArray />} />
+          <Route path='nested/form-dynamic' element={<DynamicForm />} />
         </Route>
       </Routes>
     </BrowserRouter>

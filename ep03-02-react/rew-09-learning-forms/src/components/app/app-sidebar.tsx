@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar"
-import { House, ChevronDown, Group, Settings, Files, Calendar, CheckCircle, CheckSquare, ListCheck, PenBox, File, Image, Flag } from "lucide-react"
+import { House, ChevronDown, Group, Files, Calendar, CheckCircle, CheckSquare, ListCheck, PenBox, File, Image, Flag, List, SettingsIcon } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible"
 import type { MenuGroup } from "@/lib/types"
 import { Link } from "react-router"
@@ -83,8 +83,9 @@ const MENU:MenuGroup[] = [
   {
     label: "Nested Forms",
     items : [
-      {title: "Form With Items", url: "", icon: Group},
-      {title: "Dynamic Form Group", url: "", icon: Settings},
+      {title: "Form Group", url: "/nested/form-group", icon: Group},
+      {title: "Form Array", url: "/nested/form-array", icon: List},
+      {title: "Dynamic Form", url: "/nested/form-dynamic", icon: SettingsIcon},
     ]
   }
 

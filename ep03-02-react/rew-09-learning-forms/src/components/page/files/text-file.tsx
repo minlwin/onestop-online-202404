@@ -18,7 +18,6 @@ export default function TextFile() {
 
     const fileInputRef = useRef<HTMLInputElement | null>(null)
     const {setResult} = useFormResult()
-
     useEffect(() => setResult(), [setResult])
 
     const {handleSubmit, reset, setValue, watch,formState : {
