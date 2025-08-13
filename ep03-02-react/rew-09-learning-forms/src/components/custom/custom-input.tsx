@@ -19,7 +19,11 @@ export default function CustomInput<T extends FieldValues>({control, path, label
                 <FormItem className={className}>
                     {label && <FormLabel>{label}</FormLabel>}
                     <FormControl>
-                        <Input {...field} type={type || 'text'} placeholder={`Enter ${label}`} />
+                        <Input {...field} type={type || 'text'} placeholder={`Enter ${label}`}
+                            onChange={(e) => {
+                                const value = e.target.value
+                                field.onChange(type == 'number' ? Number(value) : value)
+                            }} />
                     </FormControl>
                     <FormMessage />
                 </FormItem>
