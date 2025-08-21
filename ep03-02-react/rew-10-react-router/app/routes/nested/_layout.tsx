@@ -1,15 +1,25 @@
 import { Menu, type MenuProps } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import { Outlet, useNavigate } from "react-router";
 
 export default function NestedRouteLayout() {
 
+    const location = useLocation()
+    const fromSub = location.state?.sub || false
+
     const navigate = useNavigate()
     const [current, setCurrent] = useState("/nested/nested1")
 
+    useEffect(() => {
+        if(!fromSub) {
+            setCurrent("/nested/nested1")
+        }
+    }, [fromSub, setCurrent])
+
     const onSubMenuClick:MenuProps['onClick'] = e => {
         setCurrent(e.key)
-        navigate(e.key)
+        navigate(e.key, {state : {sub : true}})
     }
 
     return (

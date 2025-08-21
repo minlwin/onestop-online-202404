@@ -1,6 +1,5 @@
 import {
   isRouteErrorResponse,
-  Link,
   Links,
   Meta,
   Outlet,
@@ -13,6 +12,7 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import { Menu, type MenuProps } from "antd";
 import { useState } from "react";
+import '@ant-design/v5-patch-for-react-19';
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
