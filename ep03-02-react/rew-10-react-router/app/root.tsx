@@ -102,6 +102,7 @@ type MenuItem = Required<MenuProps>['items'][number]
 
 const APP_MENU_DATA: MenuItem[] = [
     {key : "/", label: "Single Menu"},
+    {key : "/props", label: "Properties of Route Component"},
     {key : "/nested/nested1", label : "Sub Routing"},
     {key : "menu-3", label : "Using Parameter", children: [
         {type : 'item', label : 'Path Parameter', key : '/group/path-variable'},

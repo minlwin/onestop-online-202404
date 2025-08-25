@@ -2,6 +2,7 @@ import { type RouteConfig, index, prefix, route } from "@react-router/dev/routes
 
 export default [
     index("routes/home.tsx"),
+    route("props/:first?/:second?", "routes/component-props.tsx"),
     
     ...prefix('group', [
         route('path-variable', 'routes/group/using_path_variable.tsx', [

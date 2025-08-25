@@ -1,5 +1,4 @@
 import { Button, Card, Form, Input, type FormProps } from "antd";
-import { use } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 
 type FieldType = {
@@ -8,15 +7,17 @@ type FieldType = {
     email? : string
 }
 
+type KeyOfForm = keyof FieldType
+
 export default function UsingQueryParams() {
     const [searchParams] = useSearchParams()
     const navigate = useNavigate()
 
     const onFinished : FormProps<FieldType>['onFinish'] = (values) => {
-        const query = (Object.keys(values) as (keyof FieldType)[])
-            .map(key => [key, values[key]])
-            .map(tuple => encodeURI(`${tuple[0]}=${tuple[1]}`))
-            .join('&')
+        const query = (Object.keys(values) as KeyOfForm[])
+            .filter(key => values[key])
+            .map(key => `${key}=${encodeURI(values[key] || '')}`)
+            .join("&")
         
         navigate(`/group/query-param?${query}`)
     }
