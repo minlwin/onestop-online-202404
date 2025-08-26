@@ -1,5 +1,15 @@
 import type { Route } from "./+types/home";
 
+export const handle = {
+    title : "Home"
+}
+
+export function headers() {
+  return {
+     "X-Stretchy-Pants": "its for fun",
+  }
+}
+
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "New React Router App" },

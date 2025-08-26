@@ -1,9 +1,15 @@
 import { Menu, type MenuProps } from "antd";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation, useMatches } from "react-router";
 import { Outlet, useNavigate } from "react-router";
 
+export const handle = {
+    title : "Nested"
+}
+
 export default function NestedRouteLayout() {
+
+    const matches = useMatches()
 
     const location = useLocation()
     const fromSub = location.state?.sub || false
@@ -31,6 +37,8 @@ export default function NestedRouteLayout() {
 
             {/* Sub Router Outlet */}
             <article>
+                <pre>{JSON.stringify(matches, null, 2)}</pre>
+
                 <Outlet />
             </article>
         </section>
