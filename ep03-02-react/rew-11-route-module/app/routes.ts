@@ -13,5 +13,4 @@ export default [
         route("/signup", "routes/auth/signup.tsx"),
     ]),
 
-
 ] satisfies RouteConfig;
