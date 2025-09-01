@@ -1,13 +1,21 @@
 import { DoorOpen, Send, UserPlus } from "lucide-react";
-import { Form, FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
 import AppPageTitle from "~/components/custom/app-page-title";
 import { SignInSchema, type SignInForm } from "~/lib/form-schema";
 import FormsInput from "~/components/custom/forms-input";
 import { Button } from "~/components/ui/button";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+
+export function meta() {
+    return [
+        {"title" : "My Shop | Sign In"}
+    ]
+}
 
 export default function Signin() {
+
+    const navigate = useNavigate()
 
     const form = useForm<SignInForm>({
         resolver : zodResolver(SignInSchema),
@@ -19,6 +27,7 @@ export default function Signin() {
 
     const singInAction = (form:SignInForm) => {
         console.log(form)
+        navigate(`/${form.password}`)
     }
 
     return (

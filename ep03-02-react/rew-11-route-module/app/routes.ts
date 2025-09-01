@@ -13,4 +13,16 @@ export default [
         route("/signup", "routes/auth/signup.tsx"),
     ]),
 
+    route("/customer", "routes/customer/_layout.tsx", [
+        index("routes/customer/home.tsx"),
+        route("invoice", "routes/customer/invoices/_layout.tsx", [
+            index("routes/customer/invoices/list.tsx"),
+            route(":id", "routes/customer/invoices/details.tsx")
+        ]),
+        route("order", "routes/customer/orders/_layout.tsx", [
+            index("routes/customer/orders/list.tsx"),
+            route("edit", "routes/customer/orders/edit.tsx"),
+            route(":id", "routes/customer/orders/details.tsx")
+        ])
+    ])
 ] satisfies RouteConfig;

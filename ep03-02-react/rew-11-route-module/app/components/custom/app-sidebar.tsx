@@ -1,8 +1,9 @@
 import { Home } from "lucide-react";
-import { Sidebar, SidebarContent, SidebarHeader } from "../ui/sidebar";
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
 import type { IconType } from "~/lib";
+import { NavLink } from "react-router";
 
-export default function AppSidebar() {
+export default function AppSidebar({menus} : {menus : MenuItem[]}) {
     return (
         <Sidebar>
             <SidebarHeader>
@@ -10,33 +11,30 @@ export default function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-
+                <SidebarGroup>
+                    <SidebarGroupContent>
+                        <SidebarMenu>
+                            {menus.map((item, index) => 
+                                <SidebarMenuItem key={index}>
+                                    <SidebarMenuButton asChild>
+                                        <NavLink to={item.url}>
+                                            <item.icon />
+                                            <span>{item.title}</span>
+                                        </NavLink>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            )}
+                        </SidebarMenu>
+                    </SidebarGroupContent>
+                </SidebarGroup>
             </SidebarContent>
         </Sidebar>
     )
 }
 
-type MenuBase = {
+export type MenuItem = {
     title : string
-    icon? : IconType
-}
-
-type MenuItemLink = MenuBase & {
+    icon : IconType
     url : string
 }
 
-type MenuItemGroup = MenuBase & {
-    children : MenuItemLink[]
-}
-
-type MenuItem = MenuItemLink | MenuItemGroup
-
-type MenuGroup = MenuBase & {
-    children : MenuItem[]
-}
-
-const MENU_DATA : MenuGroup[] = [
-    {title: "Route Module", children : [
-
-    ]},
-]

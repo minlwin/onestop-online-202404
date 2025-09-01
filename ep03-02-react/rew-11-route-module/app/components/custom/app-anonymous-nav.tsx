@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router";
 
 export default function AppAnonymousNav() {
     return (
-        <nav className="flex px-8 py-4 justify-between">
+        <nav className="flex px-8 py-4 justify-between z-50 bg-white">
             <Link to="/" className="flex items-center gap-2">
                 <Home size={24}/> 
                 <span className="text-xl">Home</span>

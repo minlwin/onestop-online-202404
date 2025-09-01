@@ -1,5 +1,4 @@
 import type React from "react"
-import type { IconType } from "~/lib"
 
 type PageTitleProps = {
     title : string

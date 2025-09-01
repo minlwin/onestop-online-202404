@@ -1,5 +1,4 @@
-import { Home } from "lucide-react"
-import { Link, NavLink, Outlet } from "react-router"
+import { Outlet } from "react-router"
 import AppAnonymousNav from "~/components/custom/app-anonymous-nav"
 
 export default function Layout() {

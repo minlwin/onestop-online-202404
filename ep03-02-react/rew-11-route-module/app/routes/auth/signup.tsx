@@ -2,11 +2,16 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { DoorOpen, UserPlus } from "lucide-react"
 import { FormProvider, useForm } from "react-hook-form"
 import { Link } from "react-router"
-import AppPageHeader from "~/components/custom/app-page-header"
 import AppPageTitle from "~/components/custom/app-page-title"
 import FormsInput from "~/components/custom/forms-input"
 import { Button } from "~/components/ui/button"
 import { SignUpSchema, type SignUpForm } from "~/lib/form-schema"
+
+export function meta() {
+    return [
+        {"title" : "My Shop | Sign Up"}
+    ]
+}
 
 export default function Signup() {
 
