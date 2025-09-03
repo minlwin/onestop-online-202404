@@ -4,14 +4,18 @@ import AppPageHeader from "~/components/custom/app-page-header";
 import AppSidebar, { type MenuItem } from "~/components/custom/app-sidebar";
 import { SidebarProvider } from "~/components/ui/sidebar";
 
+export const handle = {
+    title : "Customer"
+}
+
 export default function Layout() {
+
     return (
         <SidebarProvider>
             <AppSidebar menus={MENUS} />
 
-            <div>
+            <div className="px-8 w-full">
                 <AppPageHeader />
-
                 <main>
                     <Outlet />
                 </main>

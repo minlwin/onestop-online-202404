@@ -14,3 +14,11 @@ export const SignUpSchema = z.object({
 })
 
 export type SignUpForm = z.infer<typeof SignUpSchema>
+
+export const SearchOrderSchema = z.object({
+    dateFrom : z.string().optional(),
+    dateTo : z.string().optional(),
+    keyword : z.string().optional()
+})
+
+export type SearchOrderForm = z.infer<typeof SearchOrderSchema>
