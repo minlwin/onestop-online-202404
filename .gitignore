@@ -38,3 +38,6 @@ replay_pid*
 
 /.metadata
 */testDb.mv.db
+
+*/.metadata
+.env*
