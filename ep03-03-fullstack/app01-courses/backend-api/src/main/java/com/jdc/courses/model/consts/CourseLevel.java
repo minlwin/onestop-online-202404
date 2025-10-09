@@ -1,4 +1,4 @@
-package com.jdc.courses.model;
+package com.jdc.courses.model.consts;
 
 public enum CourseLevel {
 	Basic, Intermediate, Advance, AllInOne {

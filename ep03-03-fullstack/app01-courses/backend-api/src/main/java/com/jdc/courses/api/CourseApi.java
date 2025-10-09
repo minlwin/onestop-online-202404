@@ -2,6 +2,7 @@ package com.jdc.courses.api;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,14 +17,18 @@ import com.jdc.courses.api.input.CourseSearch;
 import com.jdc.courses.api.output.CourseDetails;
 import com.jdc.courses.api.output.CourseListItem;
 import com.jdc.courses.api.output.ModificationResult;
+import com.jdc.courses.model.service.CourseService;
 
 @RestController
 @RequestMapping("courses")
 public class CourseApi {
+	
+	@Autowired
+	private CourseService courseService;
 
 	@GetMapping
 	List<CourseListItem> search(CourseSearch search) {
-		return null;
+		return courseService.search(search);
 	}
 	
 	@GetMapping("{id}")

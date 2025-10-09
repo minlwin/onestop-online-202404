@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.jdc.courses.api.output.Schedule;
-import com.jdc.courses.model.ClassType;
+import com.jdc.courses.model.consts.ClassType;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;

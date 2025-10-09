@@ -3,8 +3,8 @@ package com.jdc.courses.api.output;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.jdc.courses.model.ClassType;
-import com.jdc.courses.model.CourseLevel;
+import com.jdc.courses.model.consts.ClassType;
+import com.jdc.courses.model.consts.CourseLevel;
 
 public record ClassListItem(
 		int id,

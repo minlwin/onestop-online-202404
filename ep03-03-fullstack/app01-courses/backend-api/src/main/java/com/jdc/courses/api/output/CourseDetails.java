@@ -3,7 +3,7 @@ package com.jdc.courses.api.output;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.jdc.courses.model.CourseLevel;
+import com.jdc.courses.model.consts.CourseLevel;
 
 public record CourseDetails(
 		int id,

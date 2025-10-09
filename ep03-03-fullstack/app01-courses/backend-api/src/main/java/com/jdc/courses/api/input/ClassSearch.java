@@ -1,7 +1,7 @@
 package com.jdc.courses.api.input;
 
-import com.jdc.courses.model.ClassType;
-import com.jdc.courses.model.CourseLevel;
+import com.jdc.courses.model.consts.ClassType;
+import com.jdc.courses.model.consts.CourseLevel;
 
 public record ClassSearch(
 		CourseLevel level,
