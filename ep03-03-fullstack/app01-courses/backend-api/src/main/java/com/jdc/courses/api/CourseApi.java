@@ -39,13 +39,13 @@ public class CourseApi {
 	@PostMapping
 	ModificationResult<Integer> create(
 			@Validated @RequestBody CourseForm form) {
-		return null;
+		return courseService.create(form);
 	}
 
 	@PutMapping("{id}")
 	ModificationResult<Integer> update(@PathVariable int id,
 			@Validated @RequestBody CourseForm form) {
-		return null;
+		return courseService.update(id, form);
 	}
 
 }

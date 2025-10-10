@@ -18,6 +18,7 @@ import com.jdc.courses.api.output.ClassListItem;
 import com.jdc.courses.api.output.ModificationResult;
 import com.jdc.courses.api.output.PageResult;
 import com.jdc.courses.api.output.Schedule;
+import com.jdc.courses.model.entity.Classes;
 import com.jdc.courses.model.repo.ClassesRepo;
 import com.jdc.courses.model.repo.CourseRepo;
 
@@ -39,7 +40,15 @@ public class ClassService {
 
 	public PageResult<ClassListItem> search(ClassSearch search, int page, int size) {
 		
-		Function<CriteriaBuilder, CriteriaQuery<ClassListItem>> queryFunc = null;
+		Function<CriteriaBuilder, CriteriaQuery<ClassListItem>> queryFunc = cb -> {
+			var cq = cb.createQuery(ClassListItem.class);
+			var root = cq.from(Classes.class);
+			
+			ClassListItem.select(cq, root);
+			cq.where(search.where(cb, root));
+			
+			return cq;
+		};
 		
 		Function<CriteriaBuilder, CriteriaQuery<Long>> countFunc = null;
 		
