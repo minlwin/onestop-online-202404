@@ -1,5 +1,6 @@
 package com.jdc.courses.model.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Function;
 
@@ -7,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jdc.courses.api.input.CourseForm;
 import com.jdc.courses.api.input.CourseSearch;
+import com.jdc.courses.api.output.CourseDetails;
 import com.jdc.courses.api.output.CourseListItem;
+import com.jdc.courses.api.output.ModificationResult;
 import com.jdc.courses.model.entity.Course;
 import com.jdc.courses.model.repo.CourseRepo;
 
@@ -35,5 +39,28 @@ public class CourseService {
 		};
 		 
 		return courseRepo.search(queryFunc);
+	}
+
+	public CourseDetails findById(int id) {
+		return courseRepo.findById(id).map(CourseDetails::from)
+				.orElseThrow();
+	}
+
+	@Transactional
+	public ModificationResult<Integer> create(CourseForm form) {
+		var entity = courseRepo.save(form.entity());
+		return new ModificationResult<Integer>(entity.getId());
+	}
+
+	@Transactional
+	public ModificationResult<Integer> update(int id, CourseForm form) {
+		
+		var entity = courseRepo.findById(id).orElseThrow();
+		entity.setName(form.name());
+		entity.setLevel(form.level());
+		entity.setDescription(form.description());
+		entity.setUpdatedAt(LocalDateTime.now());
+
+		return new ModificationResult<Integer>(entity.getId());
 	}
 }

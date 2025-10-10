@@ -33,7 +33,7 @@ public class CourseApi {
 	
 	@GetMapping("{id}")
 	CourseDetails findById(@PathVariable int id) {
-		return null;
+		return courseService.findById(id);
 	}
 	
 	@PostMapping
