@@ -18,6 +18,7 @@ import com.jdc.courses.api.output.ClassListItem;
 import com.jdc.courses.api.output.ModificationResult;
 import com.jdc.courses.api.output.PageResult;
 import com.jdc.courses.api.output.Schedule;
+import com.jdc.courses.exceptions.BusinessException;
 import com.jdc.courses.model.entity.Classes;
 import com.jdc.courses.model.repo.ClassesRepo;
 import com.jdc.courses.model.repo.CourseRepo;
@@ -58,7 +59,7 @@ public class ClassService {
 	public ClassDetails findById(int id) {
 		return classesRepo.findById(id)
 				.map(a -> ClassDetails.from(a, this::convert))
-				.orElseThrow();
+				.orElseThrow(() -> new BusinessException("There is no class with id %s.".formatted(id)));
 	}
 	
 	@Transactional
@@ -66,7 +67,8 @@ public class ClassService {
 		
 		try {
 			// Find Course
-			var course = courseRepo.findById(form.courseId()).orElseThrow();
+			var course = courseRepo.findById(form.courseId())
+					.orElseThrow(() -> new BusinessException("There is no course with id %s.".formatted(form.courseId())));
 			
 			// Convert Schedule List to JSON String
 			var schedules = objectMapper.writeValueAsString(form.schedules());
@@ -90,9 +92,12 @@ public class ClassService {
 	public ModificationResult<Integer> update(int id, ClassForm form) {
 		
 		try {
-			var entity = classesRepo.findById(id).orElseThrow();
+			var entity = classesRepo.findById(id)
+					.orElseThrow(() -> new BusinessException("There is no class with id %s.".formatted(id)));
 			// Find Course
-			var course = courseRepo.findById(form.courseId()).orElseThrow();
+			var course = courseRepo.findById(form.courseId())
+					.orElseThrow(() -> new BusinessException("There is no course with id %s.".formatted(form.courseId())));
+
 			entity.setCourse(course);
 			
 			// Convert Schedule List to JSON String

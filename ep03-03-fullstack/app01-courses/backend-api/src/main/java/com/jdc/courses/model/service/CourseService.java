@@ -13,6 +13,7 @@ import com.jdc.courses.api.input.CourseSearch;
 import com.jdc.courses.api.output.CourseDetails;
 import com.jdc.courses.api.output.CourseListItem;
 import com.jdc.courses.api.output.ModificationResult;
+import com.jdc.courses.exceptions.BusinessException;
 import com.jdc.courses.model.entity.Course;
 import com.jdc.courses.model.repo.CourseRepo;
 
@@ -43,11 +44,16 @@ public class CourseService {
 
 	public CourseDetails findById(int id) {
 		return courseRepo.findById(id).map(CourseDetails::from)
-				.orElseThrow();
+				.orElseThrow(() -> new BusinessException("There is no course with id %s.".formatted(id)));
 	}
 
 	@Transactional
 	public ModificationResult<Integer> create(CourseForm form) {
+		
+		if(courseRepo.countByBame(form.name()) > 0) {
+			throw new BusinessException("There is a course with name : %s.".formatted(form.name()));
+		}
+		
 		var entity = courseRepo.save(form.entity());
 		return new ModificationResult<Integer>(entity.getId());
 	}
@@ -55,7 +61,15 @@ public class CourseService {
 	@Transactional
 	public ModificationResult<Integer> update(int id, CourseForm form) {
 		
-		var entity = courseRepo.findById(id).orElseThrow();
+		var entity = courseRepo.findById(id)
+				.orElseThrow(() -> new BusinessException("There is no course with id %s.".formatted(id)));
+		
+		if(!entity.getName().equals(form.name())) {
+			if(courseRepo.countByBame(form.name()) > 0) {
+				throw new BusinessException("There is a course with name : %s.".formatted(form.name()));
+			}
+		}
+		
 		entity.setName(form.name());
 		entity.setLevel(form.level());
 		entity.setDescription(form.description());
