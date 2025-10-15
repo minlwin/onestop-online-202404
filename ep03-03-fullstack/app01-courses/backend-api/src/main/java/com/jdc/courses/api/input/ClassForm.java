@@ -19,6 +19,8 @@ public record ClassForm(
 		LocalDate startDate,
 		@NotNull(message = "Please select class type.")
 		ClassType classType,
+		@NotNull(message = "Please enter duration in months.")
+		Integer months,
 		String remark,
 		@NotEmpty(message = "Please enter schedule.")
 		List<@Valid Schedule> schedules) {
@@ -29,6 +31,7 @@ public record ClassForm(
 		
 		entity.setStartDate(startDate);
 		entity.setType(classType);
+		entity.setMonths(months);
 		entity.setRemark(remark);
 		entity.setCreatedAt(LocalDateTime.now());
 		

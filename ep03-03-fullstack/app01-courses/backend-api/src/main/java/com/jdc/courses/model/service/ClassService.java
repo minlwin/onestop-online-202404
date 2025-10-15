@@ -20,6 +20,7 @@ import com.jdc.courses.api.output.PageResult;
 import com.jdc.courses.api.output.Schedule;
 import com.jdc.courses.exceptions.BusinessException;
 import com.jdc.courses.model.entity.Classes;
+import com.jdc.courses.model.entity.Classes_;
 import com.jdc.courses.model.repo.ClassesRepo;
 import com.jdc.courses.model.repo.CourseRepo;
 
@@ -51,7 +52,15 @@ public class ClassService {
 			return cq;
 		};
 		
-		Function<CriteriaBuilder, CriteriaQuery<Long>> countFunc = null;
+		Function<CriteriaBuilder, CriteriaQuery<Long>> countFunc = cb -> {
+			var cq = cb.createQuery(Long.class);
+			var root = cq.from(Classes.class);
+			
+			cq.select(cb.count(root.get(Classes_.id)));
+			cq.where(search.where(cb, root));
+			
+			return cq;
+		};
 		
 		return classesRepo.search(queryFunc, countFunc, page, size);
 	}
@@ -106,6 +115,7 @@ public class ClassService {
 			
 			entity.setStartDate(form.startDate());
 			entity.setType(form.classType());
+			entity.setMonths(form.months());
 			entity.setRemark(form.remark());
 			
 			entity.setUpdatedAt(LocalDateTime.now());

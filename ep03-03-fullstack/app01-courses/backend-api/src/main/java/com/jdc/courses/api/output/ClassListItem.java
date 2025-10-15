@@ -20,6 +20,7 @@ public record ClassListItem(
 		String courseName,
 		LocalDate startDate,
 		ClassType classType,
+		int months,
 		boolean deleted,
 		LocalDateTime createdAt) {
 
@@ -34,6 +35,7 @@ public record ClassListItem(
 			course.get(Course_.name),
 			root.get(Classes_.startDate),
 			root.get(Classes_.type),
+			root.get(Classes_.months),
 			root.get(Classes_.deleted),
 			root.get(Classes_.createdAt)
 		);
@@ -47,6 +49,7 @@ public record ClassListItem(
 				entity.getCourse().getName(), 
 				entity.getStartDate(), 
 				entity.getType(), 
+				entity.getMonths(),
 				entity.isDeleted(), 
 				entity.getCreatedAt());
 	}

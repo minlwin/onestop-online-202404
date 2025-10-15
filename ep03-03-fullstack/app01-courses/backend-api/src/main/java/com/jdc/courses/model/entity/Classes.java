@@ -29,6 +29,9 @@ public class Classes implements Serializable{
 	
 	@Column(nullable = false)
 	private LocalDate startDate;
+	
+	@Column(nullable = false)
+	private int months;
 
 	@Column(nullable = false)
 	private ClassType type;
