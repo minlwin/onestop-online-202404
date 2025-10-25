@@ -92,3 +92,8 @@ export type PageResult<T> = {
     list: T []
     pageInfo: PageInfo
 }
+
+export type OptionItem = {
+    key: string
+    value : string
+}
