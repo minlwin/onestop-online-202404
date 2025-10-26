@@ -1,4 +1,5 @@
 import CourseSearchForm from "@/components/app/course-search-form";
+import DeleteStatus from "@/components/app/delete-status";
 import PageTitle from "@/components/app/page-title";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
@@ -45,11 +46,13 @@ function SearchResult({list} : {list : CourseListItem[]}) {
                     <TableCell>{item.id}</TableCell>
                     <TableCell>{item.name}</TableCell>
                     <TableCell>{item.level}</TableCell>
-                    <TableCell>{item.deleted ? <X className="size-4" /> : <Check className="size-4" />}</TableCell>
+                    <TableCell>
+                        <DeleteStatus deleted={item.deleted} />
+                    </TableCell>
                     <TableCell>{item.createdAt}</TableCell>
                     <TableCell>
                         <Link href={`/courses/${item.id}`}>
-                            <ArrowRight />
+                            <ArrowRight className="size-4" />
                         </Link>
                     </TableCell>
                 </TableRow>

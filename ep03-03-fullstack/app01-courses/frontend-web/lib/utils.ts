@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { object } from "zod"
+import { OptionItem } from "./types"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -29,3 +30,15 @@ export const PUT_CONFIG:RequestInit = {
     "Content-Type" : "application/json"
   }
 }
+
+export const LELVEL_OPTIONS:OptionItem[] = [
+  {key : "Basic", value : "Basic"},
+  {key : "Intermediate", value : "Intermediate"},
+  {key : "Advance", value : "Advance"},
+  {key : "AllInOne", value : "All In One"},
+]
+
+export const STATUS_OPTIONS:OptionItem[] = [
+  {key : "false", value : "Active"},
+  {key : "true", value : "Deleted"},
+]

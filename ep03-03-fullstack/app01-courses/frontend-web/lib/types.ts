@@ -32,8 +32,9 @@ export type CourseDetails = CourseListItem & {
     updatedAt: string
 }
 
-export class RestClientException {
-    constructor(readonly message:string[]) {}
+export type ClientError = {
+    type: string
+    messages : string []
 }
 
 export const ScheduleSchema = z.object({

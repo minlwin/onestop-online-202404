@@ -1,5 +1,4 @@
 import "server-only"
-import { RestClientException } from "./types"
 
 export async function request(path: string, init : RequestInit = {}) {
     const endpoint = `${process.env.REST_API}/${path}`
@@ -8,7 +7,10 @@ export async function request(path: string, init : RequestInit = {}) {
 
     if(!response.ok) {
         const messages = await response.json() as string[]
-        throw new RestClientException(messages)
+        throw JSON.stringify({
+            type: "Client Error",
+            messages: messages
+        })
     }
 
     return response

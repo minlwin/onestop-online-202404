@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import { Form } from "../ui/form"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect } from "react"
-import { queryString } from "@/lib/utils"
+import { LELVEL_OPTIONS, queryString, STATUS_OPTIONS } from "@/lib/utils"
 import FormsSelect from "../forms/forms-select"
 import { FormInput, Plus, Search } from "lucide-react"
 import FormsInput from "../forms/forms-input"
@@ -54,16 +54,12 @@ export default function CourseSearchForm() {
             <form onSubmit={form.handleSubmit(search)} className="flex gap-4 items-end">
                 <FormsSelect control={form.control} path="deleted" label="Status" options={[
                     {key : "-1", value : "Select All"},
-                    {key : "false", value : "Active"},
-                    {key : "true", value : "Deleted"},
+                    ...STATUS_OPTIONS
                 ]} className="w-[180px]" />
 
                 <FormsSelect control={form.control} path="level" label="Level" options={[
                     {key : "-1", value : "Select All"},
-                    {key : "Basic", value : "Basic"},
-                    {key : "Intermediate", value : "Intermediate"},
-                    {key : "Advance", value : "Advance"},
-                    {key : "AllInOne", value : "All In One"},
+                    ...LELVEL_OPTIONS
                 ]} className="w-[180px]" />
 
                 <FormsInput control={form.control} path="keyword" label="Keyword" placeholder="Search Keyword" />
