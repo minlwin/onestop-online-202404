@@ -79,6 +79,7 @@ export type ClassesSearch = {
     type?: string
     deleted?: string
     keyword?: string
+    page: number
 }
 
 export type PageInfo = {

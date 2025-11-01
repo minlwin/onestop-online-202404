@@ -42,3 +42,10 @@ export const STATUS_OPTIONS:OptionItem[] = [
   {key : "false", value : "Active"},
   {key : "true", value : "Deleted"},
 ]
+
+export const TYPE_OPTIONS:OptionItem[] = [
+  {key : "Zoom", value : "Zoom"},
+  {key : "Video", value : "Video"},
+  {key : "Weekend", value : "Week End"},
+  {key : "Weekday", value : "Week Days"},
+]

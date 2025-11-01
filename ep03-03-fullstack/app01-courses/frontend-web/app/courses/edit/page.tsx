@@ -1,6 +1,6 @@
 'use client'
 
-import { ClientError, CourseForm, CourseSchema } from "@/lib/types"
+import { CourseForm, CourseSchema } from "@/lib/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect } from "react"
@@ -15,7 +15,6 @@ import FormsInput from "@/components/forms/forms-input"
 import FormsTextarea from "@/components/forms/forms-textarea"
 import { Button } from "@/components/ui/button"
 import { Save } from "lucide-react"
-import { toast } from "sonner"
 import { handle } from "@/lib/client-utils"
 
 export default function CourseEditPage() {
