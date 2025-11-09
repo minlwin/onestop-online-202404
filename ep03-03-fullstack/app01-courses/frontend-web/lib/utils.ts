@@ -49,3 +49,13 @@ export const TYPE_OPTIONS:OptionItem[] = [
   {key : "Weekend", value : "Week End"},
   {key : "Weekday", value : "Week Days"},
 ]
+
+export const DAYS_OF_WEEK:OptionItem[] = [
+  {key : "MONDAY", value : "Monday"},
+  {key : "TUESDAY", value : "Tuesday"},
+  {key : "WEDNESDAY", value : "Wednesday"},
+  {key : "THURSDAY", value : "Thursday"},
+  {key : "FRIDAY", value : "Friday"},
+  {key : "SATURDAY", value : "Saturday"},
+  {key : "SUNDAY", value : "Sunday"},
+]

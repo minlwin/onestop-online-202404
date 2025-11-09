@@ -5,7 +5,17 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { Pencil } from "lucide-react";
 
-export default function PageTitle({icon, title, subTitle, description, editUrl} : {icon : IconType, title : string, subTitle? : string[], description?: string, editUrl? : string}) {
+export default function PageTitle({
+    icon, 
+    title, 
+    subTitle, 
+    description, 
+    editUrl} : {
+        icon : IconType, 
+        title : string, 
+        subTitle? : string[], 
+        description?: string, 
+        editUrl? : string}) {
     
     if(subTitle) {
         return (
@@ -37,9 +47,14 @@ export default function PageTitle({icon, title, subTitle, description, editUrl} 
     }
     
     return (
-        <header className="flex items-center gap-2">
-            <IconComponent icon={icon} className="size-6" />
-            <div className="text-xl">{title}</div>
+        <header className="flex items-start gap-2">
+            <div className="pt-1">
+                <IconComponent icon={icon} className="size-6" />
+            </div>
+            <div className="text-xl">
+                <div className="text-xl">{title}</div>
+                {description && <div className="text-muted-foreground">{description}</div>}
+            </div>
             {editUrl &&
                 <Button asChild>
                     <Link href={editUrl}>

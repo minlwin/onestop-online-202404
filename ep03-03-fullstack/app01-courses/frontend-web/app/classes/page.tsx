@@ -14,7 +14,7 @@ import FormsSelect from "@/components/forms/forms-select";
 import { LELVEL_OPTIONS, STATUS_OPTIONS, TYPE_OPTIONS } from "@/lib/utils";
 import FormsInput from "@/components/forms/forms-input";
 import { Button } from "@/components/ui/button";
-import { Plus, Search } from "lucide-react";
+import { ArrowRight, Plus, Search } from "lucide-react";
 import Link from "next/link";
 
 export default function ClassManagement() {
@@ -136,7 +136,11 @@ function SearchResult({page} : {page?: PageResult<ClassListItem>}) {
                         <DeleteStatus deleted={item.deleted} />
                     </TableCell>
                     <TableCell>{item.createdAt}</TableCell>
-                    <TableCell></TableCell>
+                    <TableCell>
+                        <Link href={`/classes/${item.id}`}>
+                            <ArrowRight className="size-4" />
+                        </Link>
+                    </TableCell>
                 </TableRow>
             )}
             </TableBody>

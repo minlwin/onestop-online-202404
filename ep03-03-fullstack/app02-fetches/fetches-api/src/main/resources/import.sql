@@ -1,0 +1,15 @@
+insert into DIVISION (name, capital) values ('Ayeyarwady Region', 'Pathein');
+insert into DIVISION (name, capital) values ('Bago Region', 'Bago');
+insert into DIVISION (name, capital) values ('Chin State', 'Hakha');
+insert into DIVISION (name, capital) values ('Kachin State', 'Myitkyina');
+insert into DIVISION (name, capital) values ('Kayah State', 'Loikaw');
+insert into DIVISION (name, capital) values ('Kayin State', 'Hpa-an');
+insert into DIVISION (name, capital) values ('Magway Region', 'Magwe');
+insert into DIVISION (name, capital) values ('Mandalay Region', 'Mandalay');
+insert into DIVISION (name, capital) values ('Mon State', 'Mawlamyine');
+insert into DIVISION (name, capital) values ('Naypyidaw Union Territory', 'Naypyidaw');
+insert into DIVISION (name, capital) values ('Rakhine State', 'Sittwe');
+insert into DIVISION (name, capital) values ('Sagaing Region', 'Monywa');
+insert into DIVISION (name, capital) values ('Shan State', 'Taunggyi');
+insert into DIVISION (name, capital) values ('Tanintharyi Region', 'Dawei');
+insert into DIVISION (name, capital) values ('Yangon Region', 'Yangon');
