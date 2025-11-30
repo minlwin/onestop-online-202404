@@ -24,6 +24,7 @@ public class AuthService {
 	
 	@Autowired
 	private AccountRepo repo;
+	
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	@Autowired

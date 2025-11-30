@@ -11,6 +11,6 @@ import lombok.Data;
 public class JwtTokenProperties {
 
 	private String issuer;
-	private int accessToken;
-	private int refreshToken;
+	private int accessLife;
+	private int refreshLife;
 }

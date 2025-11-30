@@ -13,6 +13,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import com.jdc.security.utils.exception.TokenExpirationException;
+import com.jdc.security.utils.exception.TokenInvalidException;
+
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 
 @Service
@@ -73,19 +78,26 @@ public class JwtTokenProvider {
 
 	private Authentication parse(String token, Type type) {
 		
-		var payload = Jwts.parser()
-				.verifyWith(secret)
-				.requireIssuer(issuer)
-				.require("type", type.name())
-				.build()
-				.parseSignedClaims(token).getPayload();
-		
-		var username = payload.getSubject();
-		var roles = Arrays.stream(payload.get("role", String.class).split(","))
-				.map(a -> new SimpleGrantedAuthority(a))
-				.toList();
-		
-		return UsernamePasswordAuthenticationToken.authenticated(username, null, roles);
+		try {
+			var payload = Jwts.parser()
+					.verifyWith(secret)
+					.requireIssuer(issuer)
+					.require("type", type.name())
+					.build()
+					.parseSignedClaims(token).getPayload();
+			
+			var username = payload.getSubject();
+			var roles = Arrays.stream(payload.get("role", String.class).split(","))
+					.map(a -> new SimpleGrantedAuthority(a))
+					.toList();
+			
+			return UsernamePasswordAuthenticationToken.authenticated(username, null, roles);
+			
+		} catch (ExpiredJwtException e) {
+			throw new TokenExpirationException("%s token is expired.".formatted(type));
+		} catch (JwtException e) {
+			throw new TokenInvalidException("Invalid %s token.".formatted(type), e);
+		}
 	}
 
 
