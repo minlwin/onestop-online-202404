@@ -1,4 +1,4 @@
-package com.jdc.security.model.service;
+package com.jdc.security.utils;
 
 import java.time.LocalDateTime;
 

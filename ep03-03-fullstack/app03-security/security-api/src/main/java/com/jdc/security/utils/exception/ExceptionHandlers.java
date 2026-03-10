@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -21,6 +24,13 @@ public class ExceptionHandlers {
 				.toList();
 	}
 	
+	
+	@ExceptionHandler
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	List<String> handle(AppBusinessException e) {
+		return List.of(e.getMessage());
+	}
+	
 	@ExceptionHandler
 	@ResponseStatus(code = HttpStatus.GONE)
 	List<String> handle(TokenExpirationException e) {
@@ -30,7 +40,13 @@ public class ExceptionHandlers {
 	@ExceptionHandler
 	@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
 	List<String> handle(AuthenticationException e) {
-		return List.of(e.getMessage());
+		return switch(e) {
+		case UsernameNotFoundException _ -> List.of("Please check your login id.");
+		case BadCredentialsException _ -> List.of("Please check your password.");
+		case DisabledException _ -> List.of("Your account is disabled.");
+		case TokenInvalidException _ -> List.of(e.getMessage());
+		default -> List.of("Authentication Failure.");
+		};
 	}
 	
 	@ExceptionHandler

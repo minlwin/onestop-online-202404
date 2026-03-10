@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jdc.security.api.input.RefreshForm;
 import com.jdc.security.api.input.SignInForm;
-import com.jdc.security.api.input.SignUpForm;
 import com.jdc.security.api.output.AuthResult;
 import com.jdc.security.model.service.AuthService;
 
@@ -20,11 +19,6 @@ public class AuthApi {
 	@Autowired
 	private AuthService authService;
 
-	@PostMapping("signup")
-	AuthResult signUp(@Validated @RequestBody SignUpForm form) {
-		return authService.signUp(form);
-	}
-	
 	@PostMapping("signin")
 	AuthResult signIn(@Validated @RequestBody SignInForm form) {
 		return authService.signIn(form);
