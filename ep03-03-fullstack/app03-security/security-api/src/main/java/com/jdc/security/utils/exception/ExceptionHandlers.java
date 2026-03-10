@@ -55,5 +55,10 @@ public class ExceptionHandlers {
 		return List.of(e.getMessage());
 	}
 	
-	
+	@ExceptionHandler
+	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+	List<String> handle(Exception e) {
+		e.printStackTrace();
+		return List.of(e.getMessage());
+	}
 }

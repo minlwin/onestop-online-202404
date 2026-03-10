@@ -1,0 +1,29 @@
+volumes:
+  database:
+
+networks:
+  security-net:
+
+services:
+  db:
+    image: postgres:17.6-alpine
+    container_name: security-db
+    environment:
+      - POSTGRES_DB=security_db
+      - POSTGRES_USER=security_user
+      - POSTGRES_PASSWORD=security_pwd
+    volumes:
+      - database:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - security-net
+  mail:
+    image: jcalonso/mailhog:latest
+    container_name: security-mail
+    ports:
+      - "1025:1025" 
+      - "8025:8025"
+    networks:
+      - security-net
+    
