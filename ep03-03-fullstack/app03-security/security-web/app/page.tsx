@@ -13,13 +13,13 @@ export default function WelcomePage() {
 
       <nav className="space-x-1">
         <Button asChild>
-          <Link href={'#'}>
+          <Link href={'/signin'}>
             <LogIn /> Sign In
           </Link>
         </Button>
 
         <Button asChild>
-          <Link href={'#'}>
+          <Link href={'/signup'}>
             <UserPlus /> Sign Up
           </Link>
         </Button>
